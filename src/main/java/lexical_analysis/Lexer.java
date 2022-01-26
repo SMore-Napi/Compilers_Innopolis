@@ -15,7 +15,7 @@ public class Lexer {
         this.source = source;
     }
 
-    public void getTokens() {
-
+    public ArrayList<Token> getTokens() {
+        return null;
     }
 }
