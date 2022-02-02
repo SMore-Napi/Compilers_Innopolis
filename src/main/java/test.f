@@ -1,3 +1,2 @@
-( hello 1 2 3)
-( hi hi hi)
-XX = 12
+(func addNumbers (a b) (plus a b) )
+(addNumbers 3.5 5)
