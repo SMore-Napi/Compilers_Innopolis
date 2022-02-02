@@ -62,10 +62,10 @@ Not = (not)
 
 Eval = (eval)
 
-IntegerNumberLiteral = [-0-9]+
-RealNumberLiteral = [-.0-9]+
+IntegerNumberLiteral = -{0,1}[0-9]+
+RealNumberLiteral = -{0,1}[0-9]+[.][0-9]+
 
-Identifier = [a-zA-Z]+[0-9]*
+Identifier = [a-zA-Z]+[[a-zA-Z]*[0-9]*]*
 
 
 %{

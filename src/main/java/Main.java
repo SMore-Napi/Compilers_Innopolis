@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        File file = new File("C:\\Users\\dell\\Desktop\\Compilers_Innopolis\\src\\main\\java\\test.f");
+        File file = new File("/Users/smore/Desktop/Innopolis/Compiler Construction/Compilers_Innopolis/src/main/java/test.f");
         FileReader fileReader = new FileReader(file);
         Lexer lexer = new Lexer(fileReader);
         lexer.tokenize();
