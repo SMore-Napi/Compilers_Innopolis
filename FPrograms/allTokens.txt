@@ -1,0 +1,10 @@
+quote ' setq func lambda prog cond while return break
+plus minus times divide
+head tail cons
+equal nonequal less lesseq greater greatereq
+isint isreal isbool isnull isatom islist
+and or xor not
+eval
+123 -543 2.3 -42.2 true false null
+( )
+; this is a comment

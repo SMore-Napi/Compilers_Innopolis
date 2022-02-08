@@ -1,0 +1,3 @@
+(func addNumbers (a b) (plus a b) )
+(addNumbers -45 5.66)
+(falseaddNumbers false null)

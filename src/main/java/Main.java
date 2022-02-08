@@ -1,20 +1,16 @@
-import lexical.Lexer;
-import lexical.Token;
+import lexical.tokens.Token;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        File file = new File("/Users/smore/Desktop/Innopolis/Compiler Construction/Compilers_Innopolis/src/main/java/test.f");
-        FileReader fileReader = new FileReader(file);
-        Lexer lexer = new Lexer(fileReader);
-        lexer.tokenize();
-        ArrayList<Token> list = (ArrayList<Token>) lexer.getList();
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i));
-        }
+        // String programName = "FPrograms/testProgram.txt";
+        String programName = "FPrograms/allTokens.txt";
+        Compiler compiler = new Compiler(programName);
+        List<Token> tokens = compiler.lexicalAnalysis();
+        System.out.println("Tokens found after lexical analysis:");
+        System.out.println();
+        tokens.forEach(System.out::println);
     }
 }
