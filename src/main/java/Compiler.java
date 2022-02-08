@@ -1,5 +1,5 @@
-import lexical.Lexer;
-import lexical.tokens.Token;
+import lexical_analysis.Lexer;
+import lexical_analysis.tokens.Token;
 
 import java.io.FileReader;
 import java.io.IOException;

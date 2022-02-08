@@ -1,4 +1,4 @@
-import lexical.tokens.Token;
+import lexical_analysis.tokens.Token;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-import lexical.tokens.Token;
+import lexical_analysis.tokens.Token;
 
 import java.io.IOException;
 import java.util.List;
