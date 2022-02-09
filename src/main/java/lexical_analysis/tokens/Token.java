@@ -28,4 +28,12 @@ public class Token {
                 ", columns=" + span.getPositionBegin() + ":" + span.getPositionEnd() +
                 ", content=\"" + content + '\"';
     }
+
+    public int getTokenId() { // вроде правильно
+        String tokenName = this.getClass().getSimpleName();
+        return 258;
+        //return TokenEnum.valueOf(tokenName).ordinal();
+    }
 }
+
+

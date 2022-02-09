@@ -6,7 +6,9 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         // String defaultPath = "FPrograms/testProgram.txt";
-        String defaultPath = "FPrograms/allTokens.txt";
+        //String defaultPath = "FPrograms/allTokens.txt";
+        //String defaultPath = "FPrograms/allGrammar.txt";
+        String defaultPath = "FPrograms/astTest.txt";
 
         String programSourcePath = args.length >= 1
                 ? programSourcePath = args[0]
@@ -25,8 +27,11 @@ public class Main {
             System.out.println("Tokens found after lexical analysis:");
             System.out.println();
             tokens.forEach(System.out::println);
+            compiler.syntaxAnalysis();
         } catch (IOException e) {
             System.out.println("No such source file: " + programSourcePath);
+        } catch (Error e) {
+            System.out.println(e.getMessage());
         }
     }
 }
