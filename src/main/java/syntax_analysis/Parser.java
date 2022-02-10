@@ -568,139 +568,398 @@ public class Parser
       {
           case 2: /* Program: Element  */
   if (yyn == 2)
-    /* "Parser.y":86  */
+    /* "Parser.y":93  */
                   {ast = new AST(new ListNode(((ElementNode)(yystack.valueAt (0)))));};
   break;
 
 
   case 3: /* Program: Element Elements  */
   if (yyn == 3)
-    /* "Parser.y":87  */
+    /* "Parser.y":94  */
                            {ast = new AST(new ListNode(((ElementNode)(yystack.valueAt (1))), ((ListNode)(yystack.valueAt (0))))); };
   break;
 
 
   case 4: /* Elements: %empty  */
   if (yyn == 4)
-    /* "Parser.y":90  */
+    /* "Parser.y":97  */
                        {yyval = new ListNode();};
   break;
 
 
   case 5: /* Elements: Element Elements  */
   if (yyn == 5)
-    /* "Parser.y":91  */
+    /* "Parser.y":98  */
                            {yyval = new ListNode(((ElementNode)(yystack.valueAt (1))), ((ListNode)(yystack.valueAt (0))));};
   break;
 
 
   case 6: /* Element: Atom  */
   if (yyn == 6)
-    /* "Parser.y":94  */
+    /* "Parser.y":101  */
                {yyval = new ElementNode(((AtomNode)(yystack.valueAt (0))));};
   break;
 
 
   case 7: /* Element: Literal  */
   if (yyn == 7)
-    /* "Parser.y":95  */
+    /* "Parser.y":102  */
                   {yyval = new ElementNode(((LiteralNode)(yystack.valueAt (0))));};
   break;
 
 
   case 8: /* Element: List  */
   if (yyn == 8)
-    /* "Parser.y":96  */
+    /* "Parser.y":103  */
                {yyval = new ElementNode(((ListNode)(yystack.valueAt (0))));};
   break;
 
 
   case 9: /* Element: QuoteShortToken Element  */
   if (yyn == 9)
-    /* "Parser.y":97  */
+    /* "Parser.y":104  */
                                   {yyval = ((ElementNode)(yystack.valueAt (0)));};
   break;
 
 
   case 10: /* List: OpenParenthesisToken Element Elements CloseParenthesisToken  */
   if (yyn == 10)
-    /* "Parser.y":100  */
+    /* "Parser.y":107  */
                                                                       {yyval = new ListNode(((ElementNode)(yystack.valueAt (2))), ((ListNode)(yystack.valueAt (1))));};
+  break;
+
+
+  case 11: /* List: OpenParenthesisToken SpecialForm CloseParenthesisToken  */
+  if (yyn == 11)
+    /* "Parser.y":108  */
+                                                                 {yyval = new ListNode(((SpecialFormNode)(yystack.valueAt (1))));};
   break;
 
 
   case 12: /* List: OpenParenthesisToken ArithmeticFunction CloseParenthesisToken  */
   if (yyn == 12)
-    /* "Parser.y":102  */
-                                                                        {System.out.println("dd"); System.out.println(((ArithmeticFunctionNode)(yystack.valueAt (1)))); yyval = new ListNode(((ArithmeticFunctionNode)(yystack.valueAt (1))));};
+    /* "Parser.y":109  */
+                                                                        {yyval = new ListNode(((ArithmeticFunctionNode)(yystack.valueAt (1))));};
+  break;
+
+
+  case 13: /* List: OpenParenthesisToken OperationOnLists CloseParenthesisToken  */
+  if (yyn == 13)
+    /* "Parser.y":110  */
+                                                                      {yyval = new ListNode(((OperationOnListsNode)(yystack.valueAt (1))));};
+  break;
+
+
+  case 14: /* List: OpenParenthesisToken Comparison CloseParenthesisToken  */
+  if (yyn == 14)
+    /* "Parser.y":111  */
+                                                                {yyval = new ListNode(((ComparisonNode)(yystack.valueAt (1))));};
+  break;
+
+
+  case 15: /* List: OpenParenthesisToken Predicate CloseParenthesisToken  */
+  if (yyn == 15)
+    /* "Parser.y":112  */
+                                                               {yyval = new ListNode(((PredicateNode)(yystack.valueAt (1))));};
+  break;
+
+
+  case 16: /* List: OpenParenthesisToken LogicalOperator CloseParenthesisToken  */
+  if (yyn == 16)
+    /* "Parser.y":113  */
+                                                                     {yyval = new ListNode(((LogicalOperatorNode)(yystack.valueAt (1))));};
+  break;
+
+
+  case 17: /* List: OpenParenthesisToken Evaluator CloseParenthesisToken  */
+  if (yyn == 17)
+    /* "Parser.y":114  */
+                                                               {yyval = new ListNode(((EvaluatorNode)(yystack.valueAt (1))));};
+  break;
+
+
+  case 18: /* OptionalElement: %empty  */
+  if (yyn == 18)
+    /* "Parser.y":117  */
+                      {yyval = null;};
+  break;
+
+
+  case 19: /* OptionalElement: Element  */
+  if (yyn == 19)
+    /* "Parser.y":118  */
+                  {yyval = ((ElementNode)(yystack.valueAt (0)));};
   break;
 
 
   case 20: /* Atom: IdentifierToken  */
   if (yyn == 20)
-    /* "Parser.y":114  */
+    /* "Parser.y":121  */
                           {yyval = new AtomNode(((IdentifierToken)(yystack.valueAt (0))));};
   break;
 
 
   case 21: /* Literal: IntegerNumberLiteralToken  */
   if (yyn == 21)
-    /* "Parser.y":117  */
+    /* "Parser.y":124  */
                                     {yyval = new LiteralNode(((IntegerNumberLiteralToken)(yystack.valueAt (0))));};
   break;
 
 
   case 22: /* Literal: RealNumberLiteralToken  */
   if (yyn == 22)
-    /* "Parser.y":118  */
+    /* "Parser.y":125  */
                                  {yyval = new LiteralNode(((RealNumberLiteralToken)(yystack.valueAt (0))));};
   break;
 
 
   case 23: /* Literal: BooleanLiteralToken  */
   if (yyn == 23)
-    /* "Parser.y":119  */
+    /* "Parser.y":126  */
                               {yyval = new LiteralNode(((BooleanLiteralToken)(yystack.valueAt (0))));};
   break;
 
 
   case 24: /* Literal: NullLiteralToken  */
   if (yyn == 24)
-    /* "Parser.y":120  */
+    /* "Parser.y":127  */
                            {yyval = new LiteralNode(((NullLiteralToken)(yystack.valueAt (0))));};
+  break;
+
+
+  case 25: /* SpecialForm: QuoteToken Element  */
+  if (yyn == 25)
+    /* "Parser.y":130  */
+                             {yyval = new SpecialFormNode(SpecialFormNode.Form.QUOTE, ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 26: /* SpecialForm: SetqToken Atom Element  */
+  if (yyn == 26)
+    /* "Parser.y":131  */
+                                 {yyval = new SpecialFormNode(SpecialFormNode.Form.SETQ, ((AtomNode)(yystack.valueAt (1))), ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 27: /* SpecialForm: FuncToken Atom List Element  */
+  if (yyn == 27)
+    /* "Parser.y":132  */
+                                      {yyval = new SpecialFormNode(SpecialFormNode.Form.FUNC, ((AtomNode)(yystack.valueAt (2))), ((ListNode)(yystack.valueAt (1))), ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 28: /* SpecialForm: LambdaToken List Element  */
+  if (yyn == 28)
+    /* "Parser.y":133  */
+                                   {yyval = new SpecialFormNode(SpecialFormNode.Form.LAMBDA, ((ListNode)(yystack.valueAt (1))), ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 29: /* SpecialForm: ProgToken List Element  */
+  if (yyn == 29)
+    /* "Parser.y":134  */
+                                 {yyval = new SpecialFormNode(SpecialFormNode.Form.PROG, ((ListNode)(yystack.valueAt (1))), ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 30: /* SpecialForm: CondToken Element Element OptionalElement  */
+  if (yyn == 30)
+    /* "Parser.y":135  */
+                                                    {yyval = new SpecialFormNode(SpecialFormNode.Form.COND, ((ElementNode)(yystack.valueAt (2))), ((ElementNode)(yystack.valueAt (1))), ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 31: /* SpecialForm: WhileToken Element Element  */
+  if (yyn == 31)
+    /* "Parser.y":136  */
+                                     {yyval = new SpecialFormNode(SpecialFormNode.Form.WHILE, ((ElementNode)(yystack.valueAt (1))), ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 32: /* SpecialForm: ReturnToken Element  */
+  if (yyn == 32)
+    /* "Parser.y":137  */
+                              {yyval = new SpecialFormNode(SpecialFormNode.Form.RETURN, ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 33: /* SpecialForm: BreakToken  */
+  if (yyn == 33)
+    /* "Parser.y":138  */
+                     {yyval = new SpecialFormNode(SpecialFormNode.Form.BREAK);};
   break;
 
 
   case 35: /* ArithmeticFunction: PlusToken Element Element  */
   if (yyn == 35)
-    /* "Parser.y":135  */
+    /* "Parser.y":142  */
                                     {yyval = new ArithmeticFunctionNode(ArithmeticFunctionNode.Operation.ADDITION, ((ElementNode)(yystack.valueAt (1))), ((ElementNode)(yystack.valueAt (0))));};
   break;
 
 
   case 36: /* ArithmeticFunction: MinusToken Element Element  */
   if (yyn == 36)
-    /* "Parser.y":136  */
+    /* "Parser.y":143  */
                                      {yyval = new ArithmeticFunctionNode(ArithmeticFunctionNode.Operation.SUBTRACTION, ((ElementNode)(yystack.valueAt (1))), ((ElementNode)(yystack.valueAt (0))));};
   break;
 
 
   case 37: /* ArithmeticFunction: TimesToken Element Element  */
   if (yyn == 37)
-    /* "Parser.y":137  */
+    /* "Parser.y":144  */
                                      {yyval = new ArithmeticFunctionNode(ArithmeticFunctionNode.Operation.MULTIPLICATION, ((ElementNode)(yystack.valueAt (1))), ((ElementNode)(yystack.valueAt (0))));};
   break;
 
 
   case 38: /* ArithmeticFunction: DivideToken Element Element  */
   if (yyn == 38)
-    /* "Parser.y":138  */
+    /* "Parser.y":145  */
                                       {yyval = new ArithmeticFunctionNode(ArithmeticFunctionNode.Operation.DIVISION, ((ElementNode)(yystack.valueAt (1))), ((ElementNode)(yystack.valueAt (0))));};
   break;
 
 
+  case 39: /* OperationOnLists: HeadToken Element  */
+  if (yyn == 39)
+    /* "Parser.y":148  */
+                            {yyval = new OperationOnListsNode(OperationOnListsNode.Operation.HEAD, ((ElementNode)(yystack.valueAt (0))));};
+  break;
 
-/* "Parser.java":704  */
+
+  case 40: /* OperationOnLists: TailToken Element  */
+  if (yyn == 40)
+    /* "Parser.y":149  */
+                            {yyval = new OperationOnListsNode(OperationOnListsNode.Operation.TAIL, ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 41: /* OperationOnLists: ConsToken Element Element  */
+  if (yyn == 41)
+    /* "Parser.y":150  */
+                                    {yyval = new OperationOnListsNode(OperationOnListsNode.Operation.CONS, ((ElementNode)(yystack.valueAt (1))), ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 42: /* Comparison: EqualToken Element Element  */
+  if (yyn == 42)
+    /* "Parser.y":153  */
+                                     {yyval = new ComparisonNode(ComparisonNode.Operation.EQUAL, ((ElementNode)(yystack.valueAt (1))), ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 43: /* Comparison: NonEqualToken Element Element  */
+  if (yyn == 43)
+    /* "Parser.y":154  */
+                                        {yyval = new ComparisonNode(ComparisonNode.Operation.NONEQUAL, ((ElementNode)(yystack.valueAt (1))), ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 44: /* Comparison: LessToken Element Element  */
+  if (yyn == 44)
+    /* "Parser.y":155  */
+                                    {yyval = new ComparisonNode(ComparisonNode.Operation.LESS, ((ElementNode)(yystack.valueAt (1))), ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 45: /* Comparison: LessEqToken Element Element  */
+  if (yyn == 45)
+    /* "Parser.y":156  */
+                                      {yyval = new ComparisonNode(ComparisonNode.Operation.LESSEQUAL, ((ElementNode)(yystack.valueAt (1))), ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 46: /* Comparison: GreaterToken Element Element  */
+  if (yyn == 46)
+    /* "Parser.y":157  */
+                                       {yyval = new ComparisonNode(ComparisonNode.Operation.GREATER, ((ElementNode)(yystack.valueAt (1))), ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 47: /* Comparison: GreaterEqToken Element Element  */
+  if (yyn == 47)
+    /* "Parser.y":158  */
+                                         {yyval = new ComparisonNode(ComparisonNode.Operation.GREATEREQUAL, ((ElementNode)(yystack.valueAt (1))), ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 48: /* Predicate: IsIntToken Element  */
+  if (yyn == 48)
+    /* "Parser.y":161  */
+                             {yyval = new PredicateNode(PredicateNode.Operation.ISINT, ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 49: /* Predicate: IsRealToken Element  */
+  if (yyn == 49)
+    /* "Parser.y":162  */
+                              {yyval = new PredicateNode(PredicateNode.Operation.ISREAL, ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 50: /* Predicate: IsBoolToken Element  */
+  if (yyn == 50)
+    /* "Parser.y":163  */
+                              {yyval = new PredicateNode(PredicateNode.Operation.ISBOOL, ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 51: /* Predicate: IsNullToken Element  */
+  if (yyn == 51)
+    /* "Parser.y":164  */
+                              {yyval = new PredicateNode(PredicateNode.Operation.ISNULL, ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 52: /* Predicate: IsAtomToken Element  */
+  if (yyn == 52)
+    /* "Parser.y":165  */
+                              {yyval = new PredicateNode(PredicateNode.Operation.ISATOM, ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 53: /* Predicate: IsListToken Element  */
+  if (yyn == 53)
+    /* "Parser.y":166  */
+                              {yyval = new PredicateNode(PredicateNode.Operation.ISLIST, ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 54: /* LogicalOperator: AndToken Element Element  */
+  if (yyn == 54)
+    /* "Parser.y":169  */
+                                   {yyval = new LogicalOperatorNode(LogicalOperatorNode.Operation.AND, ((ElementNode)(yystack.valueAt (1))), ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 55: /* LogicalOperator: OrToken Element Element  */
+  if (yyn == 55)
+    /* "Parser.y":170  */
+                                  {yyval = new LogicalOperatorNode(LogicalOperatorNode.Operation.OR, ((ElementNode)(yystack.valueAt (1))), ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 56: /* LogicalOperator: XorToken Element Element  */
+  if (yyn == 56)
+    /* "Parser.y":171  */
+                                   {yyval = new LogicalOperatorNode(LogicalOperatorNode.Operation.XOR, ((ElementNode)(yystack.valueAt (1))), ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 57: /* LogicalOperator: NotToken Element  */
+  if (yyn == 57)
+    /* "Parser.y":172  */
+                           {yyval = new LogicalOperatorNode(LogicalOperatorNode.Operation.NOT, ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 58: /* Evaluator: EvalToken Element  */
+  if (yyn == 58)
+    /* "Parser.y":175  */
+                            {yyval = new EvaluatorNode(((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+
+/* "Parser.java":963  */
 
         default: break;
       }
@@ -1300,8 +1559,8 @@ private static final byte[] yycheck_ = yycheck_init();
 		return ast;
 	}
 
-/* "Parser.java":1304  */
+/* "Parser.java":1563  */
 
 }
-/* "Parser.y":170  */
+/* "Parser.y":177  */
 

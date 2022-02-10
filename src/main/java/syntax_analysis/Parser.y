@@ -77,6 +77,13 @@
 %type <LiteralNode> Literal
 %type <ListNode> List
 %type <ArithmeticFunctionNode> ArithmeticFunction
+%type <OperationOnListsNode> OperationOnLists
+%type <ComparisonNode> Comparison
+%type <PredicateNode> Predicate
+%type <LogicalOperatorNode> LogicalOperator
+%type <EvaluatorNode> Evaluator
+%type <SpecialFormNode> SpecialForm
+%type <ElementNode> OptionalElement
 
 %start Program
 
@@ -98,17 +105,17 @@ Element
 	;
 List
 	: OpenParenthesisToken Element Elements CloseParenthesisToken {$$ = new ListNode($2, $3);}
-	| OpenParenthesisToken SpecialForm CloseParenthesisToken
+	| OpenParenthesisToken SpecialForm CloseParenthesisToken {$$ = new ListNode($2);}
 	| OpenParenthesisToken ArithmeticFunction CloseParenthesisToken {$$ = new ListNode($2);}
-	| OpenParenthesisToken OperationOnLists CloseParenthesisToken
-	| OpenParenthesisToken Comparison CloseParenthesisToken
-	| OpenParenthesisToken Predicate CloseParenthesisToken
-	| OpenParenthesisToken LogicalOperator CloseParenthesisToken
-	| OpenParenthesisToken Evaluator CloseParenthesisToken
+	| OpenParenthesisToken OperationOnLists CloseParenthesisToken {$$ = new ListNode($2);}
+	| OpenParenthesisToken Comparison CloseParenthesisToken {$$ = new ListNode($2);}
+	| OpenParenthesisToken Predicate CloseParenthesisToken {$$ = new ListNode($2);}
+	| OpenParenthesisToken LogicalOperator CloseParenthesisToken {$$ = new ListNode($2);}
+	| OpenParenthesisToken Evaluator CloseParenthesisToken {$$ = new ListNode($2);}
 	;
 OptionalElement
-	: /* empty */
-	| Element
+	: /* empty */ {$$ = null;}
+	| Element {$$ = $1;}
 	;
 Atom
 	: IdentifierToken {$$ = new AtomNode($1);}
@@ -120,15 +127,15 @@ Literal
 	| NullLiteralToken {$$ = new LiteralNode($1);}
 	;
 SpecialForm
-	: QuoteToken Element
-	| SetqToken Atom Element
-	| FuncToken Atom List Element
-	| LambdaToken List Element
-	| ProgToken List Element
-	| CondToken Element Element OptionalElement
-	| WhileToken Element Element
-	| ReturnToken Element
-	| BreakToken
+	: QuoteToken Element {$$ = new SpecialFormNode(SpecialFormNode.Form.QUOTE, $2);}
+	| SetqToken Atom Element {$$ = new SpecialFormNode(SpecialFormNode.Form.SETQ, $2, $3);}
+	| FuncToken Atom List Element {$$ = new SpecialFormNode(SpecialFormNode.Form.FUNC, $2, $3, $4);}
+	| LambdaToken List Element {$$ = new SpecialFormNode(SpecialFormNode.Form.LAMBDA, $2, $3);}
+	| ProgToken List Element {$$ = new SpecialFormNode(SpecialFormNode.Form.PROG, $2, $3);}
+	| CondToken Element Element OptionalElement {$$ = new SpecialFormNode(SpecialFormNode.Form.COND, $2, $3, $4);}
+	| WhileToken Element Element {$$ = new SpecialFormNode(SpecialFormNode.Form.WHILE, $2, $3);}
+	| ReturnToken Element {$$ = new SpecialFormNode(SpecialFormNode.Form.RETURN, $2);}
+	| BreakToken {$$ = new SpecialFormNode(SpecialFormNode.Form.BREAK);}
 	;
 ArithmeticFunction
 	:
@@ -138,33 +145,33 @@ ArithmeticFunction
 	| DivideToken Element Element {$$ = new ArithmeticFunctionNode(ArithmeticFunctionNode.Operation.DIVISION, $2, $3);}
 	;
 OperationOnLists
-	: HeadToken Element
-	| TailToken Element
-	| ConsToken Element Element
+	: HeadToken Element {$$ = new OperationOnListsNode(OperationOnListsNode.Operation.HEAD, $2);}
+	| TailToken Element {$$ = new OperationOnListsNode(OperationOnListsNode.Operation.TAIL, $2);}
+	| ConsToken Element Element {$$ = new OperationOnListsNode(OperationOnListsNode.Operation.CONS, $2, $3);}
 	;
 Comparison
-	: EqualToken Element Element
-	| NonEqualToken Element Element
-	| LessToken Element Element
-	| LessEqToken Element Element
-	| GreaterToken Element Element
-	| GreaterEqToken Element Element
+	: EqualToken Element Element {$$ = new ComparisonNode(ComparisonNode.Operation.EQUAL, $2, $3);}
+	| NonEqualToken Element Element {$$ = new ComparisonNode(ComparisonNode.Operation.NONEQUAL, $2, $3);}
+	| LessToken Element Element {$$ = new ComparisonNode(ComparisonNode.Operation.LESS, $2, $3);}
+	| LessEqToken Element Element {$$ = new ComparisonNode(ComparisonNode.Operation.LESSEQUAL, $2, $3);}
+	| GreaterToken Element Element {$$ = new ComparisonNode(ComparisonNode.Operation.GREATER, $2, $3);}
+	| GreaterEqToken Element Element {$$ = new ComparisonNode(ComparisonNode.Operation.GREATEREQUAL, $2, $3);}
 	;
 Predicate
-	: IsIntToken Element
-	| IsRealToken Element
-	| IsBoolToken Element
-	| IsNullToken Element
-	| IsAtomToken Element
-	| IsListToken Element
+	: IsIntToken Element {$$ = new PredicateNode(PredicateNode.Operation.ISINT, $2);}
+	| IsRealToken Element {$$ = new PredicateNode(PredicateNode.Operation.ISREAL, $2);}
+	| IsBoolToken Element {$$ = new PredicateNode(PredicateNode.Operation.ISBOOL, $2);}
+	| IsNullToken Element {$$ = new PredicateNode(PredicateNode.Operation.ISNULL, $2);}
+	| IsAtomToken Element {$$ = new PredicateNode(PredicateNode.Operation.ISATOM, $2);}
+	| IsListToken Element {$$ = new PredicateNode(PredicateNode.Operation.ISLIST, $2);}
 	;
 LogicalOperator
-	: AndToken Element Element
-	| OrToken Element Element
-	| XorToken Element Element
-	| NotToken Element
+	: AndToken Element Element {$$ = new LogicalOperatorNode(LogicalOperatorNode.Operation.AND, $2, $3);}
+	| OrToken Element Element {$$ = new LogicalOperatorNode(LogicalOperatorNode.Operation.OR, $2, $3);}
+	| XorToken Element Element {$$ = new LogicalOperatorNode(LogicalOperatorNode.Operation.XOR, $2, $3);}
+	| NotToken Element {$$ = new LogicalOperatorNode(LogicalOperatorNode.Operation.NOT, $2);}
 	;
 Evaluator
-	: EvalToken Element
+	: EvalToken Element {$$ = new EvaluatorNode($2);}
 	;
 %%
