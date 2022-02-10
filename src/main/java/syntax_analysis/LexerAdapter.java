@@ -11,6 +11,7 @@ import java.util.List;
 public class LexerAdapter implements Parser.Lexer {
 
     private int currentTokenIndex;
+    private Token currentToken;
     final private List<Token> tokens;
 
     public LexerAdapter(FileReader fileReader) throws IOException {
@@ -25,8 +26,8 @@ public class LexerAdapter implements Parser.Lexer {
     }
 
     @Override
-    public Object getLVal() {
-        return null;
+    public Token getLVal() {
+        return currentToken;
     }
 
     @Override
@@ -34,7 +35,8 @@ public class LexerAdapter implements Parser.Lexer {
         if (currentTokenIndex == tokens.size()) {
             return YYEOF;
         }
-        String tokenName = tokens.get(currentTokenIndex++).getClass().getSimpleName();
+        currentToken = tokens.get(currentTokenIndex++);
+        String tokenName = currentToken.getClass().getSimpleName();
         int tokenCode = YYerror;
         try {
             Field field = Parser.Lexer.class.getDeclaredField(tokenName);

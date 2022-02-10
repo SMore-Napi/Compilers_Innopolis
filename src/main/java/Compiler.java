@@ -1,7 +1,7 @@
-import lexical_analysis.Lexer;
 import lexical_analysis.tokens.Token;
 import syntax_analysis.LexerAdapter;
 import syntax_analysis.Parser;
+import syntax_analysis.node.AST;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -22,6 +22,8 @@ public class Compiler {
     }
 
     public void syntaxAnalysis() throws IOException {
-        Parser.makeAST(sourceProgramPath);
+        AST ast = Parser.makeAST(sourceProgramPath);
+        System.out.println("======");
+        ast.printAST();
     }
 }

@@ -7,32 +7,24 @@
 %code imports {
 	import java.io.IOException;
 	import java.io.FileReader;
+	import java.util.List;
+	import lexical_analysis.tokens.keyword.QuoteShortToken;
+        import syntax_analysis.node.*;
+        import lexical_analysis.tokens.Token;
+        import lexical_analysis.tokens.literal.*;
+        import lexical_analysis.tokens.IdentifierToken;
 }
 
 %code {
-//	private static ElementsList ast;
-//    public static List<Integer> lines;
-	AST ast;
-            public static AST makeAST(String sourceProgramPath) throws IOException {
-            	//AST ast = new AST();
-            	FileReader fileReader = new FileReader(sourceProgramPath);
-                LexerAdapter lexerAdapter = new LexerAdapter(fileReader);
-                Parser p = new Parser(lexerAdapter);
-                p.parse();
-                return ast;
-
-//                int status;
-//                do {
-//                    int token = l.getToken();
-//                    IElement lval = l.getValue();
-//                    Parser.Location yyloc = l.getLocation();
-//                    status = p.push_parse(token, lval, yyloc);
-//                } while (status == Parser.YYPUSH_MORE);
-//                if (status != Parser.YYACCEPT) {
-//                    return null;
-//                }
-//                return ast;
-}
+	static AST ast;
+        public static AST makeAST(String sourceProgramPath) throws IOException {
+		//AST ast = new AST();
+		FileReader fileReader = new FileReader(sourceProgramPath);
+		LexerAdapter lexerAdapter = new LexerAdapter(fileReader);
+		Parser p = new Parser(lexerAdapter);
+		p.parse();
+		return ast;
+	}
 }
 
 %token <OpenParenthesisToken> OpenParenthesisToken
@@ -79,50 +71,53 @@
 
 %type Program
 %type SpecialForm
+%type <ElementNode> Element
+%type <ListNode> Elements
+%type <AtomNode> Atom
+%type <LiteralNode> Literal
+%type <ListNode> List
+%type <ArithmeticFunctionNode> ArithmeticFunction
 
 %start Program
 
 %%
 
 Program
-	: Element {ast = new AST(ast.createElementList($1)); System.out.println("haha1");}
-	| Element Elements {ast = new AST(ast.addElementToList($1, $2)); System.out.println("haha2");}
+	: Element {ast = new AST(new ListNode($1));}
+       	| Element Elements {ast = new AST(new ListNode($1, $2)); }
 	;
 Elements
-	: /* empty */  {$$ = ast.createEmptyList();}
-	| Element Elements {$$ = ast.addElementToList($1, $2);}
+	: /* empty */  {$$ = new ListNode();}
+	| Element Elements {$$ = new ListNode($1, $2);}
+	;
+Element
+	: Atom {$$ = new ElementNode($1);}
+	| Literal {$$ = new ElementNode($1);}
+	| List {$$ = new ElementNode($1);}
+	| QuoteShortToken Element {$$ = $2;}
 	;
 List
-	: OpenParenthesisToken Element Elements CloseParenthesisToken
+	: OpenParenthesisToken Element Elements CloseParenthesisToken {$$ = new ListNode($2, $3);}
 	| OpenParenthesisToken SpecialForm CloseParenthesisToken
-	| OpenParenthesisToken ArithmeticFunction CloseParenthesisToken
+	| OpenParenthesisToken ArithmeticFunction CloseParenthesisToken {$$ = new ListNode($2);}
 	| OpenParenthesisToken OperationOnLists CloseParenthesisToken
 	| OpenParenthesisToken Comparison CloseParenthesisToken
 	| OpenParenthesisToken Predicate CloseParenthesisToken
 	| OpenParenthesisToken LogicalOperator CloseParenthesisToken
 	| OpenParenthesisToken Evaluator CloseParenthesisToken
 	;
-Element
-	: Atom {$$ = new ElementNode();}
-	| Literal {$$ = new ElementNode();}
-	| List {$$ = new ElementNode();}
-	| QuoteShortToken Element {$$ = new ElementNode();}
-	;
 OptionalElement
 	: /* empty */
 	| Element
 	;
 Atom
-	: Identifier
+	: IdentifierToken {$$ = new AtomNode($1);}
 	;
 Literal
-	: IntegerNumberLiteralToken
-	| RealNumberLiteralToken
-	| BooleanLiteralToken
-	| NullLiteralToken
-	;
-Identifier
-	: IdentifierToken
+	: IntegerNumberLiteralToken {$$ = new LiteralNode($1);}
+	| RealNumberLiteralToken {$$ = new LiteralNode($1);}
+	| BooleanLiteralToken {$$ = new LiteralNode($1);}
+	| NullLiteralToken {$$ = new LiteralNode($1);}
 	;
 SpecialForm
 	: QuoteToken Element
@@ -137,10 +132,10 @@ SpecialForm
 	;
 ArithmeticFunction
 	:
-	| PlusToken Element Element
-	| MinusToken Element Element
-	| TimesToken Element Element
-	| DivideToken Element Element
+	| PlusToken Element Element {$$ = new ArithmeticFunctionNode(ArithmeticFunctionNode.Operation.ADDITION, $2, $3);}
+	| MinusToken Element Element {$$ = new ArithmeticFunctionNode(ArithmeticFunctionNode.Operation.SUBTRACTION, $2, $3);}
+	| TimesToken Element Element {$$ = new ArithmeticFunctionNode(ArithmeticFunctionNode.Operation.MULTIPLICATION, $2, $3);}
+	| DivideToken Element Element {$$ = new ArithmeticFunctionNode(ArithmeticFunctionNode.Operation.DIVISION, $2, $3);}
 	;
 OperationOnLists
 	: HeadToken Element

@@ -45,8 +45,14 @@ import java.util.ArrayList;
 
 	import java.io.IOException;
 	import java.io.FileReader;
+	import java.util.List;
+	import lexical_analysis.tokens.keyword.QuoteShortToken;
+        import syntax_analysis.node.*;
+        import lexical_analysis.tokens.Token;
+        import lexical_analysis.tokens.literal.*;
+        import lexical_analysis.tokens.IdentifierToken;
 
-/* "Parser.java":50  */
+/* "Parser.java":56  */
 
 /**
  * A Bison parser, automatically generated from <tt>Parser.y</tt>.
@@ -115,19 +121,18 @@ public class Parser
     S_YYACCEPT(44),                /* $accept  */
     S_Program(45),                 /* Program  */
     S_Elements(46),                /* Elements  */
-    S_List(47),                    /* List  */
-    S_Element(48),                 /* Element  */
+    S_Element(47),                 /* Element  */
+    S_List(48),                    /* List  */
     S_OptionalElement(49),         /* OptionalElement  */
     S_Atom(50),                    /* Atom  */
     S_Literal(51),                 /* Literal  */
-    S_Identifier(52),              /* Identifier  */
-    S_SpecialForm(53),             /* SpecialForm  */
-    S_ArithmeticFunction(54),      /* ArithmeticFunction  */
-    S_OperationOnLists(55),        /* OperationOnLists  */
-    S_Comparison(56),              /* Comparison  */
-    S_Predicate(57),               /* Predicate  */
-    S_LogicalOperator(58),         /* LogicalOperator  */
-    S_Evaluator(59);               /* Evaluator  */
+    S_SpecialForm(52),             /* SpecialForm  */
+    S_ArithmeticFunction(53),      /* ArithmeticFunction  */
+    S_OperationOnLists(54),        /* OperationOnLists  */
+    S_Comparison(55),              /* Comparison  */
+    S_Predicate(56),               /* Predicate  */
+    S_LogicalOperator(57),         /* LogicalOperator  */
+    S_Evaluator(58);               /* Evaluator  */
 
 
     private final int yycode_;
@@ -184,12 +189,11 @@ public class Parser
       SymbolKind.S_YYACCEPT,
       SymbolKind.S_Program,
       SymbolKind.S_Elements,
-      SymbolKind.S_List,
       SymbolKind.S_Element,
+      SymbolKind.S_List,
       SymbolKind.S_OptionalElement,
       SymbolKind.S_Atom,
       SymbolKind.S_Literal,
-      SymbolKind.S_Identifier,
       SymbolKind.S_SpecialForm,
       SymbolKind.S_ArithmeticFunction,
       SymbolKind.S_OperationOnLists,
@@ -257,9 +261,9 @@ public class Parser
   "GreaterEqToken", "IsIntToken", "IsRealToken", "IsBoolToken",
   "IsNullToken", "IsAtomToken", "IsListToken", "AndToken", "OrToken",
   "XorToken", "NotToken", "EvalToken", "$accept", "Program", "Elements",
-  "List", "Element", "OptionalElement", "Atom", "Literal", "Identifier",
-  "SpecialForm", "ArithmeticFunction", "OperationOnLists", "Comparison",
-  "Predicate", "LogicalOperator", "Evaluator", null
+  "Element", "List", "OptionalElement", "Atom", "Literal", "SpecialForm",
+  "ArithmeticFunction", "OperationOnLists", "Comparison", "Predicate",
+  "LogicalOperator", "Evaluator", null
     };
   }
 
@@ -564,20 +568,139 @@ public class Parser
       {
           case 2: /* Program: Element  */
   if (yyn == 2)
-    /* "Parser.y":88  */
-                  { System.out.println("haha1");};
+    /* "Parser.y":86  */
+                  {ast = new AST(new ListNode(((ElementNode)(yystack.valueAt (0)))));};
   break;
 
 
   case 3: /* Program: Element Elements  */
   if (yyn == 3)
-    /* "Parser.y":89  */
-                           { System.out.println("haha2");};
+    /* "Parser.y":87  */
+                           {ast = new AST(new ListNode(((ElementNode)(yystack.valueAt (1))), ((ListNode)(yystack.valueAt (0))))); };
+  break;
+
+
+  case 4: /* Elements: %empty  */
+  if (yyn == 4)
+    /* "Parser.y":90  */
+                       {yyval = new ListNode();};
+  break;
+
+
+  case 5: /* Elements: Element Elements  */
+  if (yyn == 5)
+    /* "Parser.y":91  */
+                           {yyval = new ListNode(((ElementNode)(yystack.valueAt (1))), ((ListNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 6: /* Element: Atom  */
+  if (yyn == 6)
+    /* "Parser.y":94  */
+               {yyval = new ElementNode(((AtomNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 7: /* Element: Literal  */
+  if (yyn == 7)
+    /* "Parser.y":95  */
+                  {yyval = new ElementNode(((LiteralNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 8: /* Element: List  */
+  if (yyn == 8)
+    /* "Parser.y":96  */
+               {yyval = new ElementNode(((ListNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 9: /* Element: QuoteShortToken Element  */
+  if (yyn == 9)
+    /* "Parser.y":97  */
+                                  {yyval = ((ElementNode)(yystack.valueAt (0)));};
+  break;
+
+
+  case 10: /* List: OpenParenthesisToken Element Elements CloseParenthesisToken  */
+  if (yyn == 10)
+    /* "Parser.y":100  */
+                                                                      {yyval = new ListNode(((ElementNode)(yystack.valueAt (2))), ((ListNode)(yystack.valueAt (1))));};
+  break;
+
+
+  case 12: /* List: OpenParenthesisToken ArithmeticFunction CloseParenthesisToken  */
+  if (yyn == 12)
+    /* "Parser.y":102  */
+                                                                        {System.out.println("dd"); System.out.println(((ArithmeticFunctionNode)(yystack.valueAt (1)))); yyval = new ListNode(((ArithmeticFunctionNode)(yystack.valueAt (1))));};
+  break;
+
+
+  case 20: /* Atom: IdentifierToken  */
+  if (yyn == 20)
+    /* "Parser.y":114  */
+                          {yyval = new AtomNode(((IdentifierToken)(yystack.valueAt (0))));};
+  break;
+
+
+  case 21: /* Literal: IntegerNumberLiteralToken  */
+  if (yyn == 21)
+    /* "Parser.y":117  */
+                                    {yyval = new LiteralNode(((IntegerNumberLiteralToken)(yystack.valueAt (0))));};
+  break;
+
+
+  case 22: /* Literal: RealNumberLiteralToken  */
+  if (yyn == 22)
+    /* "Parser.y":118  */
+                                 {yyval = new LiteralNode(((RealNumberLiteralToken)(yystack.valueAt (0))));};
+  break;
+
+
+  case 23: /* Literal: BooleanLiteralToken  */
+  if (yyn == 23)
+    /* "Parser.y":119  */
+                              {yyval = new LiteralNode(((BooleanLiteralToken)(yystack.valueAt (0))));};
+  break;
+
+
+  case 24: /* Literal: NullLiteralToken  */
+  if (yyn == 24)
+    /* "Parser.y":120  */
+                           {yyval = new LiteralNode(((NullLiteralToken)(yystack.valueAt (0))));};
+  break;
+
+
+  case 35: /* ArithmeticFunction: PlusToken Element Element  */
+  if (yyn == 35)
+    /* "Parser.y":135  */
+                                    {yyval = new ArithmeticFunctionNode(ArithmeticFunctionNode.Operation.ADDITION, ((ElementNode)(yystack.valueAt (1))), ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 36: /* ArithmeticFunction: MinusToken Element Element  */
+  if (yyn == 36)
+    /* "Parser.y":136  */
+                                     {yyval = new ArithmeticFunctionNode(ArithmeticFunctionNode.Operation.SUBTRACTION, ((ElementNode)(yystack.valueAt (1))), ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 37: /* ArithmeticFunction: TimesToken Element Element  */
+  if (yyn == 37)
+    /* "Parser.y":137  */
+                                     {yyval = new ArithmeticFunctionNode(ArithmeticFunctionNode.Operation.MULTIPLICATION, ((ElementNode)(yystack.valueAt (1))), ((ElementNode)(yystack.valueAt (0))));};
+  break;
+
+
+  case 38: /* ArithmeticFunction: DivideToken Element Element  */
+  if (yyn == 38)
+    /* "Parser.y":138  */
+                                      {yyval = new ArithmeticFunctionNode(ArithmeticFunctionNode.Operation.DIVISION, ((ElementNode)(yystack.valueAt (1))), ((ElementNode)(yystack.valueAt (0))));};
   break;
 
 
 
-/* "Parser.java":581  */
+/* "Parser.java":704  */
 
         default: break;
       }
@@ -930,7 +1053,7 @@ public class Parser
     return yyvalue == yytable_ninf_;
   }
 
-  private static final byte yypact_ninf_ = -46;
+  private static final byte yypact_ninf_ = -43;
   private static final byte yytable_ninf_ = -1;
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
@@ -940,19 +1063,19 @@ public class Parser
   {
     return new byte[]
     {
-      45,   100,   -46,   -46,   -46,   -46,   -46,    45,     8,   -46,
-      45,   -46,   -46,   -46,    45,     1,     1,     6,     6,    45,
-      45,    45,   -46,    45,    45,    45,    45,    45,    45,    45,
-      45,    45,    45,    45,    45,    45,    45,    45,    45,    45,
-      45,    45,    45,    45,    45,    45,    45,    45,     7,    11,
-      12,    13,    14,    18,    51,   -46,   -46,   -46,    45,   -46,
-      45,     6,    45,    45,    45,    45,   -46,    45,    45,    45,
-      45,   -46,   -46,    45,    45,    45,    45,    45,    45,    45,
-     -46,   -46,   -46,   -46,   -46,   -46,    45,    45,    45,   -46,
-     -46,    53,   -46,   -46,   -46,   -46,   -46,   -46,   -46,   -46,
-     -46,    45,   -46,   -46,    45,   -46,   -46,   -46,   -46,   -46,
-     -46,   -46,   -46,   -46,   -46,   -46,   -46,   -46,   -46,   -46,
-     -46,   -46,   -46,   -46
+       3,    99,   -43,   -43,   -43,   -43,   -43,     3,     5,     3,
+     -43,   -43,   -43,     3,    12,    12,    44,    44,     3,     3,
+       3,   -43,     3,     3,     3,     3,     3,     3,     3,     3,
+       3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
+       3,     3,     3,     3,     3,     3,     3,    45,    46,    47,
+      48,    49,    50,    51,   -43,   -43,   -43,     3,   -43,     3,
+      44,     3,     3,     3,     3,   -43,     3,     3,     3,     3,
+     -43,   -43,     3,     3,     3,     3,     3,     3,     3,   -43,
+     -43,   -43,   -43,   -43,   -43,     3,     3,     3,   -43,   -43,
+      52,   -43,   -43,   -43,   -43,   -43,   -43,   -43,   -43,   -43,
+       3,   -43,   -43,     3,   -43,   -43,   -43,   -43,   -43,   -43,
+     -43,   -43,   -43,   -43,   -43,   -43,   -43,   -43,   -43,   -43,
+     -43,   -43,   -43
     };
   }
 
@@ -964,19 +1087,19 @@ public class Parser
   {
     return new byte[]
     {
-       0,    35,    21,    22,    23,    24,    25,     0,     0,    16,
-       2,    14,    15,    20,     0,     0,     0,     0,     0,     0,
-       0,     0,    34,     0,     0,     0,     0,     0,     0,     0,
+       0,    34,    21,    22,    23,    24,    20,     0,     0,     2,
+       8,     6,     7,     0,     0,     0,     0,     0,     0,     0,
+       0,    33,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     4,     0,     0,
-       0,     0,     0,     0,     0,    17,     1,     3,     4,    26,
-       0,     0,     0,     0,     0,     0,    33,     0,     0,     0,
-       0,    40,    41,     0,     0,     0,     0,     0,     0,     0,
-      49,    50,    51,    52,    53,    54,     0,     0,     0,    58,
-      59,     0,     7,     8,     9,    10,    11,    12,    13,     5,
-      27,     0,    29,    30,    18,    32,    36,    37,    38,    39,
-      42,    43,    44,    45,    46,    47,    48,    55,    56,    57,
-       6,    28,    19,    31
+       0,     0,     0,     0,     0,     0,     4,     0,     0,     0,
+       0,     0,     0,     0,     9,     1,     3,     4,    25,     0,
+       0,     0,     0,     0,     0,    32,     0,     0,     0,     0,
+      39,    40,     0,     0,     0,     0,     0,     0,     0,    48,
+      49,    50,    51,    52,    53,     0,     0,     0,    57,    58,
+       0,    11,    12,    13,    14,    15,    16,    17,     5,    26,
+       0,    28,    29,    18,    31,    35,    36,    37,    38,    41,
+      42,    43,    44,    45,    46,    47,    54,    55,    56,    10,
+      27,    19,    30
     };
   }
 
@@ -986,8 +1109,8 @@ public class Parser
   {
     return new byte[]
     {
-     -46,   -46,   -45,   -14,     0,   -46,   -10,   -46,   -46,   -46,
-     -46,   -46,   -46,   -46,   -46,   -46
+     -43,   -43,   -42,     0,   -14,   -43,     2,   -43,   -43,   -43,
+     -43,   -43,   -43,   -43,   -43
     };
   }
 
@@ -997,8 +1120,8 @@ public class Parser
   {
     return new byte[]
     {
-       0,     8,    57,     9,    58,   123,    11,    12,    13,    48,
-      49,    50,    51,    52,    53,    54
+       0,     8,    56,    57,    10,   122,    11,    12,    47,    48,
+      49,    50,    51,    52,    53
     };
   }
 
@@ -1010,21 +1133,21 @@ public class Parser
   {
     return new byte[]
     {
-      10,    47,    91,    62,    63,    60,    61,    55,    56,     1,
-       6,    92,     0,    99,    59,    93,    94,    95,    96,    64,
-      65,    66,    97,    67,    68,    69,    70,    71,    72,    73,
+       9,    46,    61,    62,    90,    55,     1,    54,     2,     3,
+       4,     5,     6,    58,     7,    98,    59,    60,    63,    64,
+      65,     6,    66,    67,    68,    69,    70,    71,    72,    73,
       74,    75,    76,    77,    78,    79,    80,    81,    82,    83,
-      84,    85,    86,    87,    88,    89,    90,   101,     1,     0,
-       2,     3,     4,     5,     6,    98,     7,   120,     0,     0,
-     100,     0,   102,   103,   104,   105,     0,   106,   107,   108,
-     109,     0,     0,   110,   111,   112,   113,   114,   115,   116,
-       0,     0,     0,     0,     0,     0,   117,   118,   119,     0,
+      84,    85,    86,    87,    88,    89,   100,     1,     0,    91,
+      92,    93,    94,    95,    96,    97,   119,     0,     0,    99,
+       0,   101,   102,   103,   104,     0,   105,   106,   107,   108,
+       0,     0,   109,   110,   111,   112,   113,   114,   115,     0,
+       0,     0,     0,     0,     0,   116,   117,   118,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,   121,     0,     1,   122,     2,     3,     4,     5,     6,
-      14,     7,    15,    16,    17,    18,    19,    20,    21,    22,
+     120,     0,     1,   121,     2,     3,     4,     5,     6,    13,
+       7,    14,    15,    16,    17,    18,    19,    20,    21,    22,
       23,    24,    25,    26,    27,    28,    29,    30,    31,    32,
       33,    34,    35,    36,    37,    38,    39,    40,    41,    42,
-      43,    44,    45,    46
+      43,    44,    45
     };
   }
 
@@ -1033,21 +1156,21 @@ private static final byte[] yycheck_ = yycheck_init();
   {
     return new byte[]
     {
-       0,     1,    47,    17,    18,    15,    16,     7,     0,     3,
-       9,     4,    -1,    58,    14,     4,     4,     4,     4,    19,
-      20,    21,     4,    23,    24,    25,    26,    27,    28,    29,
+       0,     1,    16,    17,    46,     0,     3,     7,     5,     6,
+       7,     8,     9,    13,    11,    57,    14,    15,    18,    19,
+      20,     9,    22,    23,    24,    25,    26,    27,    28,    29,
       30,    31,    32,    33,    34,    35,    36,    37,    38,    39,
-      40,    41,    42,    43,    44,    45,    46,    61,     3,    -1,
-       5,     6,     7,     8,     9,     4,    11,     4,    -1,    -1,
-      60,    -1,    62,    63,    64,    65,    -1,    67,    68,    69,
-      70,    -1,    -1,    73,    74,    75,    76,    77,    78,    79,
-      -1,    -1,    -1,    -1,    -1,    -1,    86,    87,    88,    -1,
+      40,    41,    42,    43,    44,    45,    60,     3,    -1,     4,
+       4,     4,     4,     4,     4,     4,     4,    -1,    -1,    59,
+      -1,    61,    62,    63,    64,    -1,    66,    67,    68,    69,
+      -1,    -1,    72,    73,    74,    75,    76,    77,    78,    -1,
+      -1,    -1,    -1,    -1,    -1,    85,    86,    87,    -1,    -1,
       -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,   101,    -1,     3,   104,     5,     6,     7,     8,     9,
-      10,    11,    12,    13,    14,    15,    16,    17,    18,    19,
-      20,    21,    22,    23,    24,    25,    26,    27,    28,    29,
-      30,    31,    32,    33,    34,    35,    36,    37,    38,    39,
-      40,    41,    42,    43
+     100,    -1,     3,   103,     5,     6,     7,     8,     9,    10,
+      11,    12,    13,    14,    15,    16,    17,    18,    19,    20,
+      21,    22,    23,    24,    25,    26,    27,    28,    29,    30,
+      31,    32,    33,    34,    35,    36,    37,    38,    39,    40,
+      41,    42,    43
     };
   }
 
@@ -1059,18 +1182,18 @@ private static final byte[] yycheck_ = yycheck_init();
     return new byte[]
     {
        0,     3,     5,     6,     7,     8,     9,    11,    45,    47,
-      48,    50,    51,    52,    10,    12,    13,    14,    15,    16,
-      17,    18,    19,    20,    21,    22,    23,    24,    25,    26,
-      27,    28,    29,    30,    31,    32,    33,    34,    35,    36,
-      37,    38,    39,    40,    41,    42,    43,    48,    53,    54,
-      55,    56,    57,    58,    59,    48,     0,    46,    48,    48,
-      50,    50,    47,    47,    48,    48,    48,    48,    48,    48,
-      48,    48,    48,    48,    48,    48,    48,    48,    48,    48,
-      48,    48,    48,    48,    48,    48,    48,    48,    48,    48,
-      48,    46,     4,     4,     4,     4,     4,     4,     4,    46,
-      48,    47,    48,    48,    48,    48,    48,    48,    48,    48,
-      48,    48,    48,    48,    48,    48,    48,    48,    48,    48,
-       4,    48,    48,    49
+      48,    50,    51,    10,    12,    13,    14,    15,    16,    17,
+      18,    19,    20,    21,    22,    23,    24,    25,    26,    27,
+      28,    29,    30,    31,    32,    33,    34,    35,    36,    37,
+      38,    39,    40,    41,    42,    43,    47,    52,    53,    54,
+      55,    56,    57,    58,    47,     0,    46,    47,    47,    50,
+      50,    48,    48,    47,    47,    47,    47,    47,    47,    47,
+      47,    47,    47,    47,    47,    47,    47,    47,    47,    47,
+      47,    47,    47,    47,    47,    47,    47,    47,    47,    47,
+      46,     4,     4,     4,     4,     4,     4,     4,    46,    47,
+      48,    47,    47,    47,    47,    47,    47,    47,    47,    47,
+      47,    47,    47,    47,    47,    47,    47,    47,    47,     4,
+      47,    47,    49
     };
   }
 
@@ -1081,11 +1204,11 @@ private static final byte[] yycheck_ = yycheck_init();
     return new byte[]
     {
        0,    44,    45,    45,    46,    46,    47,    47,    47,    47,
-      47,    47,    47,    47,    48,    48,    48,    48,    49,    49,
-      50,    51,    51,    51,    51,    52,    53,    53,    53,    53,
-      53,    53,    53,    53,    53,    54,    54,    54,    54,    54,
-      55,    55,    55,    56,    56,    56,    56,    56,    56,    57,
-      57,    57,    57,    57,    57,    58,    58,    58,    58,    59
+      48,    48,    48,    48,    48,    48,    48,    48,    49,    49,
+      50,    51,    51,    51,    51,    52,    52,    52,    52,    52,
+      52,    52,    52,    52,    53,    53,    53,    53,    53,    54,
+      54,    54,    55,    55,    55,    55,    55,    55,    56,    56,
+      56,    56,    56,    56,    57,    57,    57,    57,    58
     };
   }
 
@@ -1095,12 +1218,12 @@ private static final byte[] yycheck_ = yycheck_init();
   {
     return new byte[]
     {
-       0,     2,     1,     2,     0,     2,     4,     3,     3,     3,
-       3,     3,     3,     3,     1,     1,     1,     2,     0,     1,
-       1,     1,     1,     1,     1,     1,     2,     3,     4,     3,
-       3,     4,     3,     2,     1,     0,     3,     3,     3,     3,
-       2,     2,     3,     3,     3,     3,     3,     3,     3,     2,
-       2,     2,     2,     2,     2,     3,     3,     3,     2,     2
+       0,     2,     1,     2,     0,     2,     1,     1,     1,     2,
+       4,     3,     3,     3,     3,     3,     3,     3,     0,     1,
+       1,     1,     1,     1,     1,     2,     3,     4,     3,     3,
+       4,     3,     2,     1,     0,     3,     3,     3,     3,     2,
+       2,     3,     3,     3,     3,     3,     3,     3,     2,     2,
+       2,     2,     2,     2,     3,     3,     3,     2,     2
     };
   }
 
@@ -1159,40 +1282,26 @@ private static final byte[] yycheck_ = yycheck_init();
   }
 
 
-  private static final int YYLAST_ = 143;
+  private static final int YYLAST_ = 142;
   private static final int YYEMPTY_ = -2;
-  private static final int YYFINAL_ = 56;
+  private static final int YYFINAL_ = 55;
   private static final int YYNTOKENS_ = 44;
 
 /* Unqualified %code blocks.  */
-/* "Parser.y":12  */
+/* "Parser.y":18  */
 
-//	private static ElementsList ast;
-//    public static List<Integer> lines;
-	AST ast;
-            public static AST makeAST(String sourceProgramPath) throws IOException {
-            	AST ast = new AST();
-            	FileReader fileReader = new FileReader(sourceProgramPath);
-                LexerAdapter lexerAdapter = new LexerAdapter(fileReader);
-                Parser p = new Parser(lexerAdapter);
-                p.parse();
-                return ast;
+	static AST ast;
+        public static AST makeAST(String sourceProgramPath) throws IOException {
+		//AST ast = new AST();
+		FileReader fileReader = new FileReader(sourceProgramPath);
+		LexerAdapter lexerAdapter = new LexerAdapter(fileReader);
+		Parser p = new Parser(lexerAdapter);
+		p.parse();
+		return ast;
+	}
 
-//                int status;
-//                do {
-//                    int token = l.getToken();
-//                    IElement lval = l.getValue();
-//                    Parser.Location yyloc = l.getLocation();
-//                    status = p.push_parse(token, lval, yyloc);
-//                } while (status == Parser.YYPUSH_MORE);
-//                if (status != Parser.YYACCEPT) {
-//                    return null;
-//                }
-//                return ast;
-}
-
-/* "Parser.java":1195  */
+/* "Parser.java":1304  */
 
 }
-/* "Parser.y":175  */
+/* "Parser.y":170  */
 
