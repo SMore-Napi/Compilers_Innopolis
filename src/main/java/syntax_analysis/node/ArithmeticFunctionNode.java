@@ -1,16 +1,11 @@
 package syntax_analysis.node;
 
-public class ArithmeticFunctionNode extends Node {
-    public enum Operation {
-        ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION
-    }
-
-    ElementNode leftOperand;
-    ElementNode rightOperand;
+public class ArithmeticFunctionNode implements NodeInterface {
+    NodeInterface leftOperand;
+    NodeInterface rightOperand;
     Operation operation;
 
-
-    public ArithmeticFunctionNode(Operation operation, ElementNode leftOperand, ElementNode rightOperand) {
+    public ArithmeticFunctionNode(Operation operation, NodeInterface leftOperand, NodeInterface rightOperand) {
         this.leftOperand = leftOperand;
         this.rightOperand = rightOperand;
         this.operation = operation;
@@ -23,5 +18,9 @@ public class ArithmeticFunctionNode extends Node {
                 ", rightOperand=" + rightOperand +
                 ", operation=" + operation +
                 '}';
+    }
+
+    public enum Operation {
+        ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION
     }
 }

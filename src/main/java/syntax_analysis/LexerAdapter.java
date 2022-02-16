@@ -10,9 +10,9 @@ import java.util.List;
 
 public class LexerAdapter implements Parser.Lexer {
 
+    final private List<Token> tokens;
     private int currentTokenIndex;
     private Token currentToken;
-    final private List<Token> tokens;
 
     public LexerAdapter(FileReader fileReader) throws IOException {
         Lexer lexer = new Lexer(fileReader);

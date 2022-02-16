@@ -5,7 +5,7 @@ import lexical_analysis.tokens.literal.IntegerNumberLiteralToken;
 import lexical_analysis.tokens.literal.LiteralToken;
 import lexical_analysis.tokens.literal.RealNumberLiteralToken;
 
-public class LiteralNode extends Node {
+public class LiteralNode implements NodeInterface {
     public Integer integerValue;
     public Double realValue;
     public Boolean booleanValue;
@@ -19,20 +19,6 @@ public class LiteralNode extends Node {
         } else if (token instanceof BooleanLiteralToken) {
             this.booleanValue = Boolean.valueOf(content);
         }
-    }
-
-    @Override
-    public Object get() {
-        if (integerValue != null) {
-            return integerValue;
-        }
-        if (realValue != null) {
-            return realValue;
-        }
-        if (booleanValue != null) {
-            return booleanValue;
-        }
-        return null;
     }
 
     @Override

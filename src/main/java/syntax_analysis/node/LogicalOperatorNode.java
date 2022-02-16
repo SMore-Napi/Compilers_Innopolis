@@ -1,21 +1,17 @@
 package syntax_analysis.node;
 
-public class LogicalOperatorNode extends Node{
-    public enum Operation {
-        AND, OR, XOR, NOT
-    }
-
-    ElementNode firstElement;
-    ElementNode secondElement;
+public class LogicalOperatorNode implements NodeInterface {
+    NodeInterface firstElement;
+    NodeInterface secondElement;
     Operation operation;
 
-    public LogicalOperatorNode(Operation operation, ElementNode firstElement, ElementNode secondElement) {
+    public LogicalOperatorNode(Operation operation, NodeInterface firstElement, NodeInterface secondElement) {
         this.firstElement = firstElement;
         this.secondElement = secondElement;
         this.operation = operation;
     }
 
-    public LogicalOperatorNode(Operation operation, ElementNode firstElement) {
+    public LogicalOperatorNode(Operation operation, NodeInterface firstElement) {
         this.firstElement = firstElement;
         this.operation = operation;
     }
@@ -33,5 +29,9 @@ public class LogicalOperatorNode extends Node{
                 "element=" + firstElement +
                 ", operation=" + operation +
                 '}';
+    }
+
+    public enum Operation {
+        AND, OR, XOR, NOT
     }
 }

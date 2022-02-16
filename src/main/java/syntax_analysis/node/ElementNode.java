@@ -1,14 +1,11 @@
 package syntax_analysis.node;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class ElementNode extends Node {
+public class ElementNode implements NodeInterface {
     public AtomNode atomNode;
     public LiteralNode literalNode;
     public ListNode list;
 
-    public ElementNode(Node node) {
+    public ElementNode(NodeInterface node) {
         if (node instanceof AtomNode) {
             this.atomNode = (AtomNode) node;
         } else if (node instanceof LiteralNode) {
@@ -20,6 +17,7 @@ public class ElementNode extends Node {
         this.list = list;
     }
 
+    /*
     @Override
     public Object get() {
         if (atomNode != null) {
@@ -33,7 +31,9 @@ public class ElementNode extends Node {
         }
         return null;
     }
+     */
 
+    /*
     @Override
     public List<Node> inorderTraversal () {
         if (atomNode != null) {
@@ -55,6 +55,8 @@ public class ElementNode extends Node {
         }
         return null;
     }
+
+     */
 
     @Override
     public String toString() {

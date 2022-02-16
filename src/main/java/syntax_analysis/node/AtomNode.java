@@ -2,7 +2,7 @@ package syntax_analysis.node;
 
 import lexical_analysis.tokens.IdentifierToken;
 
-public class AtomNode extends Node {
+public class AtomNode implements NodeInterface {
     public String name;
     public String value;
 

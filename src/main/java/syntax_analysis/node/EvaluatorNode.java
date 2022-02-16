@@ -1,9 +1,9 @@
 package syntax_analysis.node;
 
-public class EvaluatorNode extends Node {
-    ElementNode element;
+public class EvaluatorNode implements NodeInterface {
+    NodeInterface element;
 
-    public EvaluatorNode(ElementNode element) {
+    public EvaluatorNode(NodeInterface element) {
         this.element = element;
     }
 

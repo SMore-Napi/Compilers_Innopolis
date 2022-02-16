@@ -1,21 +1,17 @@
 package syntax_analysis.node;
 
-public class OperationOnListsNode extends Node{
+public class OperationOnListsNode implements NodeInterface {
 
-    public enum Operation {
-        HEAD, TAIL, CONS
-    }
-
-    ElementNode element;
-    ElementNode list;
+    NodeInterface element;
+    NodeInterface list;
     Operation operation;
 
-    public OperationOnListsNode(Operation operation, ElementNode list) {
+    public OperationOnListsNode(Operation operation, NodeInterface list) {
         this.list = list;
         this.operation = operation;
     }
 
-    public OperationOnListsNode(Operation operation, ElementNode element, ElementNode list) {
+    public OperationOnListsNode(Operation operation, NodeInterface element, NodeInterface list) {
         this.list = list;
         this.element = element;
         this.operation = operation;
@@ -34,5 +30,9 @@ public class OperationOnListsNode extends Node{
                 "list=" + list +
                 ", operation=" + operation +
                 '}';
+    }
+
+    public enum Operation {
+        HEAD, TAIL, CONS
     }
 }

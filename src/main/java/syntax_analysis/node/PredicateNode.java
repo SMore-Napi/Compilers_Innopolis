@@ -1,15 +1,11 @@
 package syntax_analysis.node;
 
-public class PredicateNode extends Node{
-    public enum Operation {
-        ISINT, ISREAL, ISBOOL, ISNULL, ISATOM, ISLIST
-    }
-
-    ElementNode element;
+public class PredicateNode implements NodeInterface {
+    NodeInterface element;
     Operation operation;
 
-    public PredicateNode(Operation operation, ElementNode element) {
-        element = element;
+    public PredicateNode(Operation operation, NodeInterface element) {
+        this.element = element;
         this.operation = operation;
     }
 
@@ -19,5 +15,9 @@ public class PredicateNode extends Node{
                 "Element=" + element +
                 ", operation=" + operation +
                 '}';
+    }
+
+    public enum Operation {
+        ISINT, ISREAL, ISBOOL, ISNULL, ISATOM, ISLIST
     }
 }
