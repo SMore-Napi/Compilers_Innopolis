@@ -11,4 +11,9 @@ public class AST {
     public void printAST() {
         System.out.println(root);
     }
+
+    public String evaluate() {
+        NodeInterface result = root.evaluate();
+        return result.toString();
+    }
 }

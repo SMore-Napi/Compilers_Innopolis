@@ -10,6 +10,18 @@ public class LiteralNode implements NodeInterface {
     public Double realValue;
     public Boolean booleanValue;
 
+    public LiteralNode(int value) {
+        integerValue = value;
+    }
+
+    public LiteralNode(double value) {
+        realValue = value;
+    }
+
+    public LiteralNode(boolean value) {
+        booleanValue = value;
+    }
+
     public LiteralNode(LiteralToken token) {
         String content = token.getContent();
         if (token instanceof IntegerNumberLiteralToken) {
@@ -21,23 +33,35 @@ public class LiteralNode implements NodeInterface {
         }
     }
 
+    public Object getValue() {
+        if (integerValue != null) {
+            return integerValue;
+        }
+        if (realValue != null) {
+            return realValue;
+        }
+        if (booleanValue != null) {
+            return booleanValue;
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         if (integerValue != null) {
-            return "LiteralNode{" +
-                    "integer=" + integerValue +
-                    '}';
+            return "int=" + integerValue;
         }
         if (realValue != null) {
-            return "LiteralNode{" +
-                    "real=" + realValue +
-                    '}';
+            return "real=" + realValue;
         }
         if (booleanValue != null) {
-            return "LiteralNode{" +
-                    "boolean=" + booleanValue +
-                    '}';
+            return "bool=" + booleanValue;
         }
-        return "LiteralNode{null}";
+        return "null";
+    }
+
+    @Override
+    public NodeInterface evaluate() {
+        return this;
     }
 }

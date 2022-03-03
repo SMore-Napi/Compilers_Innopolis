@@ -11,7 +11,7 @@ public class Compiler {
 
     private final String sourceProgramPath;
 
-    public Compiler(String sourceProgramPath) {
+    public Compiler(final String sourceProgramPath) {
         this.sourceProgramPath = sourceProgramPath;
     }
 
@@ -21,9 +21,20 @@ public class Compiler {
         return lexerAdapter.getTokens();
     }
 
-    public void syntaxAnalysis() throws IOException {
-        AST ast = Parser.makeAST(sourceProgramPath);
-        System.out.println("======");
-        ast.printAST();
+    public AST syntaxAnalysis() throws IOException {
+        return Parser.makeAST(sourceProgramPath);
+    }
+
+    public String interpret() throws IOException {
+        return this.interpret(null);
+    }
+
+    public String interpret(final Boolean logging) throws IOException {
+        AST ast = this.syntaxAnalysis();
+        if (ast != null) {
+            Interpreter interpreter = logging != null ? new Interpreter(ast, logging) : new Interpreter(ast);
+            return interpreter.interpret();
+        }
+        return "";
     }
 }

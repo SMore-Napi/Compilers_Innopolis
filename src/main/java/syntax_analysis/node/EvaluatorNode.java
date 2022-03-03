@@ -8,9 +8,16 @@ public class EvaluatorNode implements NodeInterface {
     }
 
     @Override
+    public NodeInterface evaluate() {
+        System.out.println("=====");
+        System.out.println("Initial node: " + this);
+        System.out.println("Evaluated node: " + element);
+        System.out.println("=====");
+        return element.evaluate();
+    }
+
+    @Override
     public String toString() {
-        return "EvaluatorNode{" +
-                "element=" + element +
-                '}';
+        return "eval{" + element + '}';
     }
 }
