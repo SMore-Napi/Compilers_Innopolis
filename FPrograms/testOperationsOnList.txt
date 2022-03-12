@@ -1,0 +1,3 @@
+(cons 2 (tail (cons (head (2 3 4)) (tail (2 1 5)))))
+(cons 2 ())
+(tail (cons 2 (a b c)))

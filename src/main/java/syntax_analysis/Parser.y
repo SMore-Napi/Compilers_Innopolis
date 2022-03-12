@@ -112,6 +112,7 @@ List
 	| OpenParenthesisToken Predicate CloseParenthesisToken {$$ = new ListNode($2);}
 	| OpenParenthesisToken LogicalOperator CloseParenthesisToken {$$ = new ListNode($2);}
 	| OpenParenthesisToken Evaluator CloseParenthesisToken {$$ = new ListNode($2);}
+	| OpenParenthesisToken CloseParenthesisToken {$$ = new ListNode();}
 	;
 OptionalElement
 	: /* empty */ {$$ = null;}

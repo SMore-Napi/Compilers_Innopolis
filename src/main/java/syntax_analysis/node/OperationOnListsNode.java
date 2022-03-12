@@ -17,6 +17,38 @@ public class OperationOnListsNode implements NodeInterface {
         this.operation = operation;
     }
 
+    //  Примеры в testOperationsOnList.txt
+    //  TODO: выглядит все очень костыльно, возможно можно придумать более красивое решение
+    //  TODO: (cons 2 (head (1 2 3))) такое выводит какой-то аутпут, но по идее должен выводить ошибку
+    @Override
+    public NodeInterface evaluate() {
+        if (operation == Operation.CONS){
+            try {
+                return new ListNode(element, (ListNode) list.evaluate());
+            } catch (ClassCastException classCastException){
+                return new ListNode(element, (ListNode) list);
+            }
+
+        } else if (operation == Operation.HEAD){
+            try {
+                return ((ListNode) list.evaluate()).headElement();
+            } catch (ClassCastException classCastException){
+                return ((ListNode) list).headElement();
+            }
+
+        } else if (operation == Operation.TAIL){
+            try {
+                // если у нас такой пример (tail (2)), то тут будет ClassCastException
+                return ((ListNode) list.evaluate()).tailOfList();
+            } catch (ClassCastException classCastException){
+                return ((ListNode) list).tailOfList();
+            }
+
+        } else {
+            return null;
+        }
+    }
+
     @Override
     public String toString() {
         if (element != null) {
