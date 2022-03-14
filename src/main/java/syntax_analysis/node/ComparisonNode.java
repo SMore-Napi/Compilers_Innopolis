@@ -1,6 +1,6 @@
 package syntax_analysis.node;
 
-import exceptions.ComparisionException;
+import exceptions.ComparisonException;
 
 public class ComparisonNode implements NodeInterface {
     NodeInterface firstElement;
@@ -50,7 +50,7 @@ public class ComparisonNode implements NodeInterface {
                 } else if (lOBool != null && rOBool != null){
                     return lOBool == (boolean) rOBool;
                 } else {
-                    throw new ComparisionException(": Wrong operands in EQUAL operation", true);
+                    throw new ComparisonException(": Wrong operands in EQUAL operation", true);
                 }
             case NONEQUAL:
                 if (lOInt != null && rOInt != null) {
@@ -64,7 +64,7 @@ public class ComparisonNode implements NodeInterface {
                 } else if (lOBool != null && rOBool != null){
                     return lOBool != (boolean) rOBool;
                 } else {
-                    throw new ComparisionException(": Wrong operands in NONEQUAL operation", true);
+                    throw new ComparisonException(": Wrong operands in NONEQUAL operation", true);
                 }
             case LESS:
                 if (lOInt != null && rOInt != null) {
@@ -76,7 +76,7 @@ public class ComparisonNode implements NodeInterface {
                 } else if (lOReal != null && rOReal != null) {
                     return (double) lOReal < (double) rOReal;
                 } else {
-                    throw new ComparisionException(": Wrong operands in LESS operation",true);
+                    throw new ComparisonException(": Wrong operands in LESS operation",true);
                 }
             case LESSEQUAL:
                 if (lOInt != null && rOInt != null) {
@@ -88,7 +88,7 @@ public class ComparisonNode implements NodeInterface {
                 } else if (lOReal != null && rOReal != null) {
                     return (double) lOReal <= (double) rOReal;
                 } else {
-                    throw new ComparisionException(": Wrong operands in LESSEQUAL operation",true);
+                    throw new ComparisonException(": Wrong operands in LESSEQUAL operation",true);
                 }
             case GREATER:
                 if (lOInt != null && rOInt != null) {
@@ -100,7 +100,7 @@ public class ComparisonNode implements NodeInterface {
                 } else if (lOReal != null && rOReal != null) {
                     return (double) lOReal > (double) rOReal;
                 } else {
-                    throw new ComparisionException(": Wrong operands in GREATER operation",true);
+                    throw new ComparisonException(": Wrong operands in GREATER operation",true);
                 }
             case GREATEREQUAL:
                 if (lOInt != null && rOInt != null) {
@@ -112,7 +112,7 @@ public class ComparisonNode implements NodeInterface {
                 } else if (lOReal != null && rOReal != null) {
                     return (double) lOReal >= (double) rOReal;
                 } else {
-                    throw new ComparisionException(": Wrong operands in LESS operation",true);
+                    throw new ComparisonException(": Wrong operands in LESS operation",true);
                 }
         }
         return null;
@@ -126,7 +126,7 @@ public class ComparisonNode implements NodeInterface {
                 throw new RuntimeException(exceptionMessage);
             }
         } catch (ClassCastException e) {
-            throw new ComparisionException(": Literal value must be integer or real or boolean. Provided: " + nodeInterface.evaluate(),true);
+            throw new ComparisonException(": Literal value must be integer or real or boolean. Provided: " + nodeInterface.evaluate(),true);
         }
     }
     @Override

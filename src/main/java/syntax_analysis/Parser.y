@@ -5,15 +5,30 @@
 %define api.parser.public
 
 %code imports {
-	import java.io.IOException;
-	import java.io.FileReader;
-	import java.util.List;
-	import lexical_analysis.tokens.keyword.QuoteShortToken;
-        import syntax_analysis.node.*;
-        import lexical_analysis.tokens.Token;
-        import lexical_analysis.tokens.literal.*;
+	import lexical_analysis.tokens.EvalToken;
         import lexical_analysis.tokens.IdentifierToken;
+        import lexical_analysis.tokens.arithmetic_function.DivideToken;
+        import lexical_analysis.tokens.arithmetic_function.MinusToken;
+        import lexical_analysis.tokens.arithmetic_function.PlusToken;
+        import lexical_analysis.tokens.arithmetic_function.TimesToken;
+        import lexical_analysis.tokens.comparison.*;
+        import lexical_analysis.tokens.literal.BooleanLiteralToken;
+        import lexical_analysis.tokens.literal.IntegerNumberLiteralToken;
+        import lexical_analysis.tokens.literal.NullLiteralToken;
+        import lexical_analysis.tokens.literal.RealNumberLiteralToken;
+        import lexical_analysis.tokens.logical_operator.AndToken;
+        import lexical_analysis.tokens.logical_operator.NotToken;
+        import lexical_analysis.tokens.logical_operator.OrToken;
+        import lexical_analysis.tokens.logical_operator.XorToken;
+        import lexical_analysis.tokens.operation_on_lists.ConsToken;
+        import lexical_analysis.tokens.operation_on_lists.HeadToken;
+        import lexical_analysis.tokens.operation_on_lists.TailToken;
+        import lexical_analysis.tokens.predicate.*;
+        import syntax_analysis.node.*;
         import syntax_analysis.node.special_form.*;
+
+        import java.io.FileReader;
+        import java.io.IOException;
 }
 
 %code {
@@ -36,7 +51,7 @@
 %token <IdentifierToken> IdentifierToken
 %token <QuoteToken> QuoteToken
 %token <QuoteShortToken> QuoteShortToken
-%token <SetqToken> SetqToken
+%token <SetQToken> SetQToken
 %token <FuncToken> FuncToken
 %token <LambdaToken> LambdaToken
 %token <ProgToken> ProgToken
@@ -76,12 +91,6 @@
 %type <AtomNode> Atom
 %type <LiteralNode> Literal
 %type <NodeInterface> List
-%type <ArithmeticFunctionNode> ArithmeticFunction
-%type <OperationOnListsNode> OperationOnLists
-%type <ComparisonNode> Comparison
-%type <PredicateNode> Predicate
-%type <LogicalOperatorNode> LogicalOperator
-%type <EvaluatorNode> Evaluator
 %type <NodeInterface> SpecialForm
 %type <NodeInterface> OptionalElement
 
@@ -106,30 +115,15 @@ Element
 List
 	: OpenParenthesisToken Element Elements CloseParenthesisToken {$$ = new ListNode($2, $3);}
 	| OpenParenthesisToken SpecialForm CloseParenthesisToken {$$ = $2;}
-	| OpenParenthesisToken ArithmeticFunction CloseParenthesisToken {$$ = new ListNode($2);}
-	| OpenParenthesisToken OperationOnLists CloseParenthesisToken {$$ = new ListNode($2);}
-	| OpenParenthesisToken Comparison CloseParenthesisToken {$$ = new ListNode($2);}
-	| OpenParenthesisToken Predicate CloseParenthesisToken {$$ = new ListNode($2);}
-	| OpenParenthesisToken LogicalOperator CloseParenthesisToken {$$ = new ListNode($2);}
-	| OpenParenthesisToken Evaluator CloseParenthesisToken {$$ = new ListNode($2);}
 	| OpenParenthesisToken CloseParenthesisToken {$$ = new ListNode();}
 	;
 OptionalElement
 	: /* empty */ {$$ = null;}
 	| Element {$$ = $1;}
 	;
-Atom
-	: IdentifierToken {$$ = new AtomNode($1);}
-	;
-Literal
-	: IntegerNumberLiteralToken {$$ = new LiteralNode($1);}
-	| RealNumberLiteralToken {$$ = new LiteralNode($1);}
-	| BooleanLiteralToken {$$ = new LiteralNode($1);}
-	| NullLiteralToken {$$ = new LiteralNode($1);}
-	;
 SpecialForm
 	: QuoteToken Element {$$ = new QuoteNode($2);}
-	| SetqToken Atom Element {$$ = new SetqNode($2, $3);}
+	| SetQToken Atom Element {$$ = new SetQNode($2, $3);}
 	| FuncToken Atom List Element {$$ = new FuncNode($2, $3, $4);}
 	| LambdaToken List Element {$$ = new LambdaNode($2, $3);}
 	| ProgToken List Element {$$ = new ProgNode($2, $3);}
@@ -138,40 +132,37 @@ SpecialForm
 	| ReturnToken Element {$$ = new ReturnNode($2);}
 	| BreakToken {$$ = new BreakNode();}
 	;
-ArithmeticFunction
-	: PlusToken Element Element {$$ = new ArithmeticFunctionNode(ArithmeticFunctionNode.Operation.ADDITION, $2, $3);}
-	| MinusToken Element Element {$$ = new ArithmeticFunctionNode(ArithmeticFunctionNode.Operation.SUBTRACTION, $2, $3);}
-	| TimesToken Element Element {$$ = new ArithmeticFunctionNode(ArithmeticFunctionNode.Operation.MULTIPLICATION, $2, $3);}
-	| DivideToken Element Element {$$ = new ArithmeticFunctionNode(ArithmeticFunctionNode.Operation.DIVISION, $2, $3);}
+Atom
+	: IdentifierToken {$$ = new AtomNode($1);}
+	| PlusToken {$$ = new AtomNode($1);}
+	| MinusToken {$$ = new AtomNode($1);}
+	| TimesToken {$$ = new AtomNode($1);}
+	| DivideToken {$$ = new AtomNode($1);}
+	| HeadToken {$$ = new AtomNode($1);}
+	| TailToken {$$ = new AtomNode($1);}
+	| ConsToken {$$ = new AtomNode($1);}
+	| EqualToken {$$ = new AtomNode($1);}
+	| NonEqualToken {$$ = new AtomNode($1);}
+	| LessToken {$$ = new AtomNode($1);}
+	| LessEqToken {$$ = new AtomNode($1);}
+	| GreaterToken {$$ = new AtomNode($1);}
+	| GreaterEqToken {$$ = new AtomNode($1);}
+	| IsIntToken {$$ = new AtomNode($1);}
+	| IsRealToken {$$ = new AtomNode($1);}
+	| IsBoolToken {$$ = new AtomNode($1);}
+	| IsNullToken {$$ = new AtomNode($1);}
+	| IsAtomToken {$$ = new AtomNode($1);}
+	| IsListToken {$$ = new AtomNode($1);}
+	| AndToken {$$ = new AtomNode($1);}
+	| OrToken {$$ = new AtomNode($1);}
+	| XorToken {$$ = new AtomNode($1);}
+	| NotToken {$$ = new AtomNode($1);}
+	| EvalToken {$$ = new AtomNode($1);}
 	;
-OperationOnLists
-	: HeadToken Element {$$ = new OperationOnListsNode(OperationOnListsNode.Operation.HEAD, $2);}
-	| TailToken Element {$$ = new OperationOnListsNode(OperationOnListsNode.Operation.TAIL, $2);}
-	| ConsToken Element Element {$$ = new OperationOnListsNode(OperationOnListsNode.Operation.CONS, $2, $3);}
-	;
-Comparison
-	: EqualToken Element Element {$$ = new ComparisonNode(ComparisonNode.Operation.EQUAL, $2, $3);}
-	| NonEqualToken Element Element {$$ = new ComparisonNode(ComparisonNode.Operation.NONEQUAL, $2, $3);}
-	| LessToken Element Element {$$ = new ComparisonNode(ComparisonNode.Operation.LESS, $2, $3);}
-	| LessEqToken Element Element {$$ = new ComparisonNode(ComparisonNode.Operation.LESSEQUAL, $2, $3);}
-	| GreaterToken Element Element {$$ = new ComparisonNode(ComparisonNode.Operation.GREATER, $2, $3);}
-	| GreaterEqToken Element Element {$$ = new ComparisonNode(ComparisonNode.Operation.GREATEREQUAL, $2, $3);}
-	;
-Predicate
-	: IsIntToken Element {$$ = new PredicateNode(PredicateNode.Operation.ISINT, $2);}
-	| IsRealToken Element {$$ = new PredicateNode(PredicateNode.Operation.ISREAL, $2);}
-	| IsBoolToken Element {$$ = new PredicateNode(PredicateNode.Operation.ISBOOL, $2);}
-	| IsNullToken Element {$$ = new PredicateNode(PredicateNode.Operation.ISNULL, $2);}
-	| IsAtomToken Element {$$ = new PredicateNode(PredicateNode.Operation.ISATOM, $2);}
-	| IsListToken Element {$$ = new PredicateNode(PredicateNode.Operation.ISLIST, $2);}
-	;
-LogicalOperator
-	: AndToken Element Element {$$ = new LogicalOperatorNode(LogicalOperatorNode.Operation.AND, $2, $3);}
-	| OrToken Element Element {$$ = new LogicalOperatorNode(LogicalOperatorNode.Operation.OR, $2, $3);}
-	| XorToken Element Element {$$ = new LogicalOperatorNode(LogicalOperatorNode.Operation.XOR, $2, $3);}
-	| NotToken Element {$$ = new LogicalOperatorNode(LogicalOperatorNode.Operation.NOT, $2);}
-	;
-Evaluator
-	: EvalToken Element {$$ = new EvaluatorNode($2);}
+Literal
+	: IntegerNumberLiteralToken {$$ = new LiteralNode($1);}
+	| RealNumberLiteralToken {$$ = new LiteralNode($1);}
+	| BooleanLiteralToken {$$ = new LiteralNode($1);}
+	| NullLiteralToken {$$ = new LiteralNode($1);}
 	;
 %%

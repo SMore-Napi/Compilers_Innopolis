@@ -16,4 +16,9 @@ public class AST {
         NodeInterface result = root.evaluate();
         return result.toString();
     }
+
+    @Override
+    public String toString() {
+        return root.toString();
+    }
 }

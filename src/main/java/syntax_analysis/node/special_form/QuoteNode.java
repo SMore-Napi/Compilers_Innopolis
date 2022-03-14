@@ -10,9 +10,12 @@ public class QuoteNode implements NodeInterface {
     }
 
     @Override
+    public NodeInterface evaluate() {
+        return element;
+    }
+
+    @Override
     public String toString() {
-        return "QuoteNode{" +
-                "element=" + element +
-                '}';
+        return "Quote={" + element + '}';
     }
 }

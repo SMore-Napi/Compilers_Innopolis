@@ -1001,7 +1001,7 @@ public class Lexer {
                     case 70:
                         break;
                     case 25: {
-                        addToken(SetqToken.class, yyline, yycolumn, yytext());
+                        addToken(SetQToken.class, yyline, yycolumn, yytext());
                     }
                     // fall through
                     case 71:

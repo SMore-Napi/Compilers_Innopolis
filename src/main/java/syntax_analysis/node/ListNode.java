@@ -2,6 +2,7 @@ package syntax_analysis.node;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ListNode implements NodeInterface {
     List<NodeInterface> elements;
@@ -14,6 +15,7 @@ public class ListNode implements NodeInterface {
         elements = new ArrayList<>();
         elements.add(element);
     }
+
     public ListNode(List<NodeInterface> elements) {
         this.elements = new ArrayList<>();
         this.elements.addAll(elements);
@@ -25,19 +27,19 @@ public class ListNode implements NodeInterface {
         elements.addAll(list.elements);
     }
 
-    public NodeInterface headElement(){
-        if (elements.size() > 0){
+    public NodeInterface headElement() {
+        if (elements.size() > 0) {
             return elements.get(0);
         } else {
             return null;
         }
     }
 
-    public NodeInterface tailOfList(){
-        if (elements.size() == 1){
+    public NodeInterface tailOfList() {
+        if (elements.size() == 1) {
             return new ListNode();
-        } else if(elements.size() > 1){
-            return new ListNode(elements.subList(1,elements.size()));
+        } else if (elements.size() > 1) {
+            return new ListNode(elements.subList(1, elements.size()));
         } else {
             return null;
         }
@@ -52,10 +54,13 @@ public class ListNode implements NodeInterface {
     public NodeInterface evaluate() {
         System.out.println("=====");
         System.out.println("Initial node: " + elements);
-        List<NodeInterface> evaluatedElements = new ArrayList<>();
-        for (NodeInterface element : elements){
-            evaluatedElements.add(element.evaluate());
+        PredefinedFunction predefinedFunction = new PredefinedFunction(elements);
+        if (predefinedFunction.isPredefinedFunction()) {
+            return predefinedFunction.performFunctionAction();
         }
+        List<NodeInterface> evaluatedElements = elements.stream()
+                .map(NodeInterface::evaluate)
+                .collect(Collectors.toList());
         System.out.println("Evaluated node: " + evaluatedElements);
         System.out.println("=====");
         if (evaluatedElements.size() == 1) {

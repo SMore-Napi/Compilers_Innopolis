@@ -1,25 +1,30 @@
 package syntax_analysis.node;
 
 import lexical_analysis.tokens.IdentifierToken;
+import lexical_analysis.tokens.Token;
+import syntax_analysis.AtomsTable;
 
 public class AtomNode implements NodeInterface {
     public String name;
-    public String value;
+    public NodeInterface value;
 
-    public AtomNode(IdentifierToken token) {
+    public AtomNode(Token token) {
         name = token.getContent();
+        value = null;
     }
 
     @Override
     public NodeInterface evaluate() {
-        return this;
+        return AtomsTable.getInstance().getAtomValue(name);
+//        value = AtomsTable.getInstance().getAtomValue(name);
+//        return this;
     }
 
     @Override
     public String toString() {
         return "AtomNode{" +
                 "name='" + name + '\'' +
-                ", value='" + value + '\'' +
+                ", value={" + value + '}' +
                 '}';
     }
 }

@@ -137,10 +137,10 @@ IllegalIdentifier = [0-9]+[[a-zA-Z]*[0-9]*]*
 
 {OpenBrace}  {addToken(OpenParenthesisToken.class, yyline, yycolumn, yytext());}
 {CloseBrace} {addToken(CloseParenthesisToken.class, yyline, yycolumn, yytext());}
-{Setq} {addToken(SetqToken.class, yyline, yycolumn, yytext());}
+{Setq} {addToken(SetQToken.class, yyline, yycolumn, yytext());}
 {QuoteShort} {addToken(QuoteShortToken.class, yyline, yycolumn, yytext());}
 {Quote} {addToken(QuoteToken.class, yyline, yycolumn, yytext());}
-{Setq} {addToken(SetqToken.class, yyline, yycolumn, yytext());}
+{Setq} {addToken(SetQToken.class, yyline, yycolumn, yytext());}
 {Func} {addToken(FuncToken.class, yyline, yycolumn, yytext());}
 {Lambda} {addToken(LambdaToken.class, yyline, yycolumn, yytext());}
 {Prog} {addToken(ProgToken.class, yyline, yycolumn, yytext());}
