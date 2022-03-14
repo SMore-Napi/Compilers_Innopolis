@@ -1,0 +1,2 @@
+(setq a 55)
+(head (a b c de))

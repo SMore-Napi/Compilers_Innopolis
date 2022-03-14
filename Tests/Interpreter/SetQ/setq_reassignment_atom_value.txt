@@ -1,0 +1,6 @@
+(setq x 5)
+(setq y 6)
+(setq z x)
+(setq z y)
+(x y z)
+

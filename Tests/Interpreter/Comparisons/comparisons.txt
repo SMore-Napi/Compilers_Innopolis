@@ -1,4 +1,3 @@
-(equal 1 true)
 (equal true (and true false))
 (nonequal false (or (and false true) (or false false)))
 (nonequal 2 (minus 4 2))

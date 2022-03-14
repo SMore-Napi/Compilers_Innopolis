@@ -1,0 +1,3 @@
+(setq b 55)
+(setq de 66)
+(tail (a b c de))
