@@ -37,21 +37,16 @@
 package syntax_analysis;
 
 
+import lexical_analysis.tokens.IdentifierToken;
+import lexical_analysis.tokens.literal.BooleanLiteralToken;
+import lexical_analysis.tokens.literal.IntegerNumberLiteralToken;
+import lexical_analysis.tokens.literal.NullLiteralToken;
+import lexical_analysis.tokens.literal.RealNumberLiteralToken;
+import syntax_analysis.node.*;
+import syntax_analysis.node.special_form.*;
 
-import java.text.MessageFormat;
-import java.util.ArrayList;
-/* "%code imports" blocks.  */
-/* "Parser.y":7  */
-
-	import java.io.IOException;
-	import java.io.FileReader;
-	import java.util.List;
-	import lexical_analysis.tokens.keyword.QuoteShortToken;
-        import syntax_analysis.node.*;
-        import lexical_analysis.tokens.Token;
-        import lexical_analysis.tokens.literal.*;
-        import lexical_analysis.tokens.IdentifierToken;
-        import syntax_analysis.node.special_form.*;
+import java.io.FileReader;
+import java.io.IOException;
 
 /* "Parser.java":57  */
 
@@ -60,21 +55,19 @@ import java.util.ArrayList;
  *
  * @author LALR (1) parser skeleton written by Paolo Bonzini.
  */
-public class Parser
-{
-  /** Version number for the Bison executable that generated this parser.  */
+public class Parser {
+  /**
+   * Version number for the Bison executable that generated this parser.
+   */
   public static final String bisonVersion = "3.8.2";
 
-  /** Name of the skeleton that generated this parser.  */
+  /**
+   * Name of the skeleton that generated this parser.
+   */
   public static final String bisonSkeleton = "lalr1.java";
 
 
-
-
-
-
-  public enum SymbolKind
-  {
+  public enum SymbolKind {
     S_YYEOF(0),                    /* "end of file"  */
     S_YYerror(1),                  /* error  */
     S_YYUNDEF(2),                  /* "invalid token"  */
@@ -138,70 +131,70 @@ public class Parser
 
     private final int yycode_;
 
-    SymbolKind (int n) {
+    SymbolKind(int n) {
       this.yycode_ = n;
     }
 
     private static final SymbolKind[] values_ = {
-      SymbolKind.S_YYEOF,
-      SymbolKind.S_YYerror,
-      SymbolKind.S_YYUNDEF,
-      SymbolKind.S_OpenParenthesisToken,
-      SymbolKind.S_CloseParenthesisToken,
-      SymbolKind.S_IntegerNumberLiteralToken,
-      SymbolKind.S_RealNumberLiteralToken,
-      SymbolKind.S_BooleanLiteralToken,
-      SymbolKind.S_NullLiteralToken,
-      SymbolKind.S_IdentifierToken,
-      SymbolKind.S_QuoteToken,
-      SymbolKind.S_QuoteShortToken,
-      SymbolKind.S_SetqToken,
-      SymbolKind.S_FuncToken,
-      SymbolKind.S_LambdaToken,
-      SymbolKind.S_ProgToken,
-      SymbolKind.S_CondToken,
-      SymbolKind.S_WhileToken,
-      SymbolKind.S_ReturnToken,
-      SymbolKind.S_BreakToken,
-      SymbolKind.S_PlusToken,
-      SymbolKind.S_MinusToken,
-      SymbolKind.S_TimesToken,
-      SymbolKind.S_DivideToken,
-      SymbolKind.S_HeadToken,
-      SymbolKind.S_TailToken,
-      SymbolKind.S_ConsToken,
-      SymbolKind.S_EqualToken,
-      SymbolKind.S_NonEqualToken,
-      SymbolKind.S_LessToken,
-      SymbolKind.S_LessEqToken,
-      SymbolKind.S_GreaterToken,
-      SymbolKind.S_GreaterEqToken,
-      SymbolKind.S_IsIntToken,
-      SymbolKind.S_IsRealToken,
-      SymbolKind.S_IsBoolToken,
-      SymbolKind.S_IsNullToken,
-      SymbolKind.S_IsAtomToken,
-      SymbolKind.S_IsListToken,
-      SymbolKind.S_AndToken,
-      SymbolKind.S_OrToken,
-      SymbolKind.S_XorToken,
-      SymbolKind.S_NotToken,
-      SymbolKind.S_EvalToken,
-      SymbolKind.S_YYACCEPT,
-      SymbolKind.S_Program,
-      SymbolKind.S_Elements,
-      SymbolKind.S_Element,
-      SymbolKind.S_List,
-      SymbolKind.S_OptionalElement,
-      SymbolKind.S_Atom,
-      SymbolKind.S_Literal,
-      SymbolKind.S_SpecialForm,
-      SymbolKind.S_ArithmeticFunction,
-      SymbolKind.S_OperationOnLists,
-      SymbolKind.S_Comparison,
-      SymbolKind.S_Predicate,
-      SymbolKind.S_LogicalOperator,
-      SymbolKind.S_Evaluator
+            SymbolKind.S_YYEOF,
+            SymbolKind.S_YYerror,
+            SymbolKind.S_YYUNDEF,
+            SymbolKind.S_OpenParenthesisToken,
+            SymbolKind.S_CloseParenthesisToken,
+            SymbolKind.S_IntegerNumberLiteralToken,
+            SymbolKind.S_RealNumberLiteralToken,
+            SymbolKind.S_BooleanLiteralToken,
+            SymbolKind.S_NullLiteralToken,
+            SymbolKind.S_IdentifierToken,
+            SymbolKind.S_QuoteToken,
+            SymbolKind.S_QuoteShortToken,
+            SymbolKind.S_SetqToken,
+            SymbolKind.S_FuncToken,
+            SymbolKind.S_LambdaToken,
+            SymbolKind.S_ProgToken,
+            SymbolKind.S_CondToken,
+            SymbolKind.S_WhileToken,
+            SymbolKind.S_ReturnToken,
+            SymbolKind.S_BreakToken,
+            SymbolKind.S_PlusToken,
+            SymbolKind.S_MinusToken,
+            SymbolKind.S_TimesToken,
+            SymbolKind.S_DivideToken,
+            SymbolKind.S_HeadToken,
+            SymbolKind.S_TailToken,
+            SymbolKind.S_ConsToken,
+            SymbolKind.S_EqualToken,
+            SymbolKind.S_NonEqualToken,
+            SymbolKind.S_LessToken,
+            SymbolKind.S_LessEqToken,
+            SymbolKind.S_GreaterToken,
+            SymbolKind.S_GreaterEqToken,
+            SymbolKind.S_IsIntToken,
+            SymbolKind.S_IsRealToken,
+            SymbolKind.S_IsBoolToken,
+            SymbolKind.S_IsNullToken,
+            SymbolKind.S_IsAtomToken,
+            SymbolKind.S_IsListToken,
+            SymbolKind.S_AndToken,
+            SymbolKind.S_OrToken,
+            SymbolKind.S_XorToken,
+            SymbolKind.S_NotToken,
+            SymbolKind.S_EvalToken,
+            SymbolKind.S_YYACCEPT,
+            SymbolKind.S_Program,
+            SymbolKind.S_Elements,
+            SymbolKind.S_Element,
+            SymbolKind.S_List,
+            SymbolKind.S_OptionalElement,
+            SymbolKind.S_Atom,
+            SymbolKind.S_Literal,
+            SymbolKind.S_SpecialForm,
+            SymbolKind.S_ArithmeticFunction,
+            SymbolKind.S_OperationOnLists,
+            SymbolKind.S_Comparison,
+            SymbolKind.S_Predicate,
+            SymbolKind.S_LogicalOperator,
+            SymbolKind.S_Evaluator
     };
 
     static final SymbolKind get(int code) {
@@ -217,63 +210,63 @@ public class Parser
        that double-quoting is unnecessary unless the string contains an
        apostrophe, a comma, or backslash (other than backslash-backslash).
        YYSTR is taken from yytname.  */
-    private static String yytnamerr_(String yystr)
-    {
-      if (yystr.charAt (0) == '"')
-        {
-          StringBuffer yyr = new StringBuffer();
-          strip_quotes: for (int i = 1; i < yystr.length(); i++)
-            switch (yystr.charAt(i))
-              {
-              case '\'':
-              case ',':
+    private static String yytnamerr_(String yystr) {
+      if (yystr.charAt(0) == '"') {
+        StringBuffer yyr = new StringBuffer();
+        strip_quotes:
+        for (int i = 1; i < yystr.length(); i++)
+          switch (yystr.charAt(i)) {
+            case '\'':
+            case ',':
+              break strip_quotes;
+
+            case '\\':
+              if (yystr.charAt(++i) != '\\')
                 break strip_quotes;
+              /* Fall through.  */
+            default:
+              yyr.append(yystr.charAt(i));
+              break;
 
-              case '\\':
-                if (yystr.charAt(++i) != '\\')
-                  break strip_quotes;
-                /* Fall through.  */
-              default:
-                yyr.append(yystr.charAt(i));
-                break;
-
-              case '"':
-                return yyr.toString();
-              }
-        }
+            case '"':
+              return yyr.toString();
+          }
+      }
       return yystr;
     }
 
     /* YYTNAME[SYMBOL-NUM] -- String name of the symbol SYMBOL-NUM.
        First, the terminals, then, starting at \a YYNTOKENS_, nonterminals.  */
     private static final String[] yytname_ = yytname_init();
-  private static final String[] yytname_init()
-  {
-    return new String[]
-    {
-  "\"end of file\"", "error", "\"invalid token\"", "OpenParenthesisToken",
-  "CloseParenthesisToken", "IntegerNumberLiteralToken",
-  "RealNumberLiteralToken", "BooleanLiteralToken", "NullLiteralToken",
-  "IdentifierToken", "QuoteToken", "QuoteShortToken", "SetqToken",
-  "FuncToken", "LambdaToken", "ProgToken", "CondToken", "WhileToken",
-  "ReturnToken", "BreakToken", "PlusToken", "MinusToken", "TimesToken",
-  "DivideToken", "HeadToken", "TailToken", "ConsToken", "EqualToken",
-  "NonEqualToken", "LessToken", "LessEqToken", "GreaterToken",
-  "GreaterEqToken", "IsIntToken", "IsRealToken", "IsBoolToken",
-  "IsNullToken", "IsAtomToken", "IsListToken", "AndToken", "OrToken",
-  "XorToken", "NotToken", "EvalToken", "$accept", "Program", "Elements",
-  "Element", "List", "OptionalElement", "Atom", "Literal", "SpecialForm",
-  "ArithmeticFunction", "OperationOnLists", "Comparison", "Predicate",
-  "LogicalOperator", "Evaluator", null
-    };
-  }
+
+    private static final String[] yytname_init() {
+      return new String[]
+              {
+                      "\"end of file\"", "error", "\"invalid token\"", "OpenParenthesisToken",
+                      "CloseParenthesisToken", "IntegerNumberLiteralToken",
+                      "RealNumberLiteralToken", "BooleanLiteralToken", "NullLiteralToken",
+                      "IdentifierToken", "QuoteToken", "QuoteShortToken", "SetqToken",
+                      "FuncToken", "LambdaToken", "ProgToken", "CondToken", "WhileToken",
+                      "ReturnToken", "BreakToken", "PlusToken", "MinusToken", "TimesToken",
+                      "DivideToken", "HeadToken", "TailToken", "ConsToken", "EqualToken",
+                      "NonEqualToken", "LessToken", "LessEqToken", "GreaterToken",
+                      "GreaterEqToken", "IsIntToken", "IsRealToken", "IsBoolToken",
+                      "IsNullToken", "IsAtomToken", "IsListToken", "AndToken", "OrToken",
+                      "XorToken", "NotToken", "EvalToken", "$accept", "Program", "Elements",
+                      "Element", "List", "OptionalElement", "Atom", "Literal", "SpecialForm",
+                      "ArithmeticFunction", "OperationOnLists", "Comparison", "Predicate",
+                      "LogicalOperator", "Evaluator", null
+              };
+    }
 
     /* The user-facing name of this symbol.  */
     public final String getName() {
       return yytnamerr_(yytname_[yycode_]);
     }
 
-  };
+  }
+
+  ;
 
 
   /**
@@ -282,101 +275,192 @@ public class Parser
    */
   public interface Lexer {
     /* Token kinds.  */
-    /** Token "end of file", to be returned by the scanner.  */
+    /**
+     * Token "end of file", to be returned by the scanner.
+     */
     static final int YYEOF = 0;
-    /** Token error, to be returned by the scanner.  */
+    /**
+     * Token error, to be returned by the scanner.
+     */
     static final int YYerror = 256;
-    /** Token "invalid token", to be returned by the scanner.  */
+    /**
+     * Token "invalid token", to be returned by the scanner.
+     */
     static final int YYUNDEF = 257;
-    /** Token OpenParenthesisToken, to be returned by the scanner.  */
+    /**
+     * Token OpenParenthesisToken, to be returned by the scanner.
+     */
     static final int OpenParenthesisToken = 258;
-    /** Token CloseParenthesisToken, to be returned by the scanner.  */
+    /**
+     * Token CloseParenthesisToken, to be returned by the scanner.
+     */
     static final int CloseParenthesisToken = 259;
-    /** Token IntegerNumberLiteralToken, to be returned by the scanner.  */
+    /**
+     * Token IntegerNumberLiteralToken, to be returned by the scanner.
+     */
     static final int IntegerNumberLiteralToken = 260;
-    /** Token RealNumberLiteralToken, to be returned by the scanner.  */
+    /**
+     * Token RealNumberLiteralToken, to be returned by the scanner.
+     */
     static final int RealNumberLiteralToken = 261;
-    /** Token BooleanLiteralToken, to be returned by the scanner.  */
+    /**
+     * Token BooleanLiteralToken, to be returned by the scanner.
+     */
     static final int BooleanLiteralToken = 262;
-    /** Token NullLiteralToken, to be returned by the scanner.  */
+    /**
+     * Token NullLiteralToken, to be returned by the scanner.
+     */
     static final int NullLiteralToken = 263;
-    /** Token IdentifierToken, to be returned by the scanner.  */
+    /**
+     * Token IdentifierToken, to be returned by the scanner.
+     */
     static final int IdentifierToken = 264;
-    /** Token QuoteToken, to be returned by the scanner.  */
+    /**
+     * Token QuoteToken, to be returned by the scanner.
+     */
     static final int QuoteToken = 265;
-    /** Token QuoteShortToken, to be returned by the scanner.  */
+    /**
+     * Token QuoteShortToken, to be returned by the scanner.
+     */
     static final int QuoteShortToken = 266;
-    /** Token SetqToken, to be returned by the scanner.  */
+    /**
+     * Token SetqToken, to be returned by the scanner.
+     */
     static final int SetqToken = 267;
-    /** Token FuncToken, to be returned by the scanner.  */
+    /**
+     * Token FuncToken, to be returned by the scanner.
+     */
     static final int FuncToken = 268;
-    /** Token LambdaToken, to be returned by the scanner.  */
+    /**
+     * Token LambdaToken, to be returned by the scanner.
+     */
     static final int LambdaToken = 269;
-    /** Token ProgToken, to be returned by the scanner.  */
+    /**
+     * Token ProgToken, to be returned by the scanner.
+     */
     static final int ProgToken = 270;
-    /** Token CondToken, to be returned by the scanner.  */
+    /**
+     * Token CondToken, to be returned by the scanner.
+     */
     static final int CondToken = 271;
-    /** Token WhileToken, to be returned by the scanner.  */
+    /**
+     * Token WhileToken, to be returned by the scanner.
+     */
     static final int WhileToken = 272;
-    /** Token ReturnToken, to be returned by the scanner.  */
+    /**
+     * Token ReturnToken, to be returned by the scanner.
+     */
     static final int ReturnToken = 273;
-    /** Token BreakToken, to be returned by the scanner.  */
+    /**
+     * Token BreakToken, to be returned by the scanner.
+     */
     static final int BreakToken = 274;
-    /** Token PlusToken, to be returned by the scanner.  */
+    /**
+     * Token PlusToken, to be returned by the scanner.
+     */
     static final int PlusToken = 275;
-    /** Token MinusToken, to be returned by the scanner.  */
+    /**
+     * Token MinusToken, to be returned by the scanner.
+     */
     static final int MinusToken = 276;
-    /** Token TimesToken, to be returned by the scanner.  */
+    /**
+     * Token TimesToken, to be returned by the scanner.
+     */
     static final int TimesToken = 277;
-    /** Token DivideToken, to be returned by the scanner.  */
+    /**
+     * Token DivideToken, to be returned by the scanner.
+     */
     static final int DivideToken = 278;
-    /** Token HeadToken, to be returned by the scanner.  */
+    /**
+     * Token HeadToken, to be returned by the scanner.
+     */
     static final int HeadToken = 279;
-    /** Token TailToken, to be returned by the scanner.  */
+    /**
+     * Token TailToken, to be returned by the scanner.
+     */
     static final int TailToken = 280;
-    /** Token ConsToken, to be returned by the scanner.  */
+    /**
+     * Token ConsToken, to be returned by the scanner.
+     */
     static final int ConsToken = 281;
-    /** Token EqualToken, to be returned by the scanner.  */
+    /**
+     * Token EqualToken, to be returned by the scanner.
+     */
     static final int EqualToken = 282;
-    /** Token NonEqualToken, to be returned by the scanner.  */
+    /**
+     * Token NonEqualToken, to be returned by the scanner.
+     */
     static final int NonEqualToken = 283;
-    /** Token LessToken, to be returned by the scanner.  */
+    /**
+     * Token LessToken, to be returned by the scanner.
+     */
     static final int LessToken = 284;
-    /** Token LessEqToken, to be returned by the scanner.  */
+    /**
+     * Token LessEqToken, to be returned by the scanner.
+     */
     static final int LessEqToken = 285;
-    /** Token GreaterToken, to be returned by the scanner.  */
+    /**
+     * Token GreaterToken, to be returned by the scanner.
+     */
     static final int GreaterToken = 286;
-    /** Token GreaterEqToken, to be returned by the scanner.  */
+    /**
+     * Token GreaterEqToken, to be returned by the scanner.
+     */
     static final int GreaterEqToken = 287;
-    /** Token IsIntToken, to be returned by the scanner.  */
+    /**
+     * Token IsIntToken, to be returned by the scanner.
+     */
     static final int IsIntToken = 288;
-    /** Token IsRealToken, to be returned by the scanner.  */
+    /**
+     * Token IsRealToken, to be returned by the scanner.
+     */
     static final int IsRealToken = 289;
-    /** Token IsBoolToken, to be returned by the scanner.  */
+    /**
+     * Token IsBoolToken, to be returned by the scanner.
+     */
     static final int IsBoolToken = 290;
-    /** Token IsNullToken, to be returned by the scanner.  */
+    /**
+     * Token IsNullToken, to be returned by the scanner.
+     */
     static final int IsNullToken = 291;
-    /** Token IsAtomToken, to be returned by the scanner.  */
+    /**
+     * Token IsAtomToken, to be returned by the scanner.
+     */
     static final int IsAtomToken = 292;
-    /** Token IsListToken, to be returned by the scanner.  */
+    /**
+     * Token IsListToken, to be returned by the scanner.
+     */
     static final int IsListToken = 293;
-    /** Token AndToken, to be returned by the scanner.  */
+    /**
+     * Token AndToken, to be returned by the scanner.
+     */
     static final int AndToken = 294;
-    /** Token OrToken, to be returned by the scanner.  */
+    /**
+     * Token OrToken, to be returned by the scanner.
+     */
     static final int OrToken = 295;
-    /** Token XorToken, to be returned by the scanner.  */
+    /**
+     * Token XorToken, to be returned by the scanner.
+     */
     static final int XorToken = 296;
-    /** Token NotToken, to be returned by the scanner.  */
+    /**
+     * Token NotToken, to be returned by the scanner.
+     */
     static final int NotToken = 297;
-    /** Token EvalToken, to be returned by the scanner.  */
+    /**
+     * Token EvalToken, to be returned by the scanner.
+     */
     static final int EvalToken = 298;
 
-    /** Deprecated, use YYEOF instead.  */
+    /**
+     * Deprecated, use YYEOF instead.
+     */
     public static final int EOF = YYEOF;
 
 
     /**
      * Method to retrieve the semantic value of the last scanned token.
+     *
      * @return the semantic value of the last scanned token.
      */
     Object getLVal();
@@ -385,17 +469,17 @@ public class Parser
      * Entry point for the scanner.  Returns the token identifier corresponding
      * to the next token and prepares to return the semantic value
      * of the token.
+     *
      * @return the token identifier corresponding to the next token.
      */
-    int yylex() throws IOException;
+    int yylex() throws java.io.IOException;
 
     /**
      * Emit an errorin a user-defined way.
      *
-     *
      * @param msg The string for the error message.
      */
-     void yyerror(String msg);
+    void yyerror(String msg);
 
 
   }
@@ -407,20 +491,16 @@ public class Parser
   private Lexer yylexer;
 
 
-
-
-
   /**
    * Instantiates the Bison-generated parser.
+   *
    * @param yylexer The scanner that will supply tokens to the parser.
    */
-  public Parser(Lexer yylexer)
-  {
+  public Parser(Lexer yylexer) {
 
     this.yylexer = yylexer;
 
   }
-
 
 
   private int yynerrs = 0;
@@ -428,7 +508,9 @@ public class Parser
   /**
    * The number of syntax errors so far.
    */
-  public final int getNumberOfErrors() { return yynerrs; }
+  public final int getNumberOfErrors() {
+    return yynerrs;
+  }
 
   /**
    * Print an error message via the lexer.
@@ -436,9 +518,8 @@ public class Parser
    * @param msg The error message.
    */
   public final void yyerror(String msg) {
-      yylexer.yyerror(msg);
+    yylexer.yyerror(msg);
   }
-
 
 
   private final class YYStack {
@@ -488,7 +569,7 @@ public class Parser
 
     // Print the state stack on the debug stream.
     public void print(java.io.PrintStream out) {
-      out.print ("Stack now");
+      out.print("Stack now");
 
       for (int i = 0; i <= height; i++) {
         out.print(' ');
@@ -509,7 +590,6 @@ public class Parser
    * return failure (<tt>false</tt>).
    */
   public static final int YYABORT = 1;
-
 
 
   /**
@@ -538,14 +618,15 @@ public class Parser
    * reads token until it reaches a known state, and then restarts normal
    * operation.
    */
-  public final boolean recovering ()
-  {
+  public final boolean recovering() {
     return yyerrstatus_ == 0;
   }
 
-  /** Compute post-reduction state.
-   * @param yystate   the current state
-   * @param yysym     the nonterminal to push on the stack
+  /**
+   * Compute post-reduction state.
+   *
+   * @param yystate the current state
+   * @param yysym   the nonterminal to push on the stack
    */
   private int yyLRGotoState(int yystate, int yysym) {
     int yyr = yypgoto_[yysym - YYNTOKENS_] + yystate;
@@ -555,8 +636,7 @@ public class Parser
       return yydefgoto_[yysym - YYNTOKENS_];
   }
 
-  private int yyaction(int yyn, YYStack yystack, int yylen)
-  {
+  private int yyaction(int yyn, YYStack yystack, int yylen) {
     /* If YYLEN is nonzero, implement the default value of the action:
        '$$ = $1'.  Otherwise, use the top of the stack.
 
@@ -565,405 +645,526 @@ public class Parser
        users should not rely upon it.  */
     Object yyval = (0 < yylen) ? yystack.valueAt(yylen - 1) : yystack.valueAt(0);
 
-    switch (yyn)
-      {
-          case 2: /* Program: Element  */
-  if (yyn == 2)
-    /* "Parser.y":93  */
-                  {ast = new AST(new ListNode(((NodeInterface)(yystack.valueAt (0)))));};
-  break;
-
-
-  case 3: /* Program: Element Elements  */
-  if (yyn == 3)
-    /* "Parser.y":94  */
-                           {ast = new AST(new ListNode(((NodeInterface)(yystack.valueAt (1))), ((ListNode)(yystack.valueAt (0))))); };
-  break;
-
-
-  case 4: /* Elements: %empty  */
-  if (yyn == 4)
-    /* "Parser.y":97  */
-                       {yyval = new ListNode();};
-  break;
-
-
-  case 5: /* Elements: Element Elements  */
-  if (yyn == 5)
-    /* "Parser.y":98  */
-                           {yyval = new ListNode(((NodeInterface)(yystack.valueAt (1))), ((ListNode)(yystack.valueAt (0))));};
-  break;
-
-
-  case 6: /* Element: Atom  */
-  if (yyn == 6)
-    /* "Parser.y":101  */
-               {yyval = ((AtomNode)(yystack.valueAt (0)));};
-  break;
-
-
-  case 7: /* Element: Literal  */
-  if (yyn == 7)
-    /* "Parser.y":102  */
-                  {yyval = ((LiteralNode)(yystack.valueAt (0)));};
-  break;
-
-
-  case 8: /* Element: List  */
-  if (yyn == 8)
-    /* "Parser.y":103  */
-               {yyval = ((NodeInterface)(yystack.valueAt (0)));};
-  break;
-
-
-  case 9: /* Element: QuoteShortToken Element  */
-  if (yyn == 9)
-    /* "Parser.y":104  */
-                                  {yyval = new QuoteNode(((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 10: /* List: OpenParenthesisToken Element Elements CloseParenthesisToken  */
-  if (yyn == 10)
-    /* "Parser.y":107  */
-                                                                      {yyval = new ListNode(((NodeInterface)(yystack.valueAt (2))), ((ListNode)(yystack.valueAt (1))));};
-  break;
-
-
-  case 11: /* List: OpenParenthesisToken SpecialForm CloseParenthesisToken  */
-  if (yyn == 11)
-    /* "Parser.y":108  */
-                                                                 {yyval = ((NodeInterface)(yystack.valueAt (1)));};
-  break;
-
-
-  case 12: /* List: OpenParenthesisToken ArithmeticFunction CloseParenthesisToken  */
-  if (yyn == 12)
-    /* "Parser.y":109  */
-                                                                        {yyval = new ListNode(((ArithmeticFunctionNode)(yystack.valueAt (1))));};
-  break;
-
-
-  case 13: /* List: OpenParenthesisToken OperationOnLists CloseParenthesisToken  */
-  if (yyn == 13)
-    /* "Parser.y":110  */
-                                                                      {yyval = new ListNode(((OperationOnListsNode)(yystack.valueAt (1))));};
-  break;
-
-
-  case 14: /* List: OpenParenthesisToken Comparison CloseParenthesisToken  */
-  if (yyn == 14)
-    /* "Parser.y":111  */
-                                                                {yyval = new ListNode(((ComparisonNode)(yystack.valueAt (1))));};
-  break;
-
-
-  case 15: /* List: OpenParenthesisToken Predicate CloseParenthesisToken  */
-  if (yyn == 15)
-    /* "Parser.y":112  */
-                                                               {yyval = new ListNode(((PredicateNode)(yystack.valueAt (1))));};
-  break;
-
-
-  case 16: /* List: OpenParenthesisToken LogicalOperator CloseParenthesisToken  */
-  if (yyn == 16)
-    /* "Parser.y":113  */
-                                                                     {yyval = new ListNode(((LogicalOperatorNode)(yystack.valueAt (1))));};
-  break;
-
-
-  case 17: /* List: OpenParenthesisToken Evaluator CloseParenthesisToken  */
-  if (yyn == 17)
-    /* "Parser.y":114  */
-                                                               {yyval = new ListNode(((EvaluatorNode)(yystack.valueAt (1))));};
-  break;
-
-
-  case 18: /* OptionalElement: %empty  */
-  if (yyn == 18)
-    /* "Parser.y":117  */
-                      {yyval = null;};
-  break;
-
-
-  case 19: /* OptionalElement: Element  */
-  if (yyn == 19)
-    /* "Parser.y":118  */
-                  {yyval = ((NodeInterface)(yystack.valueAt (0)));};
-  break;
-
-
-  case 20: /* Atom: IdentifierToken  */
-  if (yyn == 20)
-    /* "Parser.y":121  */
-                          {yyval = new AtomNode(((IdentifierToken)(yystack.valueAt (0))));};
-  break;
-
-
-  case 21: /* Literal: IntegerNumberLiteralToken  */
-  if (yyn == 21)
-    /* "Parser.y":124  */
-                                    {yyval = new LiteralNode(((IntegerNumberLiteralToken)(yystack.valueAt (0))));};
-  break;
-
-
-  case 22: /* Literal: RealNumberLiteralToken  */
-  if (yyn == 22)
-    /* "Parser.y":125  */
-                                 {yyval = new LiteralNode(((RealNumberLiteralToken)(yystack.valueAt (0))));};
-  break;
-
-
-  case 23: /* Literal: BooleanLiteralToken  */
-  if (yyn == 23)
-    /* "Parser.y":126  */
-                              {yyval = new LiteralNode(((BooleanLiteralToken)(yystack.valueAt (0))));};
-  break;
-
-
-  case 24: /* Literal: NullLiteralToken  */
-  if (yyn == 24)
-    /* "Parser.y":127  */
-                           {yyval = new LiteralNode(((NullLiteralToken)(yystack.valueAt (0))));};
-  break;
-
-
-  case 25: /* SpecialForm: QuoteToken Element  */
-  if (yyn == 25)
-    /* "Parser.y":130  */
-                             {yyval = new QuoteNode(((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 26: /* SpecialForm: SetqToken Atom Element  */
-  if (yyn == 26)
-    /* "Parser.y":131  */
-                                 {yyval = new SetqNode(((AtomNode)(yystack.valueAt (1))), ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 27: /* SpecialForm: FuncToken Atom List Element  */
-  if (yyn == 27)
-    /* "Parser.y":132  */
-                                      {yyval = new FuncNode(((AtomNode)(yystack.valueAt (2))), ((NodeInterface)(yystack.valueAt (1))), ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 28: /* SpecialForm: LambdaToken List Element  */
-  if (yyn == 28)
-    /* "Parser.y":133  */
-                                   {yyval = new LambdaNode(((NodeInterface)(yystack.valueAt (1))), ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 29: /* SpecialForm: ProgToken List Element  */
-  if (yyn == 29)
-    /* "Parser.y":134  */
-                                 {yyval = new ProgNode(((NodeInterface)(yystack.valueAt (1))), ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 30: /* SpecialForm: CondToken Element Element OptionalElement  */
-  if (yyn == 30)
-    /* "Parser.y":135  */
-                                                    {yyval = new CondNode(((NodeInterface)(yystack.valueAt (2))), ((NodeInterface)(yystack.valueAt (1))), ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 31: /* SpecialForm: WhileToken Element Element  */
-  if (yyn == 31)
-    /* "Parser.y":136  */
-                                     {yyval = new WhileNode(((NodeInterface)(yystack.valueAt (1))), ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 32: /* SpecialForm: ReturnToken Element  */
-  if (yyn == 32)
-    /* "Parser.y":137  */
-                              {yyval = new ReturnNode(((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 33: /* SpecialForm: BreakToken  */
-  if (yyn == 33)
-    /* "Parser.y":138  */
-                     {yyval = new BreakNode();};
-  break;
-
-
-  case 34: /* ArithmeticFunction: PlusToken Element Element  */
-  if (yyn == 34)
-    /* "Parser.y":141  */
-                                    {yyval = new ArithmeticFunctionNode(ArithmeticFunctionNode.Operation.ADDITION, ((NodeInterface)(yystack.valueAt (1))), ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 35: /* ArithmeticFunction: MinusToken Element Element  */
-  if (yyn == 35)
-    /* "Parser.y":142  */
-                                     {yyval = new ArithmeticFunctionNode(ArithmeticFunctionNode.Operation.SUBTRACTION, ((NodeInterface)(yystack.valueAt (1))), ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 36: /* ArithmeticFunction: TimesToken Element Element  */
-  if (yyn == 36)
-    /* "Parser.y":143  */
-                                     {yyval = new ArithmeticFunctionNode(ArithmeticFunctionNode.Operation.MULTIPLICATION, ((NodeInterface)(yystack.valueAt (1))), ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 37: /* ArithmeticFunction: DivideToken Element Element  */
-  if (yyn == 37)
-    /* "Parser.y":144  */
-                                      {yyval = new ArithmeticFunctionNode(ArithmeticFunctionNode.Operation.DIVISION, ((NodeInterface)(yystack.valueAt (1))), ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 38: /* OperationOnLists: HeadToken Element  */
-  if (yyn == 38)
-    /* "Parser.y":147  */
-                            {yyval = new OperationOnListsNode(OperationOnListsNode.Operation.HEAD, ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 39: /* OperationOnLists: TailToken Element  */
-  if (yyn == 39)
-    /* "Parser.y":148  */
-                            {yyval = new OperationOnListsNode(OperationOnListsNode.Operation.TAIL, ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 40: /* OperationOnLists: ConsToken Element Element  */
-  if (yyn == 40)
-    /* "Parser.y":149  */
-                                    {yyval = new OperationOnListsNode(OperationOnListsNode.Operation.CONS, ((NodeInterface)(yystack.valueAt (1))), ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 41: /* Comparison: EqualToken Element Element  */
-  if (yyn == 41)
-    /* "Parser.y":152  */
-                                     {yyval = new ComparisonNode(ComparisonNode.Operation.EQUAL, ((NodeInterface)(yystack.valueAt (1))), ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 42: /* Comparison: NonEqualToken Element Element  */
-  if (yyn == 42)
-    /* "Parser.y":153  */
-                                        {yyval = new ComparisonNode(ComparisonNode.Operation.NONEQUAL, ((NodeInterface)(yystack.valueAt (1))), ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 43: /* Comparison: LessToken Element Element  */
-  if (yyn == 43)
-    /* "Parser.y":154  */
-                                    {yyval = new ComparisonNode(ComparisonNode.Operation.LESS, ((NodeInterface)(yystack.valueAt (1))), ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 44: /* Comparison: LessEqToken Element Element  */
-  if (yyn == 44)
-    /* "Parser.y":155  */
-                                      {yyval = new ComparisonNode(ComparisonNode.Operation.LESSEQUAL, ((NodeInterface)(yystack.valueAt (1))), ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 45: /* Comparison: GreaterToken Element Element  */
-  if (yyn == 45)
-    /* "Parser.y":156  */
-                                       {yyval = new ComparisonNode(ComparisonNode.Operation.GREATER, ((NodeInterface)(yystack.valueAt (1))), ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 46: /* Comparison: GreaterEqToken Element Element  */
-  if (yyn == 46)
-    /* "Parser.y":157  */
-                                         {yyval = new ComparisonNode(ComparisonNode.Operation.GREATEREQUAL, ((NodeInterface)(yystack.valueAt (1))), ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 47: /* Predicate: IsIntToken Element  */
-  if (yyn == 47)
-    /* "Parser.y":160  */
-                             {yyval = new PredicateNode(PredicateNode.Operation.ISINT, ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 48: /* Predicate: IsRealToken Element  */
-  if (yyn == 48)
-    /* "Parser.y":161  */
-                              {yyval = new PredicateNode(PredicateNode.Operation.ISREAL, ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 49: /* Predicate: IsBoolToken Element  */
-  if (yyn == 49)
-    /* "Parser.y":162  */
-                              {yyval = new PredicateNode(PredicateNode.Operation.ISBOOL, ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 50: /* Predicate: IsNullToken Element  */
-  if (yyn == 50)
-    /* "Parser.y":163  */
-                              {yyval = new PredicateNode(PredicateNode.Operation.ISNULL, ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 51: /* Predicate: IsAtomToken Element  */
-  if (yyn == 51)
-    /* "Parser.y":164  */
-                              {yyval = new PredicateNode(PredicateNode.Operation.ISATOM, ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 52: /* Predicate: IsListToken Element  */
-  if (yyn == 52)
-    /* "Parser.y":165  */
-                              {yyval = new PredicateNode(PredicateNode.Operation.ISLIST, ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 53: /* LogicalOperator: AndToken Element Element  */
-  if (yyn == 53)
-    /* "Parser.y":168  */
-                                   {yyval = new LogicalOperatorNode(LogicalOperatorNode.Operation.AND, ((NodeInterface)(yystack.valueAt (1))), ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 54: /* LogicalOperator: OrToken Element Element  */
-  if (yyn == 54)
-    /* "Parser.y":169  */
-                                  {yyval = new LogicalOperatorNode(LogicalOperatorNode.Operation.OR, ((NodeInterface)(yystack.valueAt (1))), ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 55: /* LogicalOperator: XorToken Element Element  */
-  if (yyn == 55)
-    /* "Parser.y":170  */
-                                   {yyval = new LogicalOperatorNode(LogicalOperatorNode.Operation.XOR, ((NodeInterface)(yystack.valueAt (1))), ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 56: /* LogicalOperator: NotToken Element  */
-  if (yyn == 56)
-    /* "Parser.y":171  */
-                           {yyval = new LogicalOperatorNode(LogicalOperatorNode.Operation.NOT, ((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-  case 57: /* Evaluator: EvalToken Element  */
-  if (yyn == 57)
-    /* "Parser.y":174  */
-                            {yyval = new EvaluatorNode(((NodeInterface)(yystack.valueAt (0))));};
-  break;
-
-
-
-/* "Parser.java":964  */
-
-        default: break;
-      }
+    switch (yyn) {
+      case 2: /* Program: Element  */
+        if (yyn == 2)
+          /* "Parser.y":93  */ {
+          ast = new AST(new ListNode(((NodeInterface) (yystack.valueAt(0)))));
+        }
+        ;
+        break;
+
+
+      case 3: /* Program: Element Elements  */
+        if (yyn == 3)
+          /* "Parser.y":94  */ {
+          ast = new AST(new ListNode(((NodeInterface) (yystack.valueAt(1))), ((ListNode) (yystack.valueAt(0)))));
+        }
+        ;
+        break;
+
+
+      case 4: /* Elements: %empty  */
+        if (yyn == 4)
+          /* "Parser.y":97  */ {
+          yyval = new ListNode();
+        }
+        ;
+        break;
+
+
+      case 5: /* Elements: Element Elements  */
+        if (yyn == 5)
+          /* "Parser.y":98  */ {
+          yyval = new ListNode(((NodeInterface) (yystack.valueAt(1))), ((ListNode) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 6: /* Element: Atom  */
+        if (yyn == 6)
+          /* "Parser.y":101  */ {
+          yyval = ((AtomNode) (yystack.valueAt(0)));
+        }
+        ;
+        break;
+
+
+      case 7: /* Element: Literal  */
+        if (yyn == 7)
+          /* "Parser.y":102  */ {
+          yyval = ((LiteralNode) (yystack.valueAt(0)));
+        }
+        ;
+        break;
+
+
+      case 8: /* Element: List  */
+        if (yyn == 8)
+          /* "Parser.y":103  */ {
+          yyval = ((NodeInterface) (yystack.valueAt(0)));
+        }
+        ;
+        break;
+
+
+      case 9: /* Element: QuoteShortToken Element  */
+        if (yyn == 9)
+          /* "Parser.y":104  */ {
+          yyval = new QuoteNode(((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 10: /* List: OpenParenthesisToken Element Elements CloseParenthesisToken  */
+        if (yyn == 10)
+          /* "Parser.y":107  */ {
+          yyval = new ListNode(((NodeInterface) (yystack.valueAt(2))), ((ListNode) (yystack.valueAt(1))));
+        }
+        ;
+        break;
+
+
+      case 11: /* List: OpenParenthesisToken SpecialForm CloseParenthesisToken  */
+        if (yyn == 11)
+          /* "Parser.y":108  */ {
+          yyval = ((NodeInterface) (yystack.valueAt(1)));
+        }
+        ;
+        break;
+
+
+      case 12: /* List: OpenParenthesisToken ArithmeticFunction CloseParenthesisToken  */
+        if (yyn == 12)
+          /* "Parser.y":109  */ {
+          yyval = new ListNode(((ArithmeticFunctionNode) (yystack.valueAt(1))));
+        }
+        ;
+        break;
+
+
+      case 13: /* List: OpenParenthesisToken OperationOnLists CloseParenthesisToken  */
+        if (yyn == 13)
+          /* "Parser.y":110  */ {
+          yyval = new ListNode(((OperationOnListsNode) (yystack.valueAt(1))));
+        }
+        ;
+        break;
+
+
+      case 14: /* List: OpenParenthesisToken Comparison CloseParenthesisToken  */
+        if (yyn == 14)
+          /* "Parser.y":111  */ {
+          yyval = new ListNode(((ComparisonNode) (yystack.valueAt(1))));
+        }
+        ;
+        break;
+
+
+      case 15: /* List: OpenParenthesisToken Predicate CloseParenthesisToken  */
+        if (yyn == 15)
+          /* "Parser.y":112  */ {
+          yyval = new ListNode(((PredicateNode) (yystack.valueAt(1))));
+        }
+        ;
+        break;
+
+
+      case 16: /* List: OpenParenthesisToken LogicalOperator CloseParenthesisToken  */
+        if (yyn == 16)
+          /* "Parser.y":113  */ {
+          yyval = new ListNode(((LogicalOperatorNode) (yystack.valueAt(1))));
+        }
+        ;
+        break;
+
+
+      case 17: /* List: OpenParenthesisToken Evaluator CloseParenthesisToken  */
+        if (yyn == 17)
+          /* "Parser.y":114  */ {
+          yyval = new ListNode(((EvaluatorNode) (yystack.valueAt(1))));
+        }
+        ;
+        break;
+
+
+      case 18: /* List: OpenParenthesisToken CloseParenthesisToken  */
+        if (yyn == 18)
+          /* "Parser.y":115  */ {
+          yyval = new ListNode();
+        }
+        ;
+        break;
+
+
+      case 19: /* OptionalElement: %empty  */
+        if (yyn == 19)
+          /* "Parser.y":118  */ {
+          yyval = null;
+        }
+        ;
+        break;
+
+
+      case 20: /* OptionalElement: Element  */
+        if (yyn == 20)
+          /* "Parser.y":119  */ {
+          yyval = ((NodeInterface) (yystack.valueAt(0)));
+        }
+        ;
+        break;
+
+
+      case 21: /* Atom: IdentifierToken  */
+        if (yyn == 21)
+          /* "Parser.y":122  */ {
+          yyval = new AtomNode(((IdentifierToken) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 22: /* Literal: IntegerNumberLiteralToken  */
+        if (yyn == 22)
+          /* "Parser.y":125  */ {
+          yyval = new LiteralNode(((IntegerNumberLiteralToken) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 23: /* Literal: RealNumberLiteralToken  */
+        if (yyn == 23)
+          /* "Parser.y":126  */ {
+          yyval = new LiteralNode(((RealNumberLiteralToken) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 24: /* Literal: BooleanLiteralToken  */
+        if (yyn == 24)
+          /* "Parser.y":127  */ {
+          yyval = new LiteralNode(((BooleanLiteralToken) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 25: /* Literal: NullLiteralToken  */
+        if (yyn == 25)
+          /* "Parser.y":128  */ {
+          yyval = new LiteralNode(((NullLiteralToken) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 26: /* SpecialForm: QuoteToken Element  */
+        if (yyn == 26)
+          /* "Parser.y":131  */ {
+          yyval = new QuoteNode(((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 27: /* SpecialForm: SetqToken Atom Element  */
+        if (yyn == 27)
+          /* "Parser.y":132  */ {
+          yyval = new SetqNode(((AtomNode) (yystack.valueAt(1))), ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 28: /* SpecialForm: FuncToken Atom List Element  */
+        if (yyn == 28)
+          /* "Parser.y":133  */ {
+          yyval = new FuncNode(((AtomNode) (yystack.valueAt(2))), ((NodeInterface) (yystack.valueAt(1))), ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 29: /* SpecialForm: LambdaToken List Element  */
+        if (yyn == 29)
+          /* "Parser.y":134  */ {
+          yyval = new LambdaNode(((NodeInterface) (yystack.valueAt(1))), ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 30: /* SpecialForm: ProgToken List Element  */
+        if (yyn == 30)
+          /* "Parser.y":135  */ {
+          yyval = new ProgNode(((NodeInterface) (yystack.valueAt(1))), ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 31: /* SpecialForm: CondToken Element Element OptionalElement  */
+        if (yyn == 31)
+          /* "Parser.y":136  */ {
+          yyval = new CondNode(((NodeInterface) (yystack.valueAt(2))), ((NodeInterface) (yystack.valueAt(1))), ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 32: /* SpecialForm: WhileToken Element Element  */
+        if (yyn == 32)
+          /* "Parser.y":137  */ {
+          yyval = new WhileNode(((NodeInterface) (yystack.valueAt(1))), ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 33: /* SpecialForm: ReturnToken Element  */
+        if (yyn == 33)
+          /* "Parser.y":138  */ {
+          yyval = new ReturnNode(((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 34: /* SpecialForm: BreakToken  */
+        if (yyn == 34)
+          /* "Parser.y":139  */ {
+          yyval = new BreakNode();
+        }
+        ;
+        break;
+
+
+      case 35: /* ArithmeticFunction: PlusToken Element Element  */
+        if (yyn == 35)
+          /* "Parser.y":142  */ {
+          yyval = new ArithmeticFunctionNode(ArithmeticFunctionNode.Operation.ADDITION, ((NodeInterface) (yystack.valueAt(1))), ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 36: /* ArithmeticFunction: MinusToken Element Element  */
+        if (yyn == 36)
+          /* "Parser.y":143  */ {
+          yyval = new ArithmeticFunctionNode(ArithmeticFunctionNode.Operation.SUBTRACTION, ((NodeInterface) (yystack.valueAt(1))), ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 37: /* ArithmeticFunction: TimesToken Element Element  */
+        if (yyn == 37)
+          /* "Parser.y":144  */ {
+          yyval = new ArithmeticFunctionNode(ArithmeticFunctionNode.Operation.MULTIPLICATION, ((NodeInterface) (yystack.valueAt(1))), ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 38: /* ArithmeticFunction: DivideToken Element Element  */
+        if (yyn == 38)
+          /* "Parser.y":145  */ {
+          yyval = new ArithmeticFunctionNode(ArithmeticFunctionNode.Operation.DIVISION, ((NodeInterface) (yystack.valueAt(1))), ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 39: /* OperationOnLists: HeadToken Element  */
+        if (yyn == 39)
+          /* "Parser.y":148  */ {
+          yyval = new OperationOnListsNode(OperationOnListsNode.Operation.HEAD, ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 40: /* OperationOnLists: TailToken Element  */
+        if (yyn == 40)
+          /* "Parser.y":149  */ {
+          yyval = new OperationOnListsNode(OperationOnListsNode.Operation.TAIL, ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 41: /* OperationOnLists: ConsToken Element Element  */
+        if (yyn == 41)
+          /* "Parser.y":150  */ {
+          yyval = new OperationOnListsNode(OperationOnListsNode.Operation.CONS, ((NodeInterface) (yystack.valueAt(1))), ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 42: /* Comparison: EqualToken Element Element  */
+        if (yyn == 42)
+          /* "Parser.y":153  */ {
+          yyval = new ComparisonNode(ComparisonNode.Operation.EQUAL, ((NodeInterface) (yystack.valueAt(1))), ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 43: /* Comparison: NonEqualToken Element Element  */
+        if (yyn == 43)
+          /* "Parser.y":154  */ {
+          yyval = new ComparisonNode(ComparisonNode.Operation.NONEQUAL, ((NodeInterface) (yystack.valueAt(1))), ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 44: /* Comparison: LessToken Element Element  */
+        if (yyn == 44)
+          /* "Parser.y":155  */ {
+          yyval = new ComparisonNode(ComparisonNode.Operation.LESS, ((NodeInterface) (yystack.valueAt(1))), ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 45: /* Comparison: LessEqToken Element Element  */
+        if (yyn == 45)
+          /* "Parser.y":156  */ {
+          yyval = new ComparisonNode(ComparisonNode.Operation.LESSEQUAL, ((NodeInterface) (yystack.valueAt(1))), ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 46: /* Comparison: GreaterToken Element Element  */
+        if (yyn == 46)
+          /* "Parser.y":157  */ {
+          yyval = new ComparisonNode(ComparisonNode.Operation.GREATER, ((NodeInterface) (yystack.valueAt(1))), ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 47: /* Comparison: GreaterEqToken Element Element  */
+        if (yyn == 47)
+          /* "Parser.y":158  */ {
+          yyval = new ComparisonNode(ComparisonNode.Operation.GREATEREQUAL, ((NodeInterface) (yystack.valueAt(1))), ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 48: /* Predicate: IsIntToken Element  */
+        if (yyn == 48)
+          /* "Parser.y":161  */ {
+          yyval = new PredicateNode(PredicateNode.Operation.ISINT, ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 49: /* Predicate: IsRealToken Element  */
+        if (yyn == 49)
+          /* "Parser.y":162  */ {
+          yyval = new PredicateNode(PredicateNode.Operation.ISREAL, ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 50: /* Predicate: IsBoolToken Element  */
+        if (yyn == 50)
+          /* "Parser.y":163  */ {
+          yyval = new PredicateNode(PredicateNode.Operation.ISBOOL, ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 51: /* Predicate: IsNullToken Element  */
+        if (yyn == 51)
+          /* "Parser.y":164  */ {
+          yyval = new PredicateNode(PredicateNode.Operation.ISNULL, ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 52: /* Predicate: IsAtomToken Element  */
+        if (yyn == 52)
+          /* "Parser.y":165  */ {
+          yyval = new PredicateNode(PredicateNode.Operation.ISATOM, ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 53: /* Predicate: IsListToken Element  */
+        if (yyn == 53)
+          /* "Parser.y":166  */ {
+          yyval = new PredicateNode(PredicateNode.Operation.ISLIST, ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 54: /* LogicalOperator: AndToken Element Element  */
+        if (yyn == 54)
+          /* "Parser.y":169  */ {
+          yyval = new LogicalOperatorNode(LogicalOperatorNode.Operation.AND, ((NodeInterface) (yystack.valueAt(1))), ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 55: /* LogicalOperator: OrToken Element Element  */
+        if (yyn == 55)
+          /* "Parser.y":170  */ {
+          yyval = new LogicalOperatorNode(LogicalOperatorNode.Operation.OR, ((NodeInterface) (yystack.valueAt(1))), ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 56: /* LogicalOperator: XorToken Element Element  */
+        if (yyn == 56)
+          /* "Parser.y":171  */ {
+          yyval = new LogicalOperatorNode(LogicalOperatorNode.Operation.XOR, ((NodeInterface) (yystack.valueAt(1))), ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 57: /* LogicalOperator: NotToken Element  */
+        if (yyn == 57)
+          /* "Parser.y":172  */ {
+          yyval = new LogicalOperatorNode(LogicalOperatorNode.Operation.NOT, ((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+      case 58: /* Evaluator: EvalToken Element  */
+        if (yyn == 58)
+          /* "Parser.y":175  */ {
+          yyval = new EvaluatorNode(((NodeInterface) (yystack.valueAt(0))));
+        }
+        ;
+        break;
+
+
+
+      /* "Parser.java":971  */
+
+      default:
+        break;
+    }
 
     yystack.pop(yylen);
     yylen = 0;
@@ -974,18 +1175,14 @@ public class Parser
   }
 
 
-
-
   /**
    * Parse input from the scanner that was specified at object construction
    * time.  Return whether the end of the input was reached successfully.
    *
    * @return <tt>true</tt> if the parsing succeeds.  Note that this does not
-   *          imply that there were no syntax errors.
+   * imply that there were no syntax errors.
    */
-  public boolean parse() throws IOException
-
-  {
+  public boolean parse() throws java.io.IOException {
 
 
     /* Lookahead token kind.  */
@@ -997,7 +1194,7 @@ public class Parser
     int yyn = 0;
     int yylen = 0;
     int yystate = 0;
-    YYStack yystack = new YYStack ();
+    YYStack yystack = new YYStack();
     int label = YYNEWSTATE;
 
 
@@ -1006,48 +1203,42 @@ public class Parser
     Object yylval = null;
 
 
-
     yyerrstatus_ = 0;
     yynerrs = 0;
 
     /* Initialize the stack.  */
-    yystack.push (yystate, yylval);
+    yystack.push(yystate, yylval);
 
 
-
-    for (;;)
-      switch (label)
-      {
+    for (; ; )
+      switch (label) {
         /* New state.  Unlike in the C/C++ skeletons, the state is already
            pushed when we come here.  */
-      case YYNEWSTATE:
+        case YYNEWSTATE:
 
-        /* Accept?  */
-        if (yystate == YYFINAL_)
-          return true;
+          /* Accept?  */
+          if (yystate == YYFINAL_)
+            return true;
 
-        /* Take a decision.  First try without lookahead.  */
-        yyn = yypact_[yystate];
-        if (yyPactValueIsDefault (yyn))
-          {
+          /* Take a decision.  First try without lookahead.  */
+          yyn = yypact_[yystate];
+          if (yyPactValueIsDefault(yyn)) {
             label = YYDEFAULT;
             break;
           }
 
-        /* Read a lookahead token.  */
-        if (yychar == YYEMPTY_)
-          {
+          /* Read a lookahead token.  */
+          if (yychar == YYEMPTY_) {
 
-            yychar = yylexer.yylex ();
+            yychar = yylexer.yylex();
             yylval = yylexer.getLVal();
 
           }
 
-        /* Convert token to internal form.  */
-        yytoken = yytranslate_ (yychar);
+          /* Convert token to internal form.  */
+          yytoken = yytranslate_(yychar);
 
-        if (yytoken == SymbolKind.S_YYerror)
-          {
+          if (yytoken == SymbolKind.S_YYerror) {
             // The scanner already issued an error message, process directly
             // to error recovery.  But do not keep the error token as
             // lookahead, it is too special and may lead us to an endless
@@ -1055,9 +1246,7 @@ public class Parser
             yychar = Lexer.YYUNDEF;
             yytoken = SymbolKind.S_YYUNDEF;
             label = YYERRLAB1;
-          }
-        else
-          {
+          } else {
             /* If the proper action on seeing token YYTOKEN is to reduce or to
                detect an error, take that action.  */
             yyn += yytoken.getCode();
@@ -1066,120 +1255,109 @@ public class Parser
             }
 
             /* <= 0 means reduce or error.  */
-            else if ((yyn = yytable_[yyn]) <= 0)
-              {
-                if (yyTableValueIsError(yyn)) {
-                  label = YYERRLAB;
-                } else {
-                  yyn = -yyn;
-                  label = YYREDUCE;
-                }
+            else if ((yyn = yytable_[yyn]) <= 0) {
+              if (yyTableValueIsError(yyn)) {
+                label = YYERRLAB;
+              } else {
+                yyn = -yyn;
+                label = YYREDUCE;
               }
-
-            else
-              {
-                /* Shift the lookahead token.  */
-                /* Discard the token being shifted.  */
-                yychar = YYEMPTY_;
+            } else {
+              /* Shift the lookahead token.  */
+              /* Discard the token being shifted.  */
+              yychar = YYEMPTY_;
 
                 /* Count tokens shifted since error; after three, turn off error
                    status.  */
-                if (yyerrstatus_ > 0)
-                  --yyerrstatus_;
+              if (yyerrstatus_ > 0)
+                --yyerrstatus_;
 
-                yystate = yyn;
-                yystack.push(yystate, yylval);
-                label = YYNEWSTATE;
-              }
+              yystate = yyn;
+              yystack.push(yystate, yylval);
+              label = YYNEWSTATE;
+            }
           }
-        break;
+          break;
 
       /*-----------------------------------------------------------.
       | yydefault -- do the default action for the current state.  |
       `-----------------------------------------------------------*/
-      case YYDEFAULT:
-        yyn = yydefact_[yystate];
-        if (yyn == 0)
-          label = YYERRLAB;
-        else
-          label = YYREDUCE;
-        break;
+        case YYDEFAULT:
+          yyn = yydefact_[yystate];
+          if (yyn == 0)
+            label = YYERRLAB;
+          else
+            label = YYREDUCE;
+          break;
 
       /*-----------------------------.
       | yyreduce -- Do a reduction.  |
       `-----------------------------*/
-      case YYREDUCE:
-        yylen = yyr2_[yyn];
-        label = yyaction(yyn, yystack, yylen);
-        yystate = yystack.stateAt(0);
-        break;
+        case YYREDUCE:
+          yylen = yyr2_[yyn];
+          label = yyaction(yyn, yystack, yylen);
+          yystate = yystack.stateAt(0);
+          break;
 
       /*------------------------------------.
       | yyerrlab -- here on detecting error |
       `------------------------------------*/
-      case YYERRLAB:
-        /* If not already recovering from an error, report this error.  */
-        if (yyerrstatus_ == 0)
-          {
+        case YYERRLAB:
+          /* If not already recovering from an error, report this error.  */
+          if (yyerrstatus_ == 0) {
             ++yynerrs;
             if (yychar == YYEMPTY_)
               yytoken = null;
             yyreportSyntaxError(new Context(this, yystack, yytoken));
           }
 
-        if (yyerrstatus_ == 3)
-          {
+          if (yyerrstatus_ == 3) {
             /* If just tried and failed to reuse lookahead token after an
                error, discard it.  */
 
-            if (yychar <= Lexer.YYEOF)
-              {
-                /* Return failure if at end of input.  */
-                if (yychar == Lexer.YYEOF)
-                  return false;
-              }
-            else
+            if (yychar <= Lexer.YYEOF) {
+              /* Return failure if at end of input.  */
+              if (yychar == Lexer.YYEOF)
+                return false;
+            } else
               yychar = YYEMPTY_;
           }
 
         /* Else will try to reuse lookahead token after shifting the error
            token.  */
-        label = YYERRLAB1;
-        break;
+          label = YYERRLAB1;
+          break;
 
       /*-------------------------------------------------.
       | errorlab -- error raised explicitly by YYERROR.  |
       `-------------------------------------------------*/
-      case YYERROR:
+        case YYERROR:
         /* Do not reclaim the symbols of the rule which action triggered
            this YYERROR.  */
-        yystack.pop (yylen);
-        yylen = 0;
-        yystate = yystack.stateAt(0);
-        label = YYERRLAB1;
-        break;
+          yystack.pop(yylen);
+          yylen = 0;
+          yystate = yystack.stateAt(0);
+          label = YYERRLAB1;
+          break;
 
       /*-------------------------------------------------------------.
       | yyerrlab1 -- common code for both syntax error and YYERROR.  |
       `-------------------------------------------------------------*/
-      case YYERRLAB1:
-        yyerrstatus_ = 3;       /* Each real token shifted decrements this.  */
+        case YYERRLAB1:
+          yyerrstatus_ = 3;       /* Each real token shifted decrements this.  */
 
-        // Pop stack until we find a state that shifts the error token.
-        for (;;)
-          {
+          // Pop stack until we find a state that shifts the error token.
+          for (; ; ) {
             yyn = yypact_[yystate];
-            if (!yyPactValueIsDefault (yyn))
-              {
-                yyn += SymbolKind.S_YYerror.getCode();
-                if (0 <= yyn && yyn <= YYLAST_
-                    && yycheck_[yyn] == SymbolKind.S_YYerror.getCode())
-                  {
-                    yyn = yytable_[yyn];
-                    if (0 < yyn)
-                      break;
-                  }
+            if (!yyPactValueIsDefault(yyn)) {
+              yyn += SymbolKind.S_YYerror.getCode();
+              if (0 <= yyn && yyn <= YYLAST_
+                      && yycheck_[yyn] == SymbolKind.S_YYerror.getCode()) {
+                yyn = yytable_[yyn];
+                if (0 < yyn)
+                  break;
               }
+            }
 
             /* Pop the current state because it cannot handle the
              * error token.  */
@@ -1187,34 +1365,32 @@ public class Parser
               return false;
 
 
-            yystack.pop ();
+            yystack.pop();
             yystate = yystack.stateAt(0);
           }
 
-        if (label == YYABORT)
-          /* Leave the switch.  */
+          if (label == YYABORT)
+            /* Leave the switch.  */
+            break;
+
+
+
+          /* Shift the error token.  */
+
+          yystate = yyn;
+          yystack.push(yyn, yylval);
+          label = YYNEWSTATE;
           break;
 
-
-
-        /* Shift the error token.  */
-
-        yystate = yyn;
-        yystack.push (yyn, yylval);
-        label = YYNEWSTATE;
-        break;
-
         /* Accept.  */
-      case YYACCEPT:
-        return true;
+        case YYACCEPT:
+          return true;
 
         /* Abort.  */
-      case YYABORT:
-        return false;
+        case YYABORT:
+          return false;
       }
-}
-
-
+  }
 
 
   /**
@@ -1249,34 +1425,32 @@ public class Parser
      * be less than YYNTOKENS).
      */
     int getExpectedTokens(SymbolKind yyarg[], int yyargn) {
-      return getExpectedTokens (yyarg, 0, yyargn);
+      return getExpectedTokens(yyarg, 0, yyargn);
     }
 
     int getExpectedTokens(SymbolKind yyarg[], int yyoffset, int yyargn) {
       int yycount = yyoffset;
       int yyn = yypact_[this.yystack.stateAt(0)];
-      if (!yyPactValueIsDefault(yyn))
-        {
+      if (!yyPactValueIsDefault(yyn)) {
           /* Start YYX at -YYN if negative to avoid negative
              indexes in YYCHECK.  In other words, skip the first
              -YYN actions for this state because they are default
              actions.  */
-          int yyxbegin = yyn < 0 ? -yyn : 0;
-          /* Stay within bounds of both yycheck and yytname.  */
-          int yychecklim = YYLAST_ - yyn + 1;
-          int yyxend = yychecklim < NTOKENS ? yychecklim : NTOKENS;
-          for (int yyx = yyxbegin; yyx < yyxend; ++yyx)
-            if (yycheck_[yyx + yyn] == yyx && yyx != SymbolKind.S_YYerror.getCode()
-                && !yyTableValueIsError(yytable_[yyx + yyn]))
-              {
-                if (yyarg == null)
-                  yycount += 1;
-                else if (yycount == yyargn)
-                  return 0; // FIXME: this is incorrect.
-                else
-                  yyarg[yycount++] = SymbolKind.get(yyx);
-              }
-        }
+        int yyxbegin = yyn < 0 ? -yyn : 0;
+        /* Stay within bounds of both yycheck and yytname.  */
+        int yychecklim = YYLAST_ - yyn + 1;
+        int yyxend = yychecklim < NTOKENS ? yychecklim : NTOKENS;
+        for (int yyx = yyxbegin; yyx < yyxend; ++yyx)
+          if (yycheck_[yyx + yyn] == yyx && yyx != SymbolKind.S_YYerror.getCode()
+                  && !yyTableValueIsError(yytable_[yyx + yyn])) {
+            if (yyarg == null)
+              yycount += 1;
+            else if (yycount == yyargn)
+              return 0; // FIXME: this is incorrect.
+            else
+              yyarg[yycount++] = SymbolKind.get(yyx);
+          }
+      }
       if (yyarg != null && yycount == yyoffset && yyoffset < yyargn)
         yyarg[yycount] = null;
       return yycount - yyoffset;
@@ -1284,21 +1458,19 @@ public class Parser
   }
 
 
-
-
-
   /**
    * Build and emit a "syntax error" message in a user-defined way.
    *
-   * @param ctx  The context of the error.
+   * @param ctx The context of the error.
    */
   private void yyreportSyntaxError(Context yyctx) {
-      yyerror("syntax error");
+    yyerror("syntax error");
   }
 
   /**
    * Whether the given <code>yypact_</code> value indicates a defaulted state.
-   * @param yyvalue   the value to check
+   *
+   * @param yyvalue the value to check
    */
   private static boolean yyPactValueIsDefault(int yyvalue) {
     return yyvalue == yypact_ninf_;
@@ -1307,193 +1479,191 @@ public class Parser
   /**
    * Whether the given <code>yytable_</code>
    * value indicates a syntax error.
+   *
    * @param yyvalue the value to check
    */
   private static boolean yyTableValueIsError(int yyvalue) {
     return yyvalue == yytable_ninf_;
   }
 
-  private static final byte yypact_ninf_ = -43;
+  private static final byte yypact_ninf_ = -46;
   private static final byte yytable_ninf_ = -1;
 
-/* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
-   STATE-NUM.  */
+  /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
+     STATE-NUM.  */
   private static final byte[] yypact_ = yypact_init();
-  private static final byte[] yypact_init()
-  {
+
+  private static final byte[] yypact_init() {
     return new byte[]
-    {
-       3,    99,   -43,   -43,   -43,   -43,   -43,     3,     5,     3,
-     -43,   -43,   -43,     3,    12,    12,    44,    44,     3,     3,
-       3,   -43,     3,     3,     3,     3,     3,     3,     3,     3,
-       3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
-       3,     3,     3,     3,     3,     3,     3,    45,    46,    47,
-      48,    49,    50,    51,   -43,   -43,   -43,     3,   -43,     3,
-      44,     3,     3,     3,     3,   -43,     3,     3,     3,     3,
-     -43,   -43,     3,     3,     3,     3,     3,     3,     3,   -43,
-     -43,   -43,   -43,   -43,   -43,     3,     3,     3,   -43,   -43,
-      52,   -43,   -43,   -43,   -43,   -43,   -43,   -43,   -43,   -43,
-       3,   -43,   -43,     3,   -43,   -43,   -43,   -43,   -43,   -43,
-     -43,   -43,   -43,   -43,   -43,   -43,   -43,   -43,   -43,   -43,
-     -43,   -43,   -43
-    };
+            {
+                    45, 102, -46, -46, -46, -46, -46, 45, 8, 45,
+                    -46, -46, -46, -46, 45, 1, 1, 6, 6, 45,
+                    45, 45, -46, 45, 45, 45, 45, 45, 45, 45,
+                    45, 45, 45, 45, 45, 45, 45, 45, 45, 45,
+                    45, 45, 45, 45, 45, 45, 45, 45, 7, 11,
+                    12, 13, 14, 18, 51, -46, -46, -46, 45, -46,
+                    45, 6, 45, 45, 45, 45, -46, 45, 45, 45,
+                    45, -46, -46, 45, 45, 45, 45, 45, 45, 45,
+                    -46, -46, -46, -46, -46, -46, 45, 45, 45, -46,
+                    -46, 53, -46, -46, -46, -46, -46, -46, -46, -46,
+                    -46, 45, -46, -46, 45, -46, -46, -46, -46, -46,
+                    -46, -46, -46, -46, -46, -46, -46, -46, -46, -46,
+                    -46, -46, -46, -46
+            };
   }
 
-/* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
-   Performed when YYTABLE does not specify something else to do.  Zero
-   means the default is an error.  */
+  /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
+     Performed when YYTABLE does not specify something else to do.  Zero
+     means the default is an error.  */
   private static final byte[] yydefact_ = yydefact_init();
-  private static final byte[] yydefact_init()
-  {
+
+  private static final byte[] yydefact_init() {
     return new byte[]
-    {
-       0,     0,    21,    22,    23,    24,    20,     0,     0,     2,
-       8,     6,     7,     0,     0,     0,     0,     0,     0,     0,
-       0,    33,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     4,     0,     0,     0,
-       0,     0,     0,     0,     9,     1,     3,     4,    25,     0,
-       0,     0,     0,     0,     0,    32,     0,     0,     0,     0,
-      38,    39,     0,     0,     0,     0,     0,     0,     0,    47,
-      48,    49,    50,    51,    52,     0,     0,     0,    56,    57,
-       0,    11,    12,    13,    14,    15,    16,    17,     5,    26,
-       0,    28,    29,    18,    31,    34,    35,    36,    37,    40,
-      41,    42,    43,    44,    45,    46,    53,    54,    55,    10,
-      27,    19,    30
-    };
+            {
+                    0, 0, 22, 23, 24, 25, 21, 0, 0, 2,
+                    8, 6, 7, 18, 0, 0, 0, 0, 0, 0,
+                    0, 0, 34, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 4, 0, 0,
+                    0, 0, 0, 0, 0, 9, 1, 3, 4, 26,
+                    0, 0, 0, 0, 0, 0, 33, 0, 0, 0,
+                    0, 39, 40, 0, 0, 0, 0, 0, 0, 0,
+                    48, 49, 50, 51, 52, 53, 0, 0, 0, 57,
+                    58, 0, 11, 12, 13, 14, 15, 16, 17, 5,
+                    27, 0, 29, 30, 19, 32, 35, 36, 37, 38,
+                    41, 42, 43, 44, 45, 46, 47, 54, 55, 56,
+                    10, 28, 20, 31
+            };
   }
 
-/* YYPGOTO[NTERM-NUM].  */
+  /* YYPGOTO[NTERM-NUM].  */
   private static final byte[] yypgoto_ = yypgoto_init();
-  private static final byte[] yypgoto_init()
-  {
+
+  private static final byte[] yypgoto_init() {
     return new byte[]
-    {
-     -43,   -43,   -42,     0,   -14,   -43,     2,   -43,   -43,   -43,
-     -43,   -43,   -43,   -43,   -43
-    };
+            {
+                    -46, -46, -45, 0, -14, -46, -10, -46, -46, -46,
+                    -46, -46, -46, -46, -46
+            };
   }
 
-/* YYDEFGOTO[NTERM-NUM].  */
+  /* YYDEFGOTO[NTERM-NUM].  */
   private static final byte[] yydefgoto_ = yydefgoto_init();
-  private static final byte[] yydefgoto_init()
-  {
+
+  private static final byte[] yydefgoto_init() {
     return new byte[]
-    {
-       0,     8,    56,    57,    10,   122,    11,    12,    47,    48,
-      49,    50,    51,    52,    53
-    };
+            {
+                    0, 8, 57, 58, 10, 123, 11, 12, 48, 49,
+                    50, 51, 52, 53, 54
+            };
   }
 
-/* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
-   positive, shift that token.  If negative, reduce the rule whose
-   number is the opposite.  If YYTABLE_NINF, syntax error.  */
+  /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
+     positive, shift that token.  If negative, reduce the rule whose
+     number is the opposite.  If YYTABLE_NINF, syntax error.  */
   private static final byte[] yytable_ = yytable_init();
-  private static final byte[] yytable_init()
-  {
+
+  private static final byte[] yytable_init() {
     return new byte[]
-    {
-       9,    46,    61,    62,    90,    55,     1,    54,     2,     3,
-       4,     5,     6,    58,     7,    98,    59,    60,    63,    64,
-      65,     6,    66,    67,    68,    69,    70,    71,    72,    73,
-      74,    75,    76,    77,    78,    79,    80,    81,    82,    83,
-      84,    85,    86,    87,    88,    89,   100,     1,     0,    91,
-      92,    93,    94,    95,    96,    97,   119,     0,     0,    99,
-       0,   101,   102,   103,   104,     0,   105,   106,   107,   108,
-       0,     0,   109,   110,   111,   112,   113,   114,   115,     0,
-       0,     0,     0,     0,     0,   116,   117,   118,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-     120,     0,     1,   121,     2,     3,     4,     5,     6,    13,
-       7,    14,    15,    16,    17,    18,    19,    20,    21,    22,
-      23,    24,    25,    26,    27,    28,    29,    30,    31,    32,
-      33,    34,    35,    36,    37,    38,    39,    40,    41,    42,
-      43,    44,    45
-    };
+            {
+                    9, 47, 91, 62, 63, 60, 61, 55, 56, 1,
+                    6, 92, 0, 99, 59, 93, 94, 95, 96, 64,
+                    65, 66, 97, 67, 68, 69, 70, 71, 72, 73,
+                    74, 75, 76, 77, 78, 79, 80, 81, 82, 83,
+                    84, 85, 86, 87, 88, 89, 90, 101, 1, 0,
+                    2, 3, 4, 5, 6, 98, 7, 120, 0, 0,
+                    100, 0, 102, 103, 104, 105, 0, 106, 107, 108,
+                    109, 0, 0, 110, 111, 112, 113, 114, 115, 116,
+                    0, 0, 0, 0, 0, 0, 117, 118, 119, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 121, 0, 0, 122, 1, 13, 2, 3, 4,
+                    5, 6, 14, 7, 15, 16, 17, 18, 19, 20,
+                    21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
+                    31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+                    41, 42, 43, 44, 45, 46
+            };
   }
 
-private static final byte[] yycheck_ = yycheck_init();
-  private static final byte[] yycheck_init()
-  {
+  private static final byte[] yycheck_ = yycheck_init();
+
+  private static final byte[] yycheck_init() {
     return new byte[]
-    {
-       0,     1,    16,    17,    46,     0,     3,     7,     5,     6,
-       7,     8,     9,    13,    11,    57,    14,    15,    18,    19,
-      20,     9,    22,    23,    24,    25,    26,    27,    28,    29,
-      30,    31,    32,    33,    34,    35,    36,    37,    38,    39,
-      40,    41,    42,    43,    44,    45,    60,     3,    -1,     4,
-       4,     4,     4,     4,     4,     4,     4,    -1,    -1,    59,
-      -1,    61,    62,    63,    64,    -1,    66,    67,    68,    69,
-      -1,    -1,    72,    73,    74,    75,    76,    77,    78,    -1,
-      -1,    -1,    -1,    -1,    -1,    85,    86,    87,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-     100,    -1,     3,   103,     5,     6,     7,     8,     9,    10,
-      11,    12,    13,    14,    15,    16,    17,    18,    19,    20,
-      21,    22,    23,    24,    25,    26,    27,    28,    29,    30,
-      31,    32,    33,    34,    35,    36,    37,    38,    39,    40,
-      41,    42,    43
-    };
+            {
+                    0, 1, 47, 17, 18, 15, 16, 7, 0, 3,
+                    9, 4, -1, 58, 14, 4, 4, 4, 4, 19,
+                    20, 21, 4, 23, 24, 25, 26, 27, 28, 29,
+                    30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
+                    40, 41, 42, 43, 44, 45, 46, 61, 3, -1,
+                    5, 6, 7, 8, 9, 4, 11, 4, -1, -1,
+                    60, -1, 62, 63, 64, 65, -1, 67, 68, 69,
+                    70, -1, -1, 73, 74, 75, 76, 77, 78, 79,
+                    -1, -1, -1, -1, -1, -1, 86, 87, 88, -1,
+                    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+                    -1, 101, -1, -1, 104, 3, 4, 5, 6, 7,
+                    8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
+                    18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
+                    28, 29, 30, 31, 32, 33, 34, 35, 36, 37,
+                    38, 39, 40, 41, 42, 43
+            };
   }
 
-/* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
-   state STATE-NUM.  */
+  /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
+     state STATE-NUM.  */
   private static final byte[] yystos_ = yystos_init();
-  private static final byte[] yystos_init()
-  {
+
+  private static final byte[] yystos_init() {
     return new byte[]
-    {
-       0,     3,     5,     6,     7,     8,     9,    11,    45,    47,
-      48,    50,    51,    10,    12,    13,    14,    15,    16,    17,
-      18,    19,    20,    21,    22,    23,    24,    25,    26,    27,
-      28,    29,    30,    31,    32,    33,    34,    35,    36,    37,
-      38,    39,    40,    41,    42,    43,    47,    52,    53,    54,
-      55,    56,    57,    58,    47,     0,    46,    47,    47,    50,
-      50,    48,    48,    47,    47,    47,    47,    47,    47,    47,
-      47,    47,    47,    47,    47,    47,    47,    47,    47,    47,
-      47,    47,    47,    47,    47,    47,    47,    47,    47,    47,
-      46,     4,     4,     4,     4,     4,     4,     4,    46,    47,
-      48,    47,    47,    47,    47,    47,    47,    47,    47,    47,
-      47,    47,    47,    47,    47,    47,    47,    47,    47,     4,
-      47,    47,    49
-    };
+            {
+                    0, 3, 5, 6, 7, 8, 9, 11, 45, 47,
+                    48, 50, 51, 4, 10, 12, 13, 14, 15, 16,
+                    17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
+                    27, 28, 29, 30, 31, 32, 33, 34, 35, 36,
+                    37, 38, 39, 40, 41, 42, 43, 47, 52, 53,
+                    54, 55, 56, 57, 58, 47, 0, 46, 47, 47,
+                    50, 50, 48, 48, 47, 47, 47, 47, 47, 47,
+                    47, 47, 47, 47, 47, 47, 47, 47, 47, 47,
+                    47, 47, 47, 47, 47, 47, 47, 47, 47, 47,
+                    47, 46, 4, 4, 4, 4, 4, 4, 4, 46,
+                    47, 48, 47, 47, 47, 47, 47, 47, 47, 47,
+                    47, 47, 47, 47, 47, 47, 47, 47, 47, 47,
+                    4, 47, 47, 49
+            };
   }
 
-/* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
+  /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
   private static final byte[] yyr1_ = yyr1_init();
-  private static final byte[] yyr1_init()
-  {
+
+  private static final byte[] yyr1_init() {
     return new byte[]
-    {
-       0,    44,    45,    45,    46,    46,    47,    47,    47,    47,
-      48,    48,    48,    48,    48,    48,    48,    48,    49,    49,
-      50,    51,    51,    51,    51,    52,    52,    52,    52,    52,
-      52,    52,    52,    52,    53,    53,    53,    53,    54,    54,
-      54,    55,    55,    55,    55,    55,    55,    56,    56,    56,
-      56,    56,    56,    57,    57,    57,    57,    58
-    };
+            {
+                    0, 44, 45, 45, 46, 46, 47, 47, 47, 47,
+                    48, 48, 48, 48, 48, 48, 48, 48, 48, 49,
+                    49, 50, 51, 51, 51, 51, 52, 52, 52, 52,
+                    52, 52, 52, 52, 52, 53, 53, 53, 53, 54,
+                    54, 54, 55, 55, 55, 55, 55, 55, 56, 56,
+                    56, 56, 56, 56, 57, 57, 57, 57, 58
+            };
   }
 
-/* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
+  /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
   private static final byte[] yyr2_ = yyr2_init();
-  private static final byte[] yyr2_init()
-  {
+
+  private static final byte[] yyr2_init() {
     return new byte[]
-    {
-       0,     2,     1,     2,     0,     2,     1,     1,     1,     2,
-       4,     3,     3,     3,     3,     3,     3,     3,     0,     1,
-       1,     1,     1,     1,     1,     2,     3,     4,     3,     3,
-       4,     3,     2,     1,     3,     3,     3,     3,     2,     2,
-       3,     3,     3,     3,     3,     3,     3,     2,     2,     2,
-       2,     2,     2,     3,     3,     3,     2,     2
-    };
+            {
+                    0, 2, 1, 2, 0, 2, 1, 1, 1, 2,
+                    4, 3, 3, 3, 3, 3, 3, 3, 2, 0,
+                    1, 1, 1, 1, 1, 1, 2, 3, 4, 3,
+                    3, 4, 3, 2, 1, 3, 3, 3, 3, 2,
+                    2, 3, 3, 3, 3, 3, 3, 3, 2, 2,
+                    2, 2, 2, 2, 3, 3, 3, 2, 2
+            };
   }
-
-
 
 
   /* YYTRANSLATE_(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
      as returned by yylex, with out-of-bounds checking.  */
-  private static final SymbolKind yytranslate_(int t)
-  {
+  private static final SymbolKind yytranslate_(int t) {
     // Last valid token kind.
     int code_max = 298;
     if (t <= 0)
@@ -1503,64 +1673,66 @@ private static final byte[] yycheck_ = yycheck_init();
     else
       return SymbolKind.S_YYUNDEF;
   }
+
   private static final byte[] yytranslate_table_ = yytranslate_table_init();
-  private static final byte[] yytranslate_table_init()
-  {
+
+  private static final byte[] yytranslate_table_init() {
     return new byte[]
-    {
-       0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
-      15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
-      35,    36,    37,    38,    39,    40,    41,    42,    43
-    };
+            {
+                    0, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                    2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                    2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                    2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                    2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                    2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                    2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                    2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                    2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                    2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                    2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                    2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                    2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                    2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                    2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                    2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                    2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                    2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                    2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                    2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                    2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                    2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                    2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                    2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                    2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                    2, 2, 2, 2, 2, 2, 1, 2, 3, 4,
+                    5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+                    15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+                    25, 26, 27, 28, 29, 30, 31, 32, 33, 34,
+                    35, 36, 37, 38, 39, 40, 41, 42, 43
+            };
   }
 
 
-  private static final int YYLAST_ = 142;
+  private static final int YYLAST_ = 145;
   private static final int YYEMPTY_ = -2;
-  private static final int YYFINAL_ = 55;
+  private static final int YYFINAL_ = 56;
   private static final int YYNTOKENS_ = 44;
 
-/* Unqualified %code blocks.  */
-/* "Parser.y":19  */
+  /* Unqualified %code blocks.  */
+  /* "Parser.y":19  */
 
-	static AST ast;
-        public static AST makeAST(String sourceProgramPath) throws IOException {
-		FileReader fileReader = new FileReader(sourceProgramPath);
-		LexerAdapter lexerAdapter = new LexerAdapter(fileReader);
-		Parser p = new Parser(lexerAdapter);
-		p.parse();
-		return ast;
-	}
+  static AST ast;
 
-/* "Parser.java":1563  */
+  public static AST makeAST(String sourceProgramPath) throws IOException {
+    FileReader fileReader = new FileReader(sourceProgramPath);
+    LexerAdapter lexerAdapter = new LexerAdapter(fileReader);
+    Parser p = new Parser(lexerAdapter);
+    p.parse();
+    return ast;
+  }
+
+  /* "Parser.java":1570  */
 
 }
-/* "Parser.y":176  */
+/* "Parser.y":177  */
 

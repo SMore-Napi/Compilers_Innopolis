@@ -5,7 +5,9 @@ public class Main {
         //final String DEFAULT_PATH = "FPrograms/testProgram.txt";
         //final String DEFAULT_PATH = "FPrograms/allTokens.txt";
         //final String DEFAULT_PATH = "FPrograms/allGrammar.txt";
-        final String DEFAULT_PATH = "FPrograms/astTest.txt";
+        //final String DEFAULT_PATH = "FPrograms/astTest.txt";
+//        final String DEFAULT_PATH = "FPrograms/testComparisions.txt";
+        final String DEFAULT_PATH = "FPrograms/testOperationsOnList.txt";
         final boolean LOG_DEFAULT = true;
         final String LOG_PARAMETER_NAME = "log";
         final String programSourcePath = args.length >= 1 ? args[0] : DEFAULT_PATH;

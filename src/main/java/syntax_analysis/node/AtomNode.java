@@ -11,6 +11,11 @@ public class AtomNode implements NodeInterface {
     }
 
     @Override
+    public NodeInterface evaluate() {
+        return this;
+    }
+
+    @Override
     public String toString() {
         return "AtomNode{" +
                 "name='" + name + '\'' +
