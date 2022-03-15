@@ -31,4 +31,8 @@ public class AtomsTable {
     public NodeInterface getAtomValue(String atomName) {
         return atoms.getOrDefault(atomName, null);
     }
+
+    public boolean contains(String name) {
+        return atoms.containsKey(name);
+    }
 }
