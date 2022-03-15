@@ -238,15 +238,10 @@ public class TestInterpreter {
     }
 
     @Test
-    void testTailEmptyList() {
+    void testTailEmptyList() throws IOException {
         String programName = programsDirectory + operationsOnListDirectory + "tail_empty_list.txt";
-        Exception exception = assertThrows(RuntimeException.class, () -> {
-            Compiler compiler = new Compiler(programName);
-            compiler.interpret();
-        });
         String expectedMessage = "Can't call 'tail' from empty list";
-        String actualMessage = exception.getMessage();
-        assertTrue(actualMessage.contains(expectedMessage));
+        runCompilerException(programName, expectedMessage);
     }
 
     @Test
@@ -280,13 +275,8 @@ public class TestInterpreter {
     @Test
     void testConsNotListLiterals() throws IOException {
         String programName = programsDirectory + operationsOnListDirectory + "cons_not_list_literals.txt";
-        Exception exception = assertThrows(RuntimeException.class, () -> {
-            Compiler compiler = new Compiler(programName);
-            compiler.interpret();
-        });
         String expectedMessage = "The second evaluated argument should be a list";
-        String actualMessage = exception.getMessage();
-        assertTrue(actualMessage.contains(expectedMessage));
+        runCompilerException(programName, expectedMessage);
     }
 
     @Test
