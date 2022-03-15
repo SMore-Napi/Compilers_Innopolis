@@ -277,8 +277,7 @@ public class TestInterpreter {
                 "AtomNode{name='b', value={int=2}}\n" +
                 "AtomNode{name='c', value={null}}\n" +
                 "List[bool=true, int=2, null, bool=false, real=-7.0]\n" +
-                "List[bool=true, int=5, int=2, null]\n" +
-                "AtomNode{name='t', value={List[AtomNode{name='plus', value={null}}, AtomNode{name='minus', value={null}}, AtomNode{name='times', value={null}}, AtomNode{name='divide', value={null}}]}}\n";
+                "List[bool=true, int=5, int=2, null]\n";
         runCompilerEquals(programName, expected);
     }
 
