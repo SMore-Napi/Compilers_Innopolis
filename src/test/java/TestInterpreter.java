@@ -78,7 +78,11 @@ public class TestInterpreter {
     @Test
     void testSetQReassignmentAtomValue() throws IOException {
         String programName = programsDirectory + setQDirectory + "setq_reassignment_atom_value.txt";
-        String expected = "AtomNode{name='x', value={int=5}}\nAtomNode{name='y', value={int=6}}\nAtomNode{name='z', value={int=5}}\nAtomNode{name='z', value={int=6}}\nList[int=5, int=6, int=6]\n";
+        String expected = "AtomNode{name='x', value={int=5}}\n" +
+                "AtomNode{name='y', value={int=6}}\n" +
+                "AtomNode{name='z', value={int=5}}\n" +
+                "AtomNode{name='z', value={int=6}}\n" +
+                "List[int=5, int=6, int=6]\n";
         runCompilerEquals(programName, expected);
     }
 

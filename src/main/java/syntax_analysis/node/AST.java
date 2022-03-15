@@ -19,7 +19,7 @@ public class AST {
             if (i == null) {
                 result.append("null").append("\n");
             } else {
-                result.append(i.toString()).append("\n");
+                result.append(i).append("\n");
             }
         }
         return result.toString();
