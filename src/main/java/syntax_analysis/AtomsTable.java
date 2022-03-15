@@ -6,9 +6,8 @@ import syntax_analysis.node.NodeInterface;
 import java.util.HashMap;
 
 public class AtomsTable {
-    private final HashMap<String, NodeInterface> atoms;
-
     private static AtomsTable INSTANCE;
+    private final HashMap<String, NodeInterface> atoms;
 
     private AtomsTable() {
         this.atoms = new HashMap<>();

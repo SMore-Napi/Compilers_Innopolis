@@ -21,11 +21,11 @@ public class PredicateNode implements NodeInterface {
         return result;
     }
 
-    private LiteralNode performOperation(NodeInterface element) {
+    private LiteralNode performOperation(NodeInterface evaluatedElement) {
         switch (operation) {
             case ISINT:
                 try {
-                    if (((LiteralNode) element).getValue() instanceof Integer) {
+                    if (((LiteralNode) evaluatedElement).getValue() instanceof Integer) {
                         return new LiteralNode(true);
                     } else {
                         return new LiteralNode(false);
@@ -35,7 +35,7 @@ public class PredicateNode implements NodeInterface {
                 }
             case ISREAL:
                 try {
-                    if (((LiteralNode) element).getValue() instanceof Double) {
+                    if (((LiteralNode) evaluatedElement).getValue() instanceof Double) {
                         return new LiteralNode(true);
                     } else {
                         return new LiteralNode(false);
@@ -45,7 +45,37 @@ public class PredicateNode implements NodeInterface {
                 }
             case ISBOOL:
                 try {
-                    if (((LiteralNode) element).getValue() instanceof Boolean) {
+                    if (((LiteralNode) evaluatedElement).getValue() instanceof Boolean) {
+                        return new LiteralNode(true);
+                    } else {
+                        return new LiteralNode(false);
+                    }
+                } catch (ClassCastException e) {
+                    return new LiteralNode(false);
+                }
+            case ISNULL:
+                try {
+                    if (evaluatedElement == null || ((LiteralNode) evaluatedElement).getValue() == null) {
+                        return new LiteralNode(true);
+                    } else {
+                        return new LiteralNode(false);
+                    }
+                } catch (ClassCastException e) {
+                    return new LiteralNode(false);
+                }
+            case ISATOM:
+                try {
+                    if (element instanceof AtomNode) {
+                        return new LiteralNode(true);
+                    } else {
+                        return new LiteralNode(false);
+                    }
+                } catch (ClassCastException e) {
+                    return new LiteralNode(false);
+                }
+            case ISLIST:
+                try {
+                    if (evaluatedElement instanceof ListNode) {
                         return new LiteralNode(true);
                     } else {
                         return new LiteralNode(false);
@@ -54,7 +84,7 @@ public class PredicateNode implements NodeInterface {
                     return new LiteralNode(false);
                 }
         }
-        return null;
+        throw new RuntimeException("Unknown predicate operator: " + operation);
     }
 
     @Override

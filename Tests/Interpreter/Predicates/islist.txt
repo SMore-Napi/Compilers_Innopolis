@@ -1,7 +1,0 @@
-(equal true (and true false))
-(nonequal false (or (and false true) (or false false)))
-(nonequal 2 (minus 4 2))
-(less 1 (times 2 3))
-(lesseq 2 (divide 4 2))
-(greater 0 0)
-(greatereq 0 0)

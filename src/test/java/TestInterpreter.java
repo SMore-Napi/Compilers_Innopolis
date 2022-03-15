@@ -698,4 +698,255 @@ public class TestInterpreter {
         String expectedMessage = "Predicate function must have one parameter!";
         runCompilerException(programName, expectedMessage);
     }
+
+    @Test
+    void testIsNull1() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isnull1.txt";
+        String expected = "bool=true\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsNull2() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isnull2.txt";
+        String expected = "bool=false\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsNull3() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isnull3.txt";
+        String expected = "bool=false\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsNull4() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isnull4.txt";
+        String expected = "bool=false\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsNull5() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isnull5.txt";
+        String expected = "bool=false\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsNull6() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isnull6.txt";
+        String expected = "bool=false\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsNull7() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isnull7.txt";
+        String expected = "AtomNode{name='a', value={null}}\n" +
+                "bool=true\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsNull8() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isnull8.txt";
+        String expected = "List[null, null, null]\n" +
+                "bool=true\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsNullException() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isnull_exception.txt";
+        String expectedMessage = "Predicate function must have one parameter!";
+        runCompilerException(programName, expectedMessage);
+    }
+
+    @Test
+    void testIsAtom1() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isatom1.txt";
+        String expected = "bool=true\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsAtom2() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isatom2.txt";
+        String expected = "AtomNode{name='a', value={int=3}}\n" +
+                "bool=true\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsAtom3() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isatom3.txt";
+        String expected = "List[null, null, null]\n" +
+                "bool=true\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsAtom4() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isatom4.txt";
+        String expected = "bool=true\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsAtom5() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isatom5.txt";
+        String expected = "bool=false\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsAtom6() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isatom6.txt";
+        String expected = "bool=false\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsAtom7() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isatom7.txt";
+        String expected = "bool=false\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsAtom8() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isatom8.txt";
+        String expected = "bool=false\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsAtom9() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isatom9.txt";
+        String expected = "bool=false\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsAtom10() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isatom10.txt";
+        String expected = "bool=false\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsAtom11() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isatom11.txt";
+        String expected = "AtomNode{name='a', value={null}}\n" +
+                "bool=true\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsAtomException() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isatom_exception.txt";
+        String expectedMessage = "Predicate function must have one parameter!";
+        runCompilerException(programName, expectedMessage);
+    }
+
+    @Test
+    void testIsList1() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "islist1.txt";
+        String expected = "bool=true\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsList2() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "islist2.txt";
+        String expected = "bool=true\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsList3() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "islist3.txt";
+        String expected = "bool=true\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsList4() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "islist4.txt";
+        String expected = "AtomNode{name='a', value={List[null, null, null]}}\n" +
+                "bool=true\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsList5() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "islist5.txt";
+        String expected = "bool=true\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsList6() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "islist6.txt";
+        String expected = "bool=false\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsList7() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "islist7.txt";
+        String expected = "bool=false\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsList8() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "islist8.txt";
+        String expected = "bool=false\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsList9() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "islist9.txt";
+        String expected = "bool=false\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsList10() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "islist10.txt";
+        String expected = "bool=false\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsList11() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "islist11.txt";
+        String expected = "bool=true\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsList12() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "islist12.txt";
+        String expected = "bool=true\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsList13() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "islist13.txt";
+        String expected = "bool=false\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testIsListException() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "islist_exception.txt";
+        String expectedMessage = "Predicate function must have one parameter!";
+        runCompilerException(programName, expectedMessage);
+    }
 }

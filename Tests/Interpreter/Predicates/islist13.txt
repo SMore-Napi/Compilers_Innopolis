@@ -1,0 +1,1 @@
+(islist (head (a b c)))

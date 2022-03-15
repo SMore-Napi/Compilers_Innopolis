@@ -1,0 +1,2 @@
+(setq a (b c d))
+(islist a)

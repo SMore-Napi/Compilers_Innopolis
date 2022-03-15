@@ -1,0 +1,1 @@
+(islist (tail (a b c)))

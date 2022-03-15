@@ -47,7 +47,7 @@ public class ComparisonNode implements NodeInterface {
                     return (double) lOReal == (double) rOInt;
                 } else if (lOReal != null && rOReal != null) {
                     return (double) lOReal == (double) rOReal;
-                } else if (lOBool != null && rOBool != null){
+                } else if (lOBool != null && rOBool != null) {
                     return lOBool == (boolean) rOBool;
                 } else {
                     throw new ComparisonException(": Wrong operands in EQUAL operation", true);
@@ -61,7 +61,7 @@ public class ComparisonNode implements NodeInterface {
                     return (double) lOReal != (double) rOInt;
                 } else if (lOReal != null && rOReal != null) {
                     return (double) lOReal != (double) rOReal;
-                } else if (lOBool != null && rOBool != null){
+                } else if (lOBool != null && rOBool != null) {
                     return lOBool != (boolean) rOBool;
                 } else {
                     throw new ComparisonException(": Wrong operands in NONEQUAL operation", true);
@@ -76,7 +76,7 @@ public class ComparisonNode implements NodeInterface {
                 } else if (lOReal != null && rOReal != null) {
                     return (double) lOReal < (double) rOReal;
                 } else {
-                    throw new ComparisonException(": Wrong operands in LESS operation",true);
+                    throw new ComparisonException(": Wrong operands in LESS operation", true);
                 }
             case LESSEQUAL:
                 if (lOInt != null && rOInt != null) {
@@ -88,7 +88,7 @@ public class ComparisonNode implements NodeInterface {
                 } else if (lOReal != null && rOReal != null) {
                     return (double) lOReal <= (double) rOReal;
                 } else {
-                    throw new ComparisonException(": Wrong operands in LESSEQUAL operation",true);
+                    throw new ComparisonException(": Wrong operands in LESSEQUAL operation", true);
                 }
             case GREATER:
                 if (lOInt != null && rOInt != null) {
@@ -100,7 +100,7 @@ public class ComparisonNode implements NodeInterface {
                 } else if (lOReal != null && rOReal != null) {
                     return (double) lOReal > (double) rOReal;
                 } else {
-                    throw new ComparisonException(": Wrong operands in GREATER operation",true);
+                    throw new ComparisonException(": Wrong operands in GREATER operation", true);
                 }
             case GREATEREQUAL:
                 if (lOInt != null && rOInt != null) {
@@ -112,7 +112,7 @@ public class ComparisonNode implements NodeInterface {
                 } else if (lOReal != null && rOReal != null) {
                     return (double) lOReal >= (double) rOReal;
                 } else {
-                    throw new ComparisonException(": Wrong operands in LESS operation",true);
+                    throw new ComparisonException(": Wrong operands in LESS operation", true);
                 }
         }
         return null;
@@ -122,13 +122,14 @@ public class ComparisonNode implements NodeInterface {
         final String exceptionMessage = "Literal value must be integer or real or boolean. Provided: " + nodeInterface;
         try {
             Object object = ((LiteralNode) nodeInterface.evaluate()).getValue();
-            if (!((object instanceof Integer) || (object instanceof Double) || (object instanceof Boolean)) ) {
+            if (!((object instanceof Integer) || (object instanceof Double) || (object instanceof Boolean))) {
                 throw new RuntimeException(exceptionMessage);
             }
         } catch (ClassCastException e) {
-            throw new ComparisonException(": Literal value must be integer or real or boolean. Provided: " + nodeInterface.evaluate(),true);
+            throw new ComparisonException(": Literal value must be integer or real or boolean. Provided: " + nodeInterface.evaluate(), true);
         }
     }
+
     @Override
     public String toString() {
         return "Comparison{" +

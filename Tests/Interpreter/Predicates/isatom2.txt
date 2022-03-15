@@ -1,0 +1,2 @@
+(setq a 3)
+(isatom a)
