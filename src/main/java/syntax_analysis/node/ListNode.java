@@ -27,24 +27,6 @@ public class ListNode implements NodeInterface {
         elements.addAll(list.elements);
     }
 
-    public NodeInterface headElement() {
-        if (elements.size() > 0) {
-            return elements.get(0);
-        } else {
-            return null;
-        }
-    }
-
-    public NodeInterface tailOfList() {
-        if (elements.size() == 1) {
-            return new ListNode();
-        } else if (elements.size() > 1) {
-            return new ListNode(elements.subList(1, elements.size()));
-        } else {
-            return null;
-        }
-    }
-
     @Override
     public String toString() {
         return "List" + elements;
@@ -64,12 +46,5 @@ public class ListNode implements NodeInterface {
         System.out.println("Evaluated node: " + evaluatedElements);
         System.out.println("=====");
         return new ListNode(evaluatedElements);
-        /*
-        if (evaluatedElements.size() == 1) {
-            return evaluatedElements.get(0);
-        } else {
-            return new ListNode(evaluatedElements);
-        }
-         */
     }
 }

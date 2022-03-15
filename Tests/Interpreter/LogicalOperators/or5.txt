@@ -1,0 +1,3 @@
+(setq a true)
+(setq b false)
+(or a (head (b false)))

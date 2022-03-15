@@ -1,4 +1,3 @@
-
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -14,6 +13,8 @@ public class TestInterpreter {
     private final String operationsOnListDirectory = "OperationsOnList/";
     private final String comparisonsDirectory = "Comparisons/";
     private final String predicatesDirectory = "Predicates/";
+    private final String logicalOperatorsDirectory = "LogicalOperators/";
+    private final String evalDirectory = "Eval/";
 
     void runCompilerEquals(String programName, String expected) throws IOException {
         Compiler compiler = new Compiler(programName);
@@ -787,6 +788,336 @@ public class TestInterpreter {
     void testIsListException() throws IOException {
         String programName = programsDirectory + predicatesDirectory + "islist_exception.txt";
         String expectedMessage = "Predicate function must have one parameter!";
+        runCompilerException(programName, expectedMessage);
+    }
+
+    @Test
+    void testAnd1() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "and1.txt";
+        String expected = "bool=true\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testAnd2() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "and2.txt";
+        String expected = "bool=false\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testAnd3() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "and3.txt";
+        String expected = "bool=false\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testAnd4() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "and4.txt";
+        String expected = "bool=false\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testAnd5() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "and5.txt";
+        String expected = "AtomNode{name='a', value={bool=true}}\n" +
+                "AtomNode{name='b', value={bool=true}}\n" +
+                "bool=true\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testAndException1() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "and_exception1.txt";
+        String expectedMessage = "Logical binary operator must accept two boolean arguments";
+        runCompilerException(programName, expectedMessage);
+    }
+
+    @Test
+    void testAndException2() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "and_exception2.txt";
+        String expectedMessage = "Logical Operator must have one or two parameters!";
+        runCompilerException(programName, expectedMessage);
+    }
+
+    @Test
+    void testAndException3() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "and_exception3.txt";
+        String expectedMessage = "Literal value must be boolean. Provided: List[bool=true, bool=true]";
+        runCompilerException(programName, expectedMessage);
+    }
+
+    @Test
+    void testAndException4() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "and_exception4.txt";
+        String expectedMessage = "Literal value must be boolean. Provided: int=1";
+        runCompilerException(programName, expectedMessage);
+    }
+
+    @Test
+    void testAndException5() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "and_exception5.txt";
+        String expectedMessage = "Literal value must be boolean. Provided: null";
+        runCompilerException(programName, expectedMessage);
+    }
+
+    @Test
+    void testOr1() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "or1.txt";
+        String expected = "bool=true\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testOr2() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "or2.txt";
+        String expected = "bool=true\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testOr3() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "or3.txt";
+        String expected = "bool=true\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testOr4() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "or4.txt";
+        String expected = "bool=false\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testOr5() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "or5.txt";
+        String expected = "AtomNode{name='a', value={bool=true}}\n" +
+                "AtomNode{name='b', value={bool=false}}\n" +
+                "bool=true\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testOrException1() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "or_exception1.txt";
+        String expectedMessage = "Logical binary operator must accept two boolean arguments";
+        runCompilerException(programName, expectedMessage);
+    }
+
+    @Test
+    void testOrException2() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "or_exception2.txt";
+        String expectedMessage = "Logical Operator must have one or two parameters!";
+        runCompilerException(programName, expectedMessage);
+    }
+
+    @Test
+    void testOrException3() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "or_exception3.txt";
+        String expectedMessage = "Literal value must be boolean. Provided: List[bool=true, bool=true]";
+        runCompilerException(programName, expectedMessage);
+    }
+
+    @Test
+    void testOrException4() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "or_exception4.txt";
+        String expectedMessage = "Literal value must be boolean. Provided: int=1";
+        runCompilerException(programName, expectedMessage);
+    }
+
+    @Test
+    void testOrException5() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "or_exception5.txt";
+        String expectedMessage = "Literal value must be boolean. Provided: null";
+        runCompilerException(programName, expectedMessage);
+    }
+
+    @Test
+    void testXor1() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "xor1.txt";
+        String expected = "bool=false\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testXor2() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "xor2.txt";
+        String expected = "bool=true\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testXor3() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "xor3.txt";
+        String expected = "bool=true\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testXor4() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "xor4.txt";
+        String expected = "bool=false\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testXor5() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "xor5.txt";
+        String expected = "AtomNode{name='a', value={bool=true}}\n" +
+                "AtomNode{name='b', value={bool=true}}\n" +
+                "bool=false\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testXorException1() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "xor_exception1.txt";
+        String expectedMessage = "Logical binary operator must accept two boolean arguments";
+        runCompilerException(programName, expectedMessage);
+    }
+
+    @Test
+    void testXorException2() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "xor_exception2.txt";
+        String expectedMessage = "Logical Operator must have one or two parameters!";
+        runCompilerException(programName, expectedMessage);
+    }
+
+    @Test
+    void testXorException3() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "xor_exception3.txt";
+        String expectedMessage = "Literal value must be boolean. Provided: List[bool=true, bool=true]";
+        runCompilerException(programName, expectedMessage);
+    }
+
+    @Test
+    void testXorException4() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "xor_exception4.txt";
+        String expectedMessage = "Literal value must be boolean. Provided: int=1";
+        runCompilerException(programName, expectedMessage);
+    }
+
+    @Test
+    void testXorException5() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "xor_exception5.txt";
+        String expectedMessage = "Literal value must be boolean. Provided: null";
+        runCompilerException(programName, expectedMessage);
+    }
+
+    @Test
+    void testNot1() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "not1.txt";
+        String expected = "bool=false\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testNot2() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "not2.txt";
+        String expected = "bool=true\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testNot3() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "not3.txt";
+        String expected = "AtomNode{name='a', value={bool=true}}\n" +
+                "bool=false\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testNot4() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "not4.txt";
+        String expected = "bool=true\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testNotException1() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "not_exception1.txt";
+        String expectedMessage = "Logical Operator must have one or two parameters!";
+        runCompilerException(programName, expectedMessage);
+    }
+
+    @Test
+    void testNotException2() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "not_exception2.txt";
+        String expectedMessage = "Logical unary operator must accept single boolean argument";
+        runCompilerException(programName, expectedMessage);
+    }
+
+    @Test
+    void testNotException3() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "not_exception3.txt";
+        String expectedMessage = "Literal value must be boolean. Provided: List[bool=true]";
+        runCompilerException(programName, expectedMessage);
+    }
+
+    @Test
+    void testNotException4() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "not_exception4.txt";
+        String expectedMessage = "Literal value must be boolean. Provided: int=1";
+        runCompilerException(programName, expectedMessage);
+    }
+
+    @Test
+    void testNotException5() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "not_exception5.txt";
+        String expectedMessage = "Literal value must be boolean. Provided: null";
+        runCompilerException(programName, expectedMessage);
+    }
+
+    @Test
+    void testNotException6() throws IOException {
+        String programName = programsDirectory + logicalOperatorsDirectory + "not_exception6.txt";
+        String expectedMessage = "Literal value must be boolean. Provided: AtomNode{name='not', value={null}}";
+        runCompilerException(programName, expectedMessage);
+    }
+
+    @Test
+    void testEval1() throws IOException {
+        String programName = programsDirectory + evalDirectory + "eval1.txt";
+        String expected = "null\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testEval2() throws IOException {
+        String programName = programsDirectory + evalDirectory + "eval2.txt";
+        String expected = "AtomNode{name='a', value={int=1}}\n" +
+                "int=1\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testEval3() throws IOException {
+        String programName = programsDirectory + evalDirectory + "eval3.txt";
+        String expected = "int=1\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testEval4() throws IOException {
+        String programName = programsDirectory + evalDirectory + "eval4.txt";
+        String expected = "null\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testEval5() throws IOException {
+        String programName = programsDirectory + evalDirectory + "eval5.txt";
+        String expected = "int=3\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testEvalException1() throws IOException {
+        String programName = programsDirectory + evalDirectory + "eval_exception1.txt";
+        String expectedMessage = "The list can't be treated as a function: List[int=1, int=2, int=3]";
         runCompilerException(programName, expectedMessage);
     }
 }

@@ -15,7 +15,6 @@ public class TestSyntaxAnalysis {
         assertEquals(expected, actual);
     }
 
-
     @Test
     void testListLiterals() throws IOException {
         String programName = programsDirectory + "list_literals.txt";

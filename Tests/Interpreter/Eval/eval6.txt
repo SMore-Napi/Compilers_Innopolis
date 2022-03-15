@@ -1,0 +1,2 @@
+(setq a '(plus 1 2))
+(eval a)
