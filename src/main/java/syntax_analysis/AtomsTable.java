@@ -21,6 +21,10 @@ public class AtomsTable {
         return INSTANCE;
     }
 
+    public void clearTable() {
+        atoms.clear();
+    }
+
     public void addAtom(AtomNode atom) {
         atoms.put(atom.name, atom.value);
     }

@@ -13,14 +13,28 @@ public class TestInterpreter {
     private final String arithmeticFunctionsDirectory = "ArithmeticFunctions/";
     private final String operationsOnListDirectory = "OperationsOnList/";
     private final String comparisonsDirectory = "Comparisons/";
+    private final String predicatesDirectory = "Predicates/";
+
+    void runCompilerEquals(String programName, String expected) throws IOException {
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    void runCompilerException(String programName, String expectedMessage) throws IOException {
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            Compiler compiler = new Compiler(programName);
+            compiler.interpret();
+        });
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
 
     @Test
     void testQuote() throws IOException {
         String programName = programsDirectory + quoteDirectory + "quote.txt";
-        String expected = "List[int=1, int=2, int=3, List[AtomNode{name='plus', value={null}}, int=4, int=5], int=6]";
-        Compiler compiler = new Compiler(programName);
-        String actual = compiler.interpret();
-        assertEquals(expected, actual);
+        String expected = "List[int=1, int=2, int=3, List[AtomNode{name='plus', value={null}}, int=4, int=5], int=6]\n";
+        runCompilerEquals(programName, expected);
     }
 
     @Test
@@ -374,7 +388,7 @@ public class TestInterpreter {
     @Test
     void testOperationsOnList() throws IOException {
         String programName = programsDirectory + operationsOnListDirectory + "operations_on_list.txt";
-        String expected = "List[List[int=2, int=1, int=5], List[int=2], List[AtomNode{name='a', value='null'}, AtomNode{name='b', value='null'}, AtomNode{name='c', value='null'}]]";
+        String expected = "List[List[int=2, int=1, int=5], List[int=2], List[null, null, null]]";
         Compiler compiler = new Compiler(programName);
         String actual = compiler.interpret();
         assertEquals(expected, actual);
@@ -399,5 +413,289 @@ public class TestInterpreter {
         String expectedMessage = "Wrong operands in EQUAL operation";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void testIsInt1() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isint1.txt";
+        String expected = "bool=true";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsInt2() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isint2.txt";
+        String expected = "bool=false";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsInt3() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isint3.txt";
+        String expected = "bool=true";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsInt4() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isint4.txt";
+        String expected = "List[AtomNode{name='a', value={int=6}}, bool=true]";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsInt5() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isint5.txt";
+        String expected = "bool=false";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsInt6() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isint6.txt";
+        String expected = "bool=false";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsInt7() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isint7.txt";
+        String expected = "bool=true";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsInt8() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isint8.txt";
+        String expected = "bool=false\n";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsInt9() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isint9.txt";
+        String expected = "bool=false\n";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsIntException() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isint_exception.txt";
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            Compiler compiler = new Compiler(programName);
+            compiler.interpret();
+        });
+        String expectedMessage = "Predicate function must have one parameter!";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void testIsReal1() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isreal1.txt";
+        String expected = "bool=true";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsReal2() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isreal2.txt";
+        String expected = "bool=true";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsReal3() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isreal3.txt";
+        String expected = "bool=true";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsReal4() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isreal4.txt";
+        String expected = "bool=false";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsReal5() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isreal5.txt";
+        String expected = "bool=true";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsReal6() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isreal6.txt";
+        String expected = "bool=false";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsReal7() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isreal7.txt";
+        String expected = "bool=false";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsReal8() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isreal8.txt";
+        String expected = "List[AtomNode{name='a', value={real=4.3}}, bool=true]";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsReal9() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isreal9.txt";
+        String expected = "bool=false\n";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsReal10() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isreal10.txt";
+        String expected = "bool=false\n";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsRealException() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isreal_exception.txt";
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            Compiler compiler = new Compiler(programName);
+            compiler.interpret();
+        });
+        String expectedMessage = "Predicate function must have one parameter!";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void testIsBool1() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isbool1.txt";
+        String expected = "bool=true\n";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsBool2() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isbool2.txt";
+        String expected = "bool=true\n";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsBool3() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isbool3.txt";
+        String expected = "bool=false\n";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsBool4() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isbool4.txt";
+        String expected = "bool=false\n";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsBool5() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isbool5.txt";
+        String expected = "bool=false\n";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsBool6() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isbool6.txt";
+        String expected = "bool=true\n";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsBool7() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isbool7.txt";
+        String expected = "AtomNode{name='a', value={bool=false}}\n" +
+                "bool=true\n";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsBool8() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isbool8.txt";
+        String expected = "bool=false\n";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsBool9() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isbool9.txt";
+        String expected = "bool=false\n";
+        Compiler compiler = new Compiler(programName);
+        String actual = compiler.interpret();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testIsBoolException() throws IOException {
+        String programName = programsDirectory + predicatesDirectory + "isbool_exception.txt";
+        String expectedMessage = "Predicate function must have one parameter!";
+        runCompilerException(programName, expectedMessage);
     }
 }

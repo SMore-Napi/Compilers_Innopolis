@@ -1,6 +1,5 @@
 package syntax_analysis.node;
 
-import lexical_analysis.tokens.IdentifierToken;
 import lexical_analysis.tokens.Token;
 import syntax_analysis.AtomsTable;
 

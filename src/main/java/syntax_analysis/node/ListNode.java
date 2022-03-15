@@ -63,10 +63,13 @@ public class ListNode implements NodeInterface {
                 .collect(Collectors.toList());
         System.out.println("Evaluated node: " + evaluatedElements);
         System.out.println("=====");
+        return new ListNode(evaluatedElements);
+        /*
         if (evaluatedElements.size() == 1) {
             return evaluatedElements.get(0);
         } else {
             return new ListNode(evaluatedElements);
         }
+         */
     }
 }

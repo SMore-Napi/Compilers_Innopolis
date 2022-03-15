@@ -13,7 +13,11 @@ public class AST {
     }
 
     public String evaluate() {
-        NodeInterface result = root.evaluate();
+        StringBuilder result = new StringBuilder();
+        ListNode lines = (ListNode) root.evaluate();
+        for (NodeInterface i : lines.elements) {
+            result.append(i.toString()).append("\n");
+        }
         return result.toString();
     }
 

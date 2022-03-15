@@ -1,0 +1,2 @@
+(setq a 6)
+(isint a)

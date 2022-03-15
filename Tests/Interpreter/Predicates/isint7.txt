@@ -1,0 +1,1 @@
+(isint (head (cons 1 (2 a))))
