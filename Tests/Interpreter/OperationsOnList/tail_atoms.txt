@@ -1,3 +1,6 @@
 (setq b 55)
 (setq de 66)
 (tail (a b c de))
+
+(setq test1 (cons aa (cons bb (cc dd))))
+(tail test1)

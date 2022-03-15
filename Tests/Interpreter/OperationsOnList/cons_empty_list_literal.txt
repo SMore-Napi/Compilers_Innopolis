@@ -1,1 +1,2 @@
 (cons true ())
+(cons (head (1 2 3)) ())

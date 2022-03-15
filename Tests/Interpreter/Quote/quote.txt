@@ -1,1 +1,7 @@
 (1 2 3 (quote (plus 4 5)) 6)
+
+(setq x (plus 1 2))
+x
+(quote x)
+
+(setq y (quote (plus 1 2)))

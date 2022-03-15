@@ -34,14 +34,22 @@ public class TestInterpreter {
     @Test
     void testQuote() throws IOException {
         String programName = programsDirectory + quoteDirectory + "quote.txt";
-        String expected = "List[int=1, int=2, int=3, List[AtomNode{name='plus', value={null}}, int=4, int=5], int=6]\n";
+        String expected = "List[int=1, int=2, int=3, List[AtomNode{name='plus', value={null}}, int=4, int=5], int=6]\n" +
+                "AtomNode{name='x', value={int=3}}\n" +
+                "int=3\n" +
+                "AtomNode{name='x', value={null}}\n" +
+                "AtomNode{name='y', value={List[AtomNode{name='plus', value={null}}, int=1, int=2]}}\n";
         runCompilerEquals(programName, expected);
     }
 
     @Test
     void testShortQuote() throws IOException {
         String programName = programsDirectory + quoteDirectory + "short_quote.txt";
-        String expected = "List[int=1, int=2, int=3, List[AtomNode{name='plus', value={null}}, int=4, int=5], int=6]\n";
+        String expected = "List[int=1, int=2, int=3, List[AtomNode{name='plus', value={null}}, int=4, int=5], int=6]\n" +
+                "AtomNode{name='x', value={int=3}}\n" +
+                "int=3\n" +
+                "AtomNode{name='x', value={null}}\n" +
+                "AtomNode{name='y', value={List[AtomNode{name='plus', value={null}}, int=1, int=2]}}\n";
         runCompilerEquals(programName, expected);
     }
 
@@ -238,7 +246,11 @@ public class TestInterpreter {
     @Test
     void testTailAtoms() throws IOException {
         String programName = programsDirectory + operationsOnListDirectory + "tail_atoms.txt";
-        String expected = "AtomNode{name='b', value={int=55}}\nAtomNode{name='de', value={int=66}}\nList[int=55, null, int=66]\n";
+        String expected = "AtomNode{name='b', value={int=55}}\n" +
+                "AtomNode{name='de', value={int=66}}\n" +
+                "List[int=55, null, int=66]\n" +
+                "AtomNode{name='test1', value={List[null, null, null, null]}}\n" +
+                "List[null, null, null]\n";
         runCompilerEquals(programName, expected);
     }
 
@@ -252,28 +264,39 @@ public class TestInterpreter {
     @Test
     void testConsLiterals() throws IOException {
         String programName = programsDirectory + operationsOnListDirectory + "cons_literals.txt";
-        String expected = "List[int=1, int=2, int=3]\n";
+        String expected = "List[int=1, int=2, int=3]\n" +
+                "List[int=1]\n" +
+                "List[int=1, int=4, int=6, int=7]\n";
         runCompilerEquals(programName, expected);
     }
 
     @Test
     void testConsAtoms() throws IOException {
         String programName = programsDirectory + operationsOnListDirectory + "cons_atoms.txt";
-        String expected = "AtomNode{name='a', value={bool=true}}\nAtomNode{name='b', value={int=2}}\nAtomNode{name='c', value={null}}\nList[bool=true, int=2, null, bool=false, real=-7.0]\n";
+        String expected = "AtomNode{name='a', value={bool=true}}\n" +
+                "AtomNode{name='b', value={int=2}}\n" +
+                "AtomNode{name='c', value={null}}\n" +
+                "List[bool=true, int=2, null, bool=false, real=-7.0]\n" +
+                "List[bool=true, int=5, int=2, null]\n" +
+                "AtomNode{name='t', value={List[AtomNode{name='plus', value={null}}, AtomNode{name='minus', value={null}}, AtomNode{name='times', value={null}}, AtomNode{name='divide', value={null}}]}}\n";
         runCompilerEquals(programName, expected);
     }
 
     @Test
     void testConsEmptyListLiteral() throws IOException {
         String programName = programsDirectory + operationsOnListDirectory + "cons_empty_list_literal.txt";
-        String expected = "List[bool=true]\n";
+        String expected = "List[bool=true]\n" +
+                "List[int=1]\n";
         runCompilerEquals(programName, expected);
     }
 
     @Test
     void testConsEmptyListAtom() throws IOException {
         String programName = programsDirectory + operationsOnListDirectory + "cons_empty_list_atom.txt";
-        String expected = "AtomNode{name='a', value={bool=false}}\nList[bool=false]\n";
+        String expected = "AtomNode{name='a', value={bool=false}}\n" +
+                "List[bool=false]\n" +
+                "AtomNode{name='b', value={int=2}}\n" +
+                "List[int=2]\n";
         runCompilerEquals(programName, expected);
     }
 

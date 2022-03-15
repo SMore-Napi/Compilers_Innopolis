@@ -1,2 +1,5 @@
 (setq a false)
 (cons a ())
+
+(setq b (head (cons 2 (tail (4 5 6)))))
+(cons b ())
