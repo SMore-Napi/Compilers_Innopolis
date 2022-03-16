@@ -20,8 +20,12 @@ public class PredefinedFunction {
     }
 
     public boolean isPredefinedFunction() {
+        return isPredefinedFunction(elements.get(0));
+    }
+
+    public static boolean isPredefinedFunction(ElementInterface element) {
         try {
-            AtomNode atom = (AtomNode) elements.get(0);
+            AtomNode atom = (AtomNode) element;
             return predefinedFunctionNames.contains(atom.name);
         } catch (ClassCastException | IndexOutOfBoundsException e) {
             return false;

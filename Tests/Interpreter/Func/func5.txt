@@ -1,0 +1,7 @@
+(func Cube (arg) (times (times arg arg) arg))
+(func Square (arg) (times arg arg))
+(setq a (Square 3))
+(setq b (Cube 2))
+(setq c (Square 4))
+(setq d (Cube 5))
+(a b c d)

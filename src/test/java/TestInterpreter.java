@@ -9,6 +9,7 @@ public class TestInterpreter {
     private final String quoteDirectory = "Quote/";
     private final String setQDirectory = "SetQ/";
     private final String funcDirectory = "Func/";
+    private final String lambdaDirectory = "Lambda/";
 
     private final String arithmeticFunctionsDirectory = "ArithmeticFunctions/";
     private final String operationsOnListDirectory = "OperationsOnList/";
@@ -145,6 +146,127 @@ public class TestInterpreter {
         String expected = "";
         runCompilerEquals(programName, expected);
     }
+
+    @Test
+    void testFunc2() throws IOException {
+        String programName = programsDirectory + funcDirectory + "func2.txt";
+        String expected = "";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testFunc3() throws IOException {
+        String programName = programsDirectory + funcDirectory + "func3.txt";
+        String expected = "";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testFunc4() throws IOException {
+        String programName = programsDirectory + funcDirectory + "func4.txt";
+        String expected = "";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testFunc5() throws IOException {
+        String programName = programsDirectory + funcDirectory + "func5.txt";
+        String expected = "";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testFunc6() throws IOException {
+        String programName = programsDirectory + funcDirectory + "func6.txt";
+        String expected = "";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testFunc7() throws IOException {
+        String programName = programsDirectory + funcDirectory + "func7.txt";
+        String expected = "";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testFunc8() throws IOException {
+        String programName = programsDirectory + funcDirectory + "func8.txt";
+        String expected = "";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testFunc9() throws IOException {
+        String programName = programsDirectory + funcDirectory + "func9.txt";
+        String expected = "";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testFunc10() throws IOException {
+        String programName = programsDirectory + funcDirectory + "func10.txt";
+        String expected = "";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testFunc11() throws IOException {
+        String programName = programsDirectory + funcDirectory + "func11.txt";
+        String expected = "";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testFunc12() throws IOException {
+        String programName = programsDirectory + funcDirectory + "func12.txt";
+        String expected = "";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testFunc13() throws IOException {
+        String programName = programsDirectory + funcDirectory + "func13.txt";
+        String expected = "";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testLambda1() throws IOException {
+        String programName = programsDirectory + lambdaDirectory + "lambda1.txt";
+        String expected = "";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testLambda2() throws IOException {
+        String programName = programsDirectory + lambdaDirectory + "lambda2.txt";
+        String expected = "";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testLambda3() throws IOException {
+        String programName = programsDirectory + lambdaDirectory + "lambda3.txt";
+        String expected = "";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testLambda4() throws IOException {
+        String programName = programsDirectory + lambdaDirectory + "lambda4.txt";
+        String expected = "";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testLambda5() throws IOException {
+        String programName = programsDirectory + lambdaDirectory + "lambda5.txt";
+        String expected = "";
+        runCompilerEquals(programName, expected);
+    }
+
+
 
     @Test
     void testPlusIntegers() throws IOException {

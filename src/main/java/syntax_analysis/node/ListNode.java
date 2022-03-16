@@ -1,7 +1,7 @@
 package syntax_analysis.node;
 
-import interpreter.PredefinedFunction;
 import interpreter.DefinedFunction;
+import interpreter.PredefinedFunction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,20 +39,37 @@ public class ListNode implements ElementInterface {
     public ElementInterface evaluate() {
         System.out.println("=====");
         System.out.println("Initial node: " + elements);
+
+
         PredefinedFunction predefinedFunction = new PredefinedFunction(elements);
         if (predefinedFunction.isPredefinedFunction()) {
             return predefinedFunction.performFunctionAction();
         }
         DefinedFunction definedFunction = new DefinedFunction(elements);
-
-        if (definedFunction.isDefinedFunction()){
+        if (definedFunction.isDefinedFunction()) {
             return definedFunction.performFunctionAction();
         }
+//        if (!elements.isEmpty()) {
+//            ElementInterface firstEvaluatedElement = elements.get(0).evaluate();
+//            if (PredefinedFunction.isPredefinedFunction(firstEvaluatedElement)) {
+//                elements.set(0, firstEvaluatedElement);
+//                predefinedFunction = new PredefinedFunction(elements);
+//                return predefinedFunction.performFunctionAction();
+//            }
+//            if (DefinedFunction.isDefinedFunction(firstEvaluatedElement)) {
+//                elements.set(0, firstEvaluatedElement);
+//                definedFunction = new DefinedFunction(elements);
+//                return definedFunction.performFunctionAction();
+//            }
+//        }
+
         List<ElementInterface> evaluatedElements = elements.stream()
                 .map(ElementInterface::evaluate)
                 .collect(Collectors.toList());
+
         System.out.println("Evaluated node: " + evaluatedElements);
         System.out.println("=====");
+        
         return new ListNode(evaluatedElements);
     }
 }

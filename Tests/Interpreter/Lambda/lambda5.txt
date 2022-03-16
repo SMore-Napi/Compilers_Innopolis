@@ -1,0 +1,1 @@
+((lambda (p) (head (tail (8 minus)))) 1 1 2)

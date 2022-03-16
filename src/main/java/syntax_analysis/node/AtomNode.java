@@ -13,6 +13,11 @@ public class AtomNode implements ElementInterface {
         value = null;
     }
 
+    public AtomNode(String name, ElementInterface value) {
+        this.name = name;
+        this.value = value;
+    }
+
     @Override
     public ElementInterface evaluate() {
         if (AtomsTable.getInstance().contains(name)) {

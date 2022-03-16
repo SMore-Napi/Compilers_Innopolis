@@ -1,0 +1,3 @@
+(func makeList (A) (A))
+(setq lst (makeList (makeList 1)))
+lst

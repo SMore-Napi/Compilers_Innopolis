@@ -1,0 +1,4 @@
+(func Trivial () 1)
+(setq x Trivial)
+(setq a (x))
+a

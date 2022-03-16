@@ -1,0 +1,2 @@
+(func a (b) (plus b b))
+(setq a 4)

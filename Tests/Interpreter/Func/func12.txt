@@ -1,0 +1,2 @@
+(func a (b) (plus b b))
+(func a (b) (times b b))

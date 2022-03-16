@@ -1,0 +1,9 @@
+(setq arg 555)
+arg
+'arg
+(func Cube (arg) (times (times arg arg) arg))
+arg
+'arg
+(setq arg (Cube 2))
+arg
+'arg

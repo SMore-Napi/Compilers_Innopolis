@@ -16,8 +16,8 @@ public class Interpreter {
     }
 
     public String interpret() {
-        AtomsTable.getInstance().clearTable();
-        FunctionsTable.getInstance().clearTable();
+        AtomsTable.getInstance().resetContext();
+        FunctionsTable.getInstance().resetTable();
         return ast.evaluate();
     }
 }

@@ -1,6 +1,2 @@
-(setq x 1)
-x
-'x
-(setq x 2)
-x
-'x
+(setq _x 1)
+'_x
