@@ -14,6 +14,8 @@ public class LiteralNode implements ElementInterface {
         integerValue = value;
     }
 
+    public LiteralNode() {}
+
     public LiteralNode(double value) {
         realValue = value;
     }

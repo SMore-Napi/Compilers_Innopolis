@@ -1,6 +1,7 @@
 package syntax_analysis.node.special_form;
 
 import syntax_analysis.node.ElementInterface;
+import syntax_analysis.node.LiteralNode;
 
 public
 class CondNode implements ElementInterface {
@@ -18,6 +19,23 @@ class CondNode implements ElementInterface {
         this.condition = condition;
         this.trueAction = trueAction;
         this.falseAction = falseAction;
+    }
+
+    @Override
+    public ElementInterface evaluate() {
+        LiteralNode literalNode = (LiteralNode) condition.evaluate();
+        if (!literalNode.booleanValue && this.falseAction == null) {
+            return new LiteralNode();
+        }
+        try {
+            if (literalNode.booleanValue) {
+                return trueAction.evaluate();
+            } else {
+                return falseAction.evaluate();
+            }
+        } catch (NullPointerException nullPointerException) {
+            throw new RuntimeException("First element in 'cond' should be boolean, but given " + literalNode);
+        }
     }
 
     @Override
