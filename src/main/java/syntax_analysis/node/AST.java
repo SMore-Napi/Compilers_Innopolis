@@ -15,7 +15,7 @@ public class AST {
     public String evaluate() {
         StringBuilder result = new StringBuilder();
         ListNode lines = (ListNode) root.evaluate();
-        for (NodeInterface i : lines.elements) {
+        for (ElementInterface i : lines.elements) {
             if (i == null) {
                 result.append("null").append("\n");
             } else {

@@ -407,7 +407,7 @@ public class Parser {
             case 2: /* Program: Element  */
                 if (yyn == 2)
                     /* "Parser.y":102  */ {
-                    ast = new AST(new ListNode(((NodeInterface) (yystack.valueAt(0)))));
+                    ast = new AST(new ListNode(((ElementInterface) (yystack.valueAt(0)))));
                 }
                 ;
                 break;
@@ -416,7 +416,7 @@ public class Parser {
             case 3: /* Program: Element Elements  */
                 if (yyn == 3)
                     /* "Parser.y":103  */ {
-                    ast = new AST(new ListNode(((NodeInterface) (yystack.valueAt(1))), ((ListNode) (yystack.valueAt(0)))));
+                    ast = new AST(new ListNode(((ElementInterface) (yystack.valueAt(1))), ((ListNode) (yystack.valueAt(0)))));
                 }
                 ;
                 break;
@@ -434,7 +434,7 @@ public class Parser {
             case 5: /* Elements: Element Elements  */
                 if (yyn == 5)
                     /* "Parser.y":107  */ {
-                    yyval = new ListNode(((NodeInterface) (yystack.valueAt(1))), ((ListNode) (yystack.valueAt(0))));
+                    yyval = new ListNode(((ElementInterface) (yystack.valueAt(1))), ((ListNode) (yystack.valueAt(0))));
                 }
                 ;
                 break;
@@ -461,7 +461,7 @@ public class Parser {
             case 8: /* Element: List  */
                 if (yyn == 8)
                     /* "Parser.y":112  */ {
-                    yyval = ((NodeInterface) (yystack.valueAt(0)));
+                    yyval = ((ElementInterface) (yystack.valueAt(0)));
                 }
                 ;
                 break;
@@ -470,7 +470,7 @@ public class Parser {
             case 9: /* Element: QuoteShortToken Element  */
                 if (yyn == 9)
                     /* "Parser.y":113  */ {
-                    yyval = new QuoteNode(((NodeInterface) (yystack.valueAt(0))));
+                    yyval = new QuoteNode(((ElementInterface) (yystack.valueAt(0))));
                 }
                 ;
                 break;
@@ -479,7 +479,7 @@ public class Parser {
             case 10: /* List: OpenParenthesisToken Element Elements CloseParenthesisToken  */
                 if (yyn == 10)
                     /* "Parser.y":116  */ {
-                    yyval = new ListNode(((NodeInterface) (yystack.valueAt(2))), ((ListNode) (yystack.valueAt(1))));
+                    yyval = new ListNode(((ElementInterface) (yystack.valueAt(2))), ((ListNode) (yystack.valueAt(1))));
                 }
                 ;
                 break;
@@ -488,7 +488,7 @@ public class Parser {
             case 11: /* List: OpenParenthesisToken SpecialForm CloseParenthesisToken  */
                 if (yyn == 11)
                     /* "Parser.y":117  */ {
-                    yyval = ((NodeInterface) (yystack.valueAt(1)));
+                    yyval = ((ElementInterface) (yystack.valueAt(1)));
                 }
                 ;
                 break;
@@ -515,7 +515,7 @@ public class Parser {
             case 14: /* OptionalElement: Element  */
                 if (yyn == 14)
                     /* "Parser.y":122  */ {
-                    yyval = ((NodeInterface) (yystack.valueAt(0)));
+                    yyval = ((ElementInterface) (yystack.valueAt(0)));
                 }
                 ;
                 break;
@@ -524,7 +524,7 @@ public class Parser {
             case 15: /* SpecialForm: QuoteToken Element  */
                 if (yyn == 15)
                     /* "Parser.y":125  */ {
-                    yyval = new QuoteNode(((NodeInterface) (yystack.valueAt(0))));
+                    yyval = new QuoteNode(((ElementInterface) (yystack.valueAt(0))));
                 }
                 ;
                 break;
@@ -533,7 +533,7 @@ public class Parser {
             case 16: /* SpecialForm: SetQToken Atom Element  */
                 if (yyn == 16)
                     /* "Parser.y":126  */ {
-                    yyval = new SetQNode(((AtomNode) (yystack.valueAt(1))), ((NodeInterface) (yystack.valueAt(0))));
+                    yyval = new SetQNode(((AtomNode) (yystack.valueAt(1))), ((ElementInterface) (yystack.valueAt(0))));
                 }
                 ;
                 break;
@@ -542,7 +542,7 @@ public class Parser {
             case 17: /* SpecialForm: FuncToken Atom List Element  */
                 if (yyn == 17)
                     /* "Parser.y":127  */ {
-                    yyval = new FuncNode(((AtomNode) (yystack.valueAt(2))), ((NodeInterface) (yystack.valueAt(1))), ((NodeInterface) (yystack.valueAt(0))));
+                    yyval = new FuncNode(((AtomNode) (yystack.valueAt(2))), ((ElementInterface) (yystack.valueAt(1))), ((ElementInterface) (yystack.valueAt(0))));
                 }
                 ;
                 break;
@@ -551,7 +551,7 @@ public class Parser {
             case 18: /* SpecialForm: LambdaToken List Element  */
                 if (yyn == 18)
                     /* "Parser.y":128  */ {
-                    yyval = new LambdaNode(((NodeInterface) (yystack.valueAt(1))), ((NodeInterface) (yystack.valueAt(0))));
+                    yyval = new LambdaNode(((ElementInterface) (yystack.valueAt(1))), ((ElementInterface) (yystack.valueAt(0))));
                 }
                 ;
                 break;
@@ -560,7 +560,7 @@ public class Parser {
             case 19: /* SpecialForm: ProgToken List Element  */
                 if (yyn == 19)
                     /* "Parser.y":129  */ {
-                    yyval = new ProgNode(((NodeInterface) (yystack.valueAt(1))), ((NodeInterface) (yystack.valueAt(0))));
+                    yyval = new ProgNode(((ElementInterface) (yystack.valueAt(1))), ((ElementInterface) (yystack.valueAt(0))));
                 }
                 ;
                 break;
@@ -569,7 +569,7 @@ public class Parser {
             case 20: /* SpecialForm: CondToken Element Element OptionalElement  */
                 if (yyn == 20)
                     /* "Parser.y":130  */ {
-                    yyval = new CondNode(((NodeInterface) (yystack.valueAt(2))), ((NodeInterface) (yystack.valueAt(1))), ((NodeInterface) (yystack.valueAt(0))));
+                    yyval = new CondNode(((ElementInterface) (yystack.valueAt(2))), ((ElementInterface) (yystack.valueAt(1))), ((ElementInterface) (yystack.valueAt(0))));
                 }
                 ;
                 break;
@@ -578,7 +578,7 @@ public class Parser {
             case 21: /* SpecialForm: WhileToken Element Element  */
                 if (yyn == 21)
                     /* "Parser.y":131  */ {
-                    yyval = new WhileNode(((NodeInterface) (yystack.valueAt(1))), ((NodeInterface) (yystack.valueAt(0))));
+                    yyval = new WhileNode(((ElementInterface) (yystack.valueAt(1))), ((ElementInterface) (yystack.valueAt(0))));
                 }
                 ;
                 break;
@@ -587,7 +587,7 @@ public class Parser {
             case 22: /* SpecialForm: ReturnToken Element  */
                 if (yyn == 22)
                     /* "Parser.y":132  */ {
-                    yyval = new ReturnNode(((NodeInterface) (yystack.valueAt(0))));
+                    yyval = new ReturnNode(((ElementInterface) (yystack.valueAt(0))));
                 }
                 ;
                 break;

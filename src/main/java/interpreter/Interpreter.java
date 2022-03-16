@@ -1,4 +1,5 @@
-import syntax_analysis.AtomsTable;
+package interpreter;
+
 import syntax_analysis.node.AST;
 
 public class Interpreter {
@@ -16,6 +17,7 @@ public class Interpreter {
 
     public String interpret() {
         AtomsTable.getInstance().clearTable();
+        FunctionsTable.getInstance().clearTable();
         return ast.evaluate();
     }
 }

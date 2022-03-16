@@ -1,18 +1,21 @@
-package syntax_analysis.node;
+package syntax_analysis.node.predefined_function;
 
-public class ArithmeticFunctionNode implements NodeInterface {
-    NodeInterface leftOperand;
-    NodeInterface rightOperand;
+import syntax_analysis.node.ElementInterface;
+import syntax_analysis.node.LiteralNode;
+
+public class ArithmeticFunction implements ElementInterface {
+    ElementInterface leftOperand;
+    ElementInterface rightOperand;
     Operation operation;
 
-    public ArithmeticFunctionNode(Operation operation, NodeInterface leftOperand, NodeInterface rightOperand) {
+    public ArithmeticFunction(Operation operation, ElementInterface leftOperand, ElementInterface rightOperand) {
         this.leftOperand = leftOperand;
         this.rightOperand = rightOperand;
         this.operation = operation;
     }
 
     @Override
-    public NodeInterface evaluate() {
+    public ElementInterface evaluate() {
         System.out.println("=====");
         System.out.println("Initial node: " + this);
 
@@ -83,10 +86,10 @@ public class ArithmeticFunctionNode implements NodeInterface {
         return null;
     }
 
-    private void checkType(NodeInterface nodeInterface) {
-        final String exceptionMessage = "Literal value must be integer or real. Provided: " + nodeInterface;
+    private void checkType(ElementInterface elementInterface) {
+        final String exceptionMessage = "Literal value must be integer or real. Provided: " + elementInterface;
         try {
-            Object object = ((LiteralNode) nodeInterface.evaluate()).getValue();
+            Object object = ((LiteralNode) elementInterface.evaluate()).getValue();
             if (!((object instanceof Integer) || (object instanceof Double))) {
                 throw new RuntimeException(exceptionMessage);
             }

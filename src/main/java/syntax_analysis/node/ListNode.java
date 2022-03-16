@@ -1,27 +1,30 @@
 package syntax_analysis.node;
 
+import interpreter.PredefinedFunction;
+import interpreter.DefinedFunction;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ListNode implements NodeInterface {
-    List<NodeInterface> elements;
+public class ListNode implements ElementInterface {
+    public List<ElementInterface> elements;
 
     public ListNode() {
         elements = new ArrayList<>();
     }
 
-    public ListNode(NodeInterface element) {
+    public ListNode(ElementInterface element) {
         elements = new ArrayList<>();
         elements.add(element);
     }
 
-    public ListNode(List<NodeInterface> elements) {
+    public ListNode(List<ElementInterface> elements) {
         this.elements = new ArrayList<>();
         this.elements.addAll(elements);
     }
 
-    public ListNode(NodeInterface element, ListNode list) {
+    public ListNode(ElementInterface element, ListNode list) {
         elements = new ArrayList<>();
         elements.add(element);
         elements.addAll(list.elements);
@@ -33,15 +36,20 @@ public class ListNode implements NodeInterface {
     }
 
     @Override
-    public NodeInterface evaluate() {
+    public ElementInterface evaluate() {
         System.out.println("=====");
         System.out.println("Initial node: " + elements);
         PredefinedFunction predefinedFunction = new PredefinedFunction(elements);
         if (predefinedFunction.isPredefinedFunction()) {
             return predefinedFunction.performFunctionAction();
         }
-        List<NodeInterface> evaluatedElements = elements.stream()
-                .map(NodeInterface::evaluate)
+        DefinedFunction definedFunction = new DefinedFunction(elements);
+
+        if (definedFunction.isDefinedFunction()){
+            return definedFunction.performFunctionAction();
+        }
+        List<ElementInterface> evaluatedElements = elements.stream()
+                .map(ElementInterface::evaluate)
                 .collect(Collectors.toList());
         System.out.println("Evaluated node: " + evaluatedElements);
         System.out.println("=====");

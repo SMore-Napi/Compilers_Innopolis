@@ -1,24 +1,27 @@
-package syntax_analysis.node;
+package syntax_analysis.node.predefined_function;
 
-public class OperationOnListsNode implements NodeInterface {
+import syntax_analysis.node.ElementInterface;
+import syntax_analysis.node.ListNode;
 
-    NodeInterface element;
-    NodeInterface list;
+public class OperationOnListFunction implements ElementInterface {
+
+    ElementInterface element;
+    ElementInterface list;
     Operation operation;
 
-    public OperationOnListsNode(Operation operation, NodeInterface list) {
+    public OperationOnListFunction(Operation operation, ElementInterface list) {
         this.list = list;
         this.operation = operation;
     }
 
-    public OperationOnListsNode(Operation operation, NodeInterface element, NodeInterface list) {
+    public OperationOnListFunction(Operation operation, ElementInterface element, ElementInterface list) {
         this.element = element;
         this.list = list;
         this.operation = operation;
     }
 
     @Override
-    public NodeInterface evaluate() {
+    public ElementInterface evaluate() {
         switch (operation) {
             case HEAD:
                 try {
@@ -46,7 +49,7 @@ public class OperationOnListsNode implements NodeInterface {
                 }
             case CONS:
                 try {
-                    NodeInterface firstElement = element.evaluate();
+                    ElementInterface firstElement = element.evaluate();
                     ListNode listNode = (ListNode) list.evaluate();
                     return new ListNode(firstElement, listNode);
                 } catch (ClassCastException classCastException) {

@@ -1,20 +1,20 @@
 package syntax_analysis.node.special_form;
 
-import syntax_analysis.node.NodeInterface;
+import syntax_analysis.node.ElementInterface;
 
 public
-class CondNode implements NodeInterface {
-    NodeInterface condition;
-    NodeInterface trueAction;
-    NodeInterface falseAction;
+class CondNode implements ElementInterface {
+    ElementInterface condition;
+    ElementInterface trueAction;
+    ElementInterface falseAction;
 
-    public CondNode(NodeInterface condition, NodeInterface trueAction) {
+    public CondNode(ElementInterface condition, ElementInterface trueAction) {
         this.condition = condition;
         this.trueAction = trueAction;
         this.falseAction = null;
     }
 
-    public CondNode(NodeInterface condition, NodeInterface trueAction, NodeInterface falseAction) {
+    public CondNode(ElementInterface condition, ElementInterface trueAction, ElementInterface falseAction) {
         this.condition = condition;
         this.trueAction = trueAction;
         this.falseAction = falseAction;

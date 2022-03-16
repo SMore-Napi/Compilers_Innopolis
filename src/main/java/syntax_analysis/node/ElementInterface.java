@@ -1,8 +1,8 @@
 package syntax_analysis.node;
 
-public interface NodeInterface {
+public interface ElementInterface {
     // todo delete default and implement this method for all classes
-    default NodeInterface evaluate() {
+    default ElementInterface evaluate() {
         return null;
     }
 }

@@ -1,1 +1,4 @@
+(setq a 1)
+(setq b true)
+(setq c null)
 (isatom (a b c))

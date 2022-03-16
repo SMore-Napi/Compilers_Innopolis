@@ -8,6 +8,7 @@ public class TestInterpreter {
     private final String programsDirectory = "Tests/Interpreter/";
     private final String quoteDirectory = "Quote/";
     private final String setQDirectory = "SetQ/";
+    private final String funcDirectory = "Func/";
 
     private final String arithmeticFunctionsDirectory = "ArithmeticFunctions/";
     private final String operationsOnListDirectory = "OperationsOnList/";
@@ -128,6 +129,20 @@ public class TestInterpreter {
     void testSetQAtomsList() throws IOException {
         String programName = programsDirectory + setQDirectory + "setq_atoms_list.txt";
         String expected = "AtomNode{name='t', value={List[AtomNode{name='plus', value={null}}, AtomNode{name='minus', value={null}}, AtomNode{name='times', value={null}}, AtomNode{name='divide', value={null}}]}}\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testSetQPredefinedFunctionException() throws IOException {
+        String programName = programsDirectory + setQDirectory + "setq_predefined_function.txt";
+        String expectedMessage = "Can't reassign keyword: not";
+        runCompilerException(programName, expectedMessage);
+    }
+
+    @Test
+    void testFunc1() throws IOException {
+        String programName = programsDirectory + funcDirectory + "func1.txt";
+        String expected = "";
         runCompilerEquals(programName, expected);
     }
 
@@ -699,7 +714,10 @@ public class TestInterpreter {
     @Test
     void testIsAtom10() throws IOException {
         String programName = programsDirectory + predicatesDirectory + "isatom10.txt";
-        String expected = "bool=false\n";
+        String expected = "AtomNode{name='a', value={int=1}}\n" +
+                "AtomNode{name='b', value={bool=true}}\n" +
+                "AtomNode{name='c', value={null}}\n" +
+                "bool=false\n";
         runCompilerEquals(programName, expected);
     }
 
@@ -1095,20 +1113,6 @@ public class TestInterpreter {
         String programName = programsDirectory + logicalOperatorsDirectory + "not_exception5.txt";
         String expectedMessage = "Literal value must be boolean. Provided: null";
         runCompilerException(programName, expectedMessage);
-    }
-
-    @Test
-    void testNotException6() throws IOException {
-        String programName = programsDirectory + logicalOperatorsDirectory + "not_exception6.txt";
-        String expectedMessage = "Literal value must be boolean. Provided: AtomNode{name='not', value={null}}";
-        runCompilerException(programName, expectedMessage);
-    }
-
-    @Test
-    void testEval1() throws IOException {
-        String programName = programsDirectory + evalDirectory + "eval1.txt";
-        String expected = "null\n";
-        runCompilerEquals(programName, expected);
     }
 
     @Test

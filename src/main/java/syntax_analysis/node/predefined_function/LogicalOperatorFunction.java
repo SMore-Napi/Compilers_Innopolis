@@ -1,23 +1,26 @@
-package syntax_analysis.node;
+package syntax_analysis.node.predefined_function;
 
-public class LogicalOperatorNode implements NodeInterface {
-    NodeInterface firstElement;
-    NodeInterface secondElement;
+import syntax_analysis.node.ElementInterface;
+import syntax_analysis.node.LiteralNode;
+
+public class LogicalOperatorFunction implements ElementInterface {
+    ElementInterface firstElement;
+    ElementInterface secondElement;
     Operation operation;
 
-    public LogicalOperatorNode(Operation operation, NodeInterface firstElement, NodeInterface secondElement) {
+    public LogicalOperatorFunction(Operation operation, ElementInterface firstElement, ElementInterface secondElement) {
         this.firstElement = firstElement;
         this.secondElement = secondElement;
         this.operation = operation;
     }
 
-    public LogicalOperatorNode(Operation operation, NodeInterface firstElement) {
+    public LogicalOperatorFunction(Operation operation, ElementInterface firstElement) {
         this.firstElement = firstElement;
         this.operation = operation;
     }
 
     @Override
-    public NodeInterface evaluate() {
+    public ElementInterface evaluate() {
         System.out.println("=====");
         System.out.println("Initial node: " + this);
         LiteralNode result;
@@ -70,10 +73,10 @@ public class LogicalOperatorNode implements NodeInterface {
         throw new RuntimeException("Undefined logical unary operator: " + operation);
     }
 
-    private void checkType(NodeInterface nodeInterface) {
-        final String exceptionMessage = "Literal value must be boolean. Provided: " + nodeInterface;
+    private void checkType(ElementInterface elementInterface) {
+        final String exceptionMessage = "Literal value must be boolean. Provided: " + elementInterface;
         try {
-            Object object = ((LiteralNode) nodeInterface.evaluate()).getValue();
+            Object object = ((LiteralNode) elementInterface.evaluate()).getValue();
             if (!(object instanceof Boolean)) {
                 throw new RuntimeException(exceptionMessage);
             }

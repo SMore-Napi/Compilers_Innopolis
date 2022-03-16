@@ -1,20 +1,22 @@
-package syntax_analysis.node;
+package syntax_analysis.node.predefined_function;
 
 import exceptions.ComparisonException;
+import syntax_analysis.node.ElementInterface;
+import syntax_analysis.node.LiteralNode;
 
-public class ComparisonNode implements NodeInterface {
-    NodeInterface firstElement;
-    NodeInterface secondElement;
+public class ComparisonFunction implements ElementInterface {
+    ElementInterface firstElement;
+    ElementInterface secondElement;
     Operation operation;
 
-    public ComparisonNode(Operation operation, NodeInterface firstElement, NodeInterface secondElement) {
+    public ComparisonFunction(Operation operation, ElementInterface firstElement, ElementInterface secondElement) {
         this.firstElement = firstElement;
         this.secondElement = secondElement;
         this.operation = operation;
     }
 
     @Override
-    public NodeInterface evaluate() {
+    public ElementInterface evaluate() {
         this.checkType(firstElement);
         this.checkType(secondElement);
 
@@ -118,15 +120,15 @@ public class ComparisonNode implements NodeInterface {
         return null;
     }
 
-    private void checkType(NodeInterface nodeInterface) {
-        final String exceptionMessage = "Literal value must be integer or real or boolean. Provided: " + nodeInterface;
+    private void checkType(ElementInterface elementInterface) {
+        final String exceptionMessage = "Literal value must be integer or real or boolean. Provided: " + elementInterface;
         try {
-            Object object = ((LiteralNode) nodeInterface.evaluate()).getValue();
+            Object object = ((LiteralNode) elementInterface.evaluate()).getValue();
             if (!((object instanceof Integer) || (object instanceof Double) || (object instanceof Boolean))) {
                 throw new RuntimeException(exceptionMessage);
             }
         } catch (ClassCastException e) {
-            throw new ComparisonException(": Literal value must be integer or real or boolean. Provided: " + nodeInterface.evaluate(), true);
+            throw new ComparisonException(": Literal value must be integer or real or boolean. Provided: " + elementInterface.evaluate(), true);
         }
     }
 

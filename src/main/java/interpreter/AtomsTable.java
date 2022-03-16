@@ -1,13 +1,13 @@
-package syntax_analysis;
+package interpreter;
 
 import syntax_analysis.node.AtomNode;
-import syntax_analysis.node.NodeInterface;
+import syntax_analysis.node.ElementInterface;
 
 import java.util.HashMap;
 
 public class AtomsTable {
     private static AtomsTable INSTANCE;
-    private final HashMap<String, NodeInterface> atoms;
+    private final HashMap<String, ElementInterface> atoms;
 
     private AtomsTable() {
         this.atoms = new HashMap<>();
@@ -28,7 +28,7 @@ public class AtomsTable {
         atoms.put(atom.name, atom.value);
     }
 
-    public NodeInterface getAtomValue(String atomName) {
+    public ElementInterface getAtomValue(String atomName) {
         return atoms.getOrDefault(atomName, null);
     }
 

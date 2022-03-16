@@ -1,20 +1,25 @@
 package syntax_analysis.node.special_form;
 
-import syntax_analysis.AtomsTable;
+import interpreter.AtomsTable;
 import syntax_analysis.node.AtomNode;
-import syntax_analysis.node.NodeInterface;
+import syntax_analysis.node.ElementInterface;
+import interpreter.PredefinedFunction;
 
-public class SetQNode implements NodeInterface {
+public class SetQNode implements ElementInterface {
     AtomNode atom;
-    NodeInterface element;
+    ElementInterface element;
 
-    public SetQNode(AtomNode atom, NodeInterface element) {
+    public SetQNode(AtomNode atom, ElementInterface element) {
         this.atom = atom;
         this.element = element;
     }
 
     @Override
-    public NodeInterface evaluate() {
+    public ElementInterface evaluate() {
+        //todo not only this keywords, but also special forms and user defined functions
+        if (PredefinedFunction.isKeyword(atom.name)) {
+            throw new RuntimeException("Can't reassign keyword: " + atom.name);
+        }
         atom.value = element.evaluate();
         AtomsTable.getInstance().addAtom(atom);
         return atom;

@@ -1,3 +1,4 @@
+import interpreter.Interpreter;
 import lexical_analysis.tokens.Token;
 import syntax_analysis.LexerAdapter;
 import syntax_analysis.Parser;

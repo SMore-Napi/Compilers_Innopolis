@@ -1,12 +1,12 @@
 package syntax_analysis.node.special_form;
 
-import syntax_analysis.node.NodeInterface;
+import syntax_analysis.node.ElementInterface;
 
-public class ProgNode implements NodeInterface {
-    NodeInterface list;
-    NodeInterface element;
+public class ProgNode implements ElementInterface {
+    ElementInterface list;
+    ElementInterface element;
 
-    public ProgNode(NodeInterface list, NodeInterface element) {
+    public ProgNode(ElementInterface list, ElementInterface element) {
         this.list = list;
         this.element = element;
     }

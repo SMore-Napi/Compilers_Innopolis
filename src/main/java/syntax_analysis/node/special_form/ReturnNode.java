@@ -1,11 +1,11 @@
 package syntax_analysis.node.special_form;
 
-import syntax_analysis.node.NodeInterface;
+import syntax_analysis.node.ElementInterface;
 
-public class ReturnNode implements NodeInterface {
-    NodeInterface element;
+public class ReturnNode implements ElementInterface {
+    ElementInterface element;
 
-    public ReturnNode(NodeInterface element) {
+    public ReturnNode(ElementInterface element) {
         this.element = element;
     }
 

@@ -5,7 +5,7 @@ import lexical_analysis.tokens.literal.IntegerNumberLiteralToken;
 import lexical_analysis.tokens.literal.LiteralToken;
 import lexical_analysis.tokens.literal.RealNumberLiteralToken;
 
-public class LiteralNode implements NodeInterface {
+public class LiteralNode implements ElementInterface {
     public Integer integerValue;
     public Double realValue;
     public Boolean booleanValue;
@@ -61,7 +61,7 @@ public class LiteralNode implements NodeInterface {
     }
 
     @Override
-    public NodeInterface evaluate() {
+    public ElementInterface evaluate() {
         return this;
     }
 }

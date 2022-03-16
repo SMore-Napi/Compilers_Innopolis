@@ -1,19 +1,24 @@
-package syntax_analysis.node;
+package syntax_analysis.node.predefined_function;
 
-public class PredicateNode implements NodeInterface {
-    NodeInterface element;
+import syntax_analysis.node.AtomNode;
+import syntax_analysis.node.ElementInterface;
+import syntax_analysis.node.ListNode;
+import syntax_analysis.node.LiteralNode;
+
+public class PredicateFunction implements ElementInterface {
+    ElementInterface element;
     Operation operation;
 
-    public PredicateNode(Operation operation, NodeInterface element) {
+    public PredicateFunction(Operation operation, ElementInterface element) {
         this.element = element;
         this.operation = operation;
     }
 
     @Override
-    public NodeInterface evaluate() {
+    public ElementInterface evaluate() {
         System.out.println("=====");
         System.out.println("Initial node: " + this);
-        NodeInterface evaluatedElement = element.evaluate();
+        ElementInterface evaluatedElement = element.evaluate();
         System.out.println("Evaluated node (1): " + evaluatedElement);
         LiteralNode result = this.performOperation(evaluatedElement);
         System.out.println("Evaluated node (2): " + result);
@@ -21,7 +26,7 @@ public class PredicateNode implements NodeInterface {
         return result;
     }
 
-    private LiteralNode performOperation(NodeInterface evaluatedElement) {
+    private LiteralNode performOperation(ElementInterface evaluatedElement) {
         switch (operation) {
             case ISINT:
                 try {

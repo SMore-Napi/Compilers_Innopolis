@@ -1,17 +1,21 @@
-package syntax_analysis.node;
+package syntax_analysis.node.predefined_function;
 
-public class EvaluatorNode implements NodeInterface {
-    NodeInterface argument;
+import syntax_analysis.node.ElementInterface;
+import syntax_analysis.node.ListNode;
+import interpreter.PredefinedFunction;
 
-    public EvaluatorNode(NodeInterface argument) {
+public class EvaluatorFunction implements ElementInterface {
+    ElementInterface argument;
+
+    public EvaluatorFunction(ElementInterface argument) {
         this.argument = argument;
     }
 
     @Override
-    public NodeInterface evaluate() {
+    public ElementInterface evaluate() {
         System.out.println("=====");
         System.out.println("Initial node: " + this);
-        NodeInterface evaluatedArgument = argument.evaluate();
+        ElementInterface evaluatedArgument = argument.evaluate();
         System.out.println("Evaluated argument: " + evaluatedArgument);
         System.out.println("=====");
         try {
