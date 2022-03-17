@@ -1,0 +1,23 @@
+(setq initialList '(4 2 5 2 4 6 7 1))
+
+(func getMinElement (lst)
+(cond (isempty (tail lst))
+ (head lst)
+ (cond (less (head lst) (getMinElement (tail lst)))
+ (head lst)
+ (getMinElement (tail lst))))
+)
+
+(func removeElement (el lst)
+(cond (equal (head lst) el) (tail lst) (cons (head lst) (removeElement el (tail lst))))
+)
+
+(func sort (lst)
+(cond (isempty (tail lst))
+ lst
+(cons (getMinElement lst) (sort (removeElement (getMinElement lst) lst)) )
+)
+)
+
+(setq sortedList (sort initialList))
+sortedList

@@ -37,4 +37,10 @@ public class TestDemo {
         runCompilerEquals(programName, expected);
     }
 
+    @Test
+    void testSelectionSort() throws IOException {
+        String programName = programsDirectory  + "selection_sort.txt";
+        String expected = "'(1 2 2 4 4 5 6 7)\n";
+        runCompilerEquals(programName, expected);
+    }
 }
