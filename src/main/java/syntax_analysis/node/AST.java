@@ -21,13 +21,6 @@ public class AST {
                     result.append(i).append("\n");
                 }
             }
-
-
-//            if (i == null) {
-//                result.append("null").append("\n");
-//            } else {
-//                result.append(i).append("\n");
-//            }
         }
         return result.toString();
     }

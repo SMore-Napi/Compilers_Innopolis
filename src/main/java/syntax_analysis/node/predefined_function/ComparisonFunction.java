@@ -30,11 +30,7 @@ public class ComparisonFunction implements ElementInterface {
         Boolean lOBool = leftOperandLiteral instanceof Boolean ? (boolean) leftOperandLiteral : null;
         Boolean rOBool = rightOperandLiteral instanceof Boolean ? (boolean) rightOperandLiteral : null;
 
-        Boolean result = this.performOperation(lOInt, lOReal, rOInt, rOReal, lOBool, rOBool);
-
-        System.out.println("Evaluated node: " + result);
-        System.out.println("=====");
-        return new LiteralNode(result);
+        return new LiteralNode(Boolean.TRUE.equals(this.performOperation(lOInt, lOReal, rOInt, rOReal, lOBool, rOBool)));
     }
 
 

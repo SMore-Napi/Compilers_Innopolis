@@ -16,14 +16,8 @@ public class PredicateFunction implements ElementInterface {
 
     @Override
     public ElementInterface evaluate() {
-        System.out.println("=====");
-        System.out.println("Initial node: " + this);
         ElementInterface evaluatedElement = element.evaluate();
-        System.out.println("Evaluated node (1): " + evaluatedElement);
-        LiteralNode result = this.performOperation(evaluatedElement);
-        System.out.println("Evaluated node (2): " + result);
-        System.out.println("=====");
-        return result;
+        return this.performOperation(evaluatedElement);
     }
 
     private LiteralNode performOperation(ElementInterface evaluatedElement) {

@@ -29,11 +29,6 @@ public class ProgNode implements ElementInterface {
         for (AtomNode atom : FunctionAtom.getListFunctionArguments(arguments)) {
             AtomsTable.getInstance().addAtom(atom);
         }
-
-        System.out.println("New local context");
-        AtomsTable.getInstance().printAtomsInNestedContext();
-        System.out.println("=======");
-
         if (elements instanceof ListNode) {
             for (ElementInterface element : ((ListNode) this.elements).elements) {
                 ElementInterface evaluatedElement = element.evaluate();

@@ -44,19 +44,11 @@ public class FunctionAtom implements ElementInterface {
 
     @Override
     public ElementInterface evaluate() {
-        System.out.println("Calling function");
-        System.out.println("Arguments: " + arguments);
-        System.out.println("Parameters: " + parameters);
-        System.out.println("Function body: " + body);
         AtomsTable.getInstance().introduceLocalContext();
         for (int i = 0; i < parameters.size(); i++) {
             AtomsTable.getInstance().addAtom(new AtomNode(arguments.get(i).name, parameters.get(i).evaluate()));
         }
-        System.out.println("New local context");
-        AtomsTable.getInstance().printAtomsInNestedContext();
-        System.out.println("=======");
         ElementInterface result = body.evaluate();
-        System.out.println("Function result: " + result);
         AtomsTable.getInstance().leaveLocalContext();
         return result;
     }

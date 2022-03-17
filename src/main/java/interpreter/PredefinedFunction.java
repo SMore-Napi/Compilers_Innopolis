@@ -39,7 +39,6 @@ public class PredefinedFunction {
     }
 
     public ElementInterface performFunctionAction() {
-        System.out.println("Predefined Function Call");
         AtomNode atom = (AtomNode) elements.get(0);
         switch (atom.name) {
             case "plus":

@@ -27,36 +27,10 @@ public class AtomNode implements ElementInterface {
             return FunctionsTable.getInstance().getFunctionValue(name);
         }
         throw new RuntimeException("Undefined atom: " + name);
-//        value = AtomsTable.getInstance().getAtomValue(name);
-//        return this;
     }
 
     @Override
     public String toString() {
-        //todo return just value
         return name;
-        /*
-        return "AtomNode{" +
-                "name='" + name + '\'' +
-                ", value={" + value + '}' +
-                '}';
-
-         */
-        /*
-        if (AtomsTable.getInstance().contains(name)) {
-            value = AtomsTable.getInstance().getAtomValue(name);
-            return "AtomNode{" +
-                    "name='" + name + '\'' +
-                    ", value={" + value + '}' +
-                    '}';
-        } else {
-            return "AtomNode{" +
-                    "name='" + name + '\'' +
-                  //  ", value={" + name + '}' +
-                    ", value={" + value + '}' +
-                    '}';
-        }
-
-         */
     }
 }

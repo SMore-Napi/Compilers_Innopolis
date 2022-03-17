@@ -18,15 +18,9 @@ public class EvaluatorFunction implements ElementInterface {
 
     @Override
     public ElementInterface evaluate() {
-        System.out.println("=====");
-        System.out.println("Initial node: " + this);
         ElementInterface evaluatedArgument = argument.evaluate();
-        System.out.println("Evaluated argument: " + evaluatedArgument);
-        System.out.println("=====");
         try {
             if (evaluatedArgument instanceof ListNode) {
-                System.out.println("The argument is a list, so perform evaluation");
-                System.out.println("=====");
                 List<ElementInterface> elementsList = ((ListNode) evaluatedArgument).elements;
                 PredefinedFunction predefinedFunction = new PredefinedFunction(elementsList);
                 if (predefinedFunction.isPredefinedFunction()) {
@@ -39,17 +33,16 @@ public class EvaluatorFunction implements ElementInterface {
                 if (!(elementsList.isEmpty())) {
                     if (elementsList.get(0) instanceof FunctionAtom) {
                         FunctionAtom functionAtom = (FunctionAtom) elementsList.get(0);
-                        System.out.println("Provide arguments: " + Math.min(functionAtom.getArgumentsNumber(),
-                                elementsList.size()));
-                        functionAtom.setParameters(elementsList.subList(1, 1 + Math.min(functionAtom.getArgumentsNumber(),
-                                elementsList.size())));
+                        functionAtom.setParameters(elementsList.subList(1,
+                                1 + Math.min(functionAtom.getArgumentsNumber(), elementsList.size())));
                         ElementInterface functionResult = functionAtom.evaluate();
                         if (functionAtom.getArgumentsNumber() == elementsList.size()) {
                             return functionResult;
                         } else if (functionAtom.getArgumentsNumber() < elementsList.size()) {
                             List<ElementInterface> evaluatedListNode = new ArrayList<>();
                             evaluatedListNode.add(functionResult);
-                            evaluatedListNode.addAll(elementsList.subList(1 + functionAtom.getArgumentsNumber(), elementsList.size()));
+                            evaluatedListNode.addAll(elementsList
+                                    .subList(1 + functionAtom.getArgumentsNumber(), elementsList.size()));
                             return new ListNode(evaluatedListNode);
                         }
                     }

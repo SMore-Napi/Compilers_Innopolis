@@ -9,12 +9,10 @@ import java.util.List;
 
 public class FunctionsTable {
     private static FunctionsTable INSTANCE;
-    //private final HashMap<String, FunctionAtom> functions;
     private final List<HashMap<String, ElementInterface>> localContext;
 
     private FunctionsTable() {
         this.localContext = new ArrayList<>();
-        //this.functions = new HashMap<>();
         this.localContext.add(new HashMap<>());
     }
 

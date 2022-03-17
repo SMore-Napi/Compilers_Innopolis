@@ -16,9 +16,6 @@ public class ArithmeticFunction implements ElementInterface {
 
     @Override
     public ElementInterface evaluate() {
-        System.out.println("=====");
-        System.out.println("Initial node: " + this);
-
         this.checkType(leftOperand);
         this.checkType(rightOperand);
 
@@ -29,11 +26,7 @@ public class ArithmeticFunction implements ElementInterface {
         Integer rOInt = rightOperandLiteral instanceof Integer ? (int) rightOperandLiteral : null;
         Double rOReal = rightOperandLiteral instanceof Double ? (double) rightOperandLiteral : null;
 
-        LiteralNode result = this.performOperation(lOInt, lOReal, rOInt, rOReal);
-
-        System.out.println("Evaluated node: " + result);
-        System.out.println("=====");
-        return result;
+        return this.performOperation(lOInt, lOReal, rOInt, rOReal);
     }
 
     private LiteralNode performOperation(Integer lOInt, Double lOReal, Integer rOInt, Double rOReal) {

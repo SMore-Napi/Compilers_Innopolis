@@ -36,13 +36,6 @@ public class AtomsTable {
         this.localContext.remove(this.localContext.size() - 1);
     }
 
-    public void printAtomsInNestedContext() {
-        final HashMap<String, ElementInterface> atoms = localContext.get(localContext.size() - 1);
-        for (Map.Entry<String, ElementInterface> entry : atoms.entrySet()) {
-            System.out.println(entry.getKey() + ":" + entry.getValue());
-        }
-    }
-
     public void addAtom(AtomNode atom) {
         final HashMap<String, ElementInterface> atoms = localContext.get(localContext.size() - 1);
         atoms.put(atom.name, atom.value);

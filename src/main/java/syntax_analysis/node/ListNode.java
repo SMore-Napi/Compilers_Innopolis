@@ -39,9 +39,6 @@ public class ListNode implements ElementInterface {
 
     @Override
     public ElementInterface evaluate() {
-        System.out.println("=====");
-        System.out.println("Initial node: " + elements);
-
         PredefinedFunction predefinedFunction = new PredefinedFunction(elements);
         if (predefinedFunction.isPredefinedFunction()) {
             return predefinedFunction.performFunctionAction();
@@ -50,25 +47,6 @@ public class ListNode implements ElementInterface {
         if (definedFunction.isDefinedFunction()) {
             return definedFunction.performFunctionAction();
         }
-
-//        if (!elements.isEmpty()) {
-//            System.out.println("Check if the first evaluated element is function call");
-//            System.out.println("elements: " + elements);
-//            ElementInterface firstEvaluatedElement = elements.get(0).evaluate();
-//            System.out.println("firstEvaluatedElement: " + firstEvaluatedElement);
-//            if (PredefinedFunction.isPredefinedFunction(firstEvaluatedElement)) {
-//                elements.set(0, firstEvaluatedElement);
-//                predefinedFunction = new PredefinedFunction(elements);
-//                return predefinedFunction.performFunctionAction();
-//            }
-//            if (DefinedFunction.isDefinedFunction(firstEvaluatedElement)) {
-//                elements.set(0, firstEvaluatedElement);
-//                definedFunction = new DefinedFunction(elements);
-//                return definedFunction.performFunctionAction();
-//            }
-//        }
-
-
         List<ElementInterface> evaluatedElements = new ArrayList<>();
         for (ElementInterface element : elements) {
             if (NestedFormBreak.getInstance().scopeValue() < 0) {
@@ -82,14 +60,6 @@ public class ListNode implements ElementInterface {
             }
             evaluatedElements.add(evaluatedElement);
         }
-
-//        List<ElementInterface> evaluatedElements = elements.stream()
-//                .map(ElementInterface::evaluate)
-//                .collect(Collectors.toList());
-
-        System.out.println("Evaluated node: " + evaluatedElements);
-        System.out.println("=====");
-
         return new ListNode(evaluatedElements);
     }
 }

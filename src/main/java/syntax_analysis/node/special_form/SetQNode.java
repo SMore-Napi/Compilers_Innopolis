@@ -24,13 +24,6 @@ public class SetQNode implements ElementInterface {
             throw new RuntimeException("There is a defined function: " + atom.name);
         }
         atom.value = element.evaluate();
-        /*
-        if (atom.value instanceof FunctionAtom) {
-            FunctionsTable.getInstance().addFunction(atom.name, (FunctionAtom) atom.value);
-        } else {
-            AtomsTable.getInstance().addAtom(atom);
-        }
-         */
         AtomsTable.getInstance().addAtom(atom);
         return null;
     }

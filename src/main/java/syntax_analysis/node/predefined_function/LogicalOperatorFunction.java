@@ -21,8 +21,6 @@ public class LogicalOperatorFunction implements ElementInterface {
 
     @Override
     public ElementInterface evaluate() {
-        System.out.println("=====");
-        System.out.println("Initial node: " + this);
         LiteralNode result;
         this.checkType(firstElement);
         boolean fElValue = (boolean) (((LiteralNode) firstElement.evaluate()).getValue());
@@ -46,17 +44,12 @@ public class LogicalOperatorFunction implements ElementInterface {
             default:
                 throw new RuntimeException("Undefined logical unary operator: " + operation);
         }
-        System.out.println("Evaluated node: " + result);
-        System.out.println("=====");
         return result;
     }
 
     private LiteralNode performBinaryOperation(boolean fElValue, boolean sElValue) {
         switch (operation) {
             case AND:
-                System.out.println("here");
-                System.out.println(fElValue);
-                System.out.println(sElValue);
                 return new LiteralNode(fElValue && sElValue);
             case OR:
                 return new LiteralNode(fElValue || sElValue);
