@@ -17,7 +17,7 @@ public class AST {
         ListNode lines = (ListNode) root.evaluate();
         for (ElementInterface i : lines.elements) {
             if (i != null) {
-                if ((i instanceof LiteralNode) || (i instanceof AtomNode) || (i instanceof ListNode)){
+                if ((i instanceof LiteralNode) || (i instanceof AtomNode) || (i instanceof ListNode)) {
                     result.append(i).append("\n");
                 }
             }

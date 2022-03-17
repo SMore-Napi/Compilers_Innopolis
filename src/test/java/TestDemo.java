@@ -43,4 +43,11 @@ public class TestDemo {
         String expected = "'(1 2 2 4 4 5 6 7)\n";
         runCompilerEquals(programName, expected);
     }
+
+    @Test
+    void testtriangleArea() throws IOException {
+        String programName = programsDirectory  + "triangle_area.txt";
+        String expected = "0.5\n";
+        runCompilerEquals(programName, expected);
+    }
 }

@@ -1,0 +1,9 @@
+(func abs (x) (cond (greater x 0) (x) (minus 0 x)))
+
+(func triangleArea2 (x1 y1 x2 y2 x3 y3)
+	 (minus ( times (minus x2 x1) (minus y3 y1) )  ( times (minus y2 y1) (minus x3 x1) )))
+
+(func triangleArea (x1 y1 x2 y2 x3 y3)
+	( abs (divide (triangleArea2 x1 y1 x2 y2 x3 y3) 2.0 )))
+
+(triangleArea 0.0 0.0 0.0 1.0 1.0 0.0)
