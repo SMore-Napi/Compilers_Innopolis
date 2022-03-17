@@ -1,6 +1,3 @@
-(isempty '(1 2 3))
-(isempty '())
-
 (length '(1 2 3))
 (length '())
 (length '(1))

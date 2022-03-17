@@ -1,0 +1,31 @@
+
+(func fibonacci (n) (
+    (setq res ())
+    (setq fn1 0)
+    (setq fn2 1)
+    (setq i 1)
+    (while (lesseq i (minus n 2)) (
+                (cond (greatereq i 2)
+                     (
+                        (setq res (cons (plus fn1 fn2) res))
+                        (setq tempfn1 fn1)
+                        (setq fn1 fn2)
+                        (setq fn2 (plus tempfn1 fn2))
+
+                        (setq i (plus i 1))
+                     )
+                     (
+                     (setq res (cons fn1 res))
+                     (setq res (cons fn2 res))
+                     (setq res (cons fn2 res))
+                     (setq fn1 fn2)
+                     (setq i (plus i 1))
+                     ))))
+    (prog (x) (
+        (setq x res)
+        (return (x)))
+    )
+  )
+)
+
+(fibonacci 15)

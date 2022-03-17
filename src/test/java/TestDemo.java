@@ -22,18 +22,19 @@ public class TestDemo {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
-//    @Test
-//    void testQuickSort() throws IOException {
-//        String programName = programsDirectory  + "quicksort.txt";
-//        String expected = "";
-//        runCompilerEquals(programName, expected);
-//    }
-//
-//    @Test
-//    void testSudoku() throws IOException {
-//        String programName = programsDirectory  + "sudoku.txt";
-//        String expected = "";
-//        runCompilerEquals(programName, expected);
-//    }
+    @Test
+    void testFactorial() throws IOException {
+        String programName = programsDirectory  + "factorial.txt";
+        String expected = "'('(120))\n" +
+                "'('(720))\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testFibonacci() throws IOException {
+        String programName = programsDirectory  + "fibonacci.txt";
+        String expected = "'('('(377 233 144 89 55 34 21 13 8 5 3 2 1 1 0)))\n";
+        runCompilerEquals(programName, expected);
+    }
 
 }

@@ -1,0 +1,17 @@
+
+(func fact (n) (
+    (setq i 1)
+    (setq res 1)
+    (while (lesseq i n) (
+        (setq i (plus i 1))
+        (setq res (times (minus i 1)  res))
+    ))
+    (prog (x) (
+        (setq x res)
+        (return (x)))
+    )
+  )
+)
+
+(fact 5)
+(fact 6)
