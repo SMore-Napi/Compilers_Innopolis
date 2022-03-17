@@ -25,3 +25,9 @@ In the [syntax_analysis](/src/main/java/syntax_analysis) folder, you can fina a 
 We use [LexerAdapter.java](/src/main/java/syntax_analysis/LexerAdapter.java) class which connects our [Lexer.java](/src/main/java/lexical_analysis/Lexer.java) and implements necessary methods from `Parser.Lexer` [interface](https://www.gnu.org/software/bison/manual/bison.html#Java-Parser-Interface).
 
 Run `bison Parser.y -L java` to create [Parser.java](/src/main/java/syntax_analysis/Parser.java) parser.
+
+## 😧 Interpreter
+In the [interpreter](/src/main/java/interpreter) package there are classes related to AST interpreteation. 
+- [AtomsTable.java](/src/main/java/interpreter/AtomsTable.java) saves defined atoms and their values. This class is represented as a singleton. Atoms are stored in some local context. Atoms with similar name shadows atoms from outer scope. Each local context is perpesented as a HashMap. The hirerachy of local contexts is presented as a Stack. When you enter into some function or loop the interpreter calls `introduceLocalContext()` function to create a new temporary local context which will be deleted after leaving the form (`leaveLocalContext()` will be called).
+- [FunctionsTable.java](/src/main/java/interpreter/FunctionsTable.java) is similar to [AtomsTable.java](/src/main/java/interpreter/AtomsTable.java), but it stores defined user-functions.
+- [PredefinedFunction.java](/src/main/java/interpreter/PredefinedFunction.java) and [DefinedFunction.java](/src/main/java/interpreter/DefinedFunction.java) classes are utility functions to interpret a list as a function call and evaluate it.
