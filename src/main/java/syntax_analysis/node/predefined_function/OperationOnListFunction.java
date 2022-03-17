@@ -27,24 +27,20 @@ public class OperationOnListFunction implements ElementInterface {
                 try {
                     ListNode listNode = (ListNode) list.evaluate();
                     if (listNode.elements.isEmpty()) {
-                        //todo custom exception
                         throw new RuntimeException("Can't call 'head' from empty list");
                     }
                     return listNode.elements.get(0);
                 } catch (ClassCastException classCastException) {
-                    //todo custom exception
                     throw new RuntimeException("The evaluated argument should be a list");
                 }
             case TAIL:
                 try {
                     ListNode listNode = (ListNode) list.evaluate();
                     if (listNode.elements.isEmpty()) {
-                        //todo custom exception
                         throw new RuntimeException("Can't call 'tail' from empty list");
                     }
                     return new ListNode(listNode.elements.subList(1, listNode.elements.size()));
                 } catch (ClassCastException classCastException) {
-                    //todo custom exception
                     throw new RuntimeException("The evaluated argument should be a list");
                 }
             case CONS:
@@ -53,11 +49,9 @@ public class OperationOnListFunction implements ElementInterface {
                     ListNode listNode = (ListNode) list.evaluate();
                     return new ListNode(firstElement, listNode);
                 } catch (ClassCastException classCastException) {
-                    //todo custom exception
                     throw new RuntimeException("The second evaluated argument should be a list");
                 }
             default:
-                //todo custom exception
                 throw new RuntimeException("Unknown list operation: " + operation);
         }
     }

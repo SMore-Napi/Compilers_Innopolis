@@ -16,11 +16,18 @@ public class AST {
         StringBuilder result = new StringBuilder();
         ListNode lines = (ListNode) root.evaluate();
         for (ElementInterface i : lines.elements) {
-            if (i == null) {
-                result.append("null").append("\n");
-            } else {
-                result.append(i).append("\n");
+            if (i != null) {
+                if ((i instanceof LiteralNode) || (i instanceof AtomNode) || (i instanceof ListNode)){
+                    result.append(i).append("\n");
+                }
             }
+
+
+//            if (i == null) {
+//                result.append("null").append("\n");
+//            } else {
+//                result.append(i).append("\n");
+//            }
         }
         return result.toString();
     }

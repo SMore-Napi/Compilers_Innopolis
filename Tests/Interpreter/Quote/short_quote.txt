@@ -5,3 +5,5 @@ x
 'x
 
 (setq y '(plus 1 2))
+y
+'y

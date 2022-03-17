@@ -1,1 +1,2 @@
 (setq t '(plus 4 5) )
+t

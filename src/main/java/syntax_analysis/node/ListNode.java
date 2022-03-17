@@ -7,6 +7,7 @@ import syntax_analysis.node.special_form.ReturnNode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ListNode implements ElementInterface {
     public List<ElementInterface> elements;
@@ -33,7 +34,7 @@ public class ListNode implements ElementInterface {
 
     @Override
     public String toString() {
-        return "List" + elements;
+        return "'(" + elements.stream().map(Object::toString).collect(Collectors.joining(" ")) + ")";
     }
 
     @Override

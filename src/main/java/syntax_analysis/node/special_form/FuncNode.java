@@ -32,7 +32,7 @@ public class FuncNode implements ElementInterface {
         FunctionAtom function = new FunctionAtom(FunctionAtom.getListFunctionArguments(argumentsList), functionBody);
         functionName.value = function;
         FunctionsTable.getInstance().addFunction(functionName.name, function);
-        return functionName;
+        return null;
     }
 
     @Override

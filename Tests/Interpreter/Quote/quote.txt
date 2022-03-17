@@ -5,3 +5,5 @@ x
 (quote x)
 
 (setq y (quote (plus 1 2)))
+y
+'y

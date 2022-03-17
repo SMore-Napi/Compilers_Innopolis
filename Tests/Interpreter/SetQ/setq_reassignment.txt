@@ -1,2 +1,4 @@
 (setq x 5)
+x
 (setq x 7)
+x

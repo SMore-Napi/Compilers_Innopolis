@@ -34,10 +34,14 @@ public class AtomNode implements ElementInterface {
     @Override
     public String toString() {
         //todo return just value
+        return name;
+        /*
         return "AtomNode{" +
                 "name='" + name + '\'' +
                 ", value={" + value + '}' +
                 '}';
+
+         */
         /*
         if (AtomsTable.getInstance().contains(name)) {
             value = AtomsTable.getInstance().getAtomValue(name);
@@ -48,7 +52,6 @@ public class AtomNode implements ElementInterface {
         } else {
             return "AtomNode{" +
                     "name='" + name + '\'' +
-                    // todo fix
                   //  ", value={" + name + '}' +
                     ", value={" + value + '}' +
                     '}';

@@ -1,1 +1,2 @@
 (setq t '(plus minus times divide))
+t

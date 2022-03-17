@@ -9,21 +9,13 @@ import java.util.List;
 
 public class PredefinedFunction {
 
-    List<ElementInterface> elements;
-
     static final List<String> predefinedFunctionNames = Arrays.asList("plus", "minus", "times", "divide", "head", "tail",
             "cons", "equal", "nonequal", "less", "lesseq", "greater", "greatereq", "isint", "isreal", "isbool",
             "isnull", "isatom", "islist", "and", "or", "xor", "not", "eval");
+    List<ElementInterface> elements;
 
     public PredefinedFunction(List<ElementInterface> elements) {
         this.elements = elements;
-    }
-
-    public boolean isPredefinedFunction() {
-        if (elements.isEmpty()) {
-            return false;
-        }
-        return isPredefinedFunction(elements.get(0));
     }
 
     public static boolean isPredefinedFunction(ElementInterface element) {
@@ -37,6 +29,13 @@ public class PredefinedFunction {
 
     public static boolean isKeyword(String keyword) {
         return predefinedFunctionNames.contains(keyword);
+    }
+
+    public boolean isPredefinedFunction() {
+        if (elements.isEmpty()) {
+            return false;
+        }
+        return isPredefinedFunction(elements.get(0));
     }
 
     public ElementInterface performFunctionAction() {
@@ -97,7 +96,6 @@ public class PredefinedFunction {
 
     private ElementInterface performArithmeticFunction(ArithmeticFunction.Operation operation) {
         if (elements.size() != 3) {
-            // todo throw a custom exception
             throw new RuntimeException("Arithmetic function must have two parameters!");
         }
         ArithmeticFunction node = new ArithmeticFunction(operation, elements.get(1), elements.get(2));
@@ -113,13 +111,11 @@ public class PredefinedFunction {
             OperationOnListFunction node = new OperationOnListFunction(operation, elements.get(1), elements.get(2));
             return node.evaluate();
         }
-        // todo throw a custom exception
         throw new RuntimeException("Operation on list must have one or two parameters!");
     }
 
     private ElementInterface performComparison(ComparisonFunction.Operation operation) {
         if (elements.size() != 3) {
-            // todo throw a custom exception
             throw new RuntimeException("Comparison function must have two parameters!");
         }
         ComparisonFunction node = new ComparisonFunction(operation, elements.get(1), elements.get(2));
@@ -128,7 +124,6 @@ public class PredefinedFunction {
 
     private ElementInterface performPredicateAction(PredicateFunction.Operation operation) {
         if (elements.size() != 2) {
-            // todo throw a custom exception
             throw new RuntimeException("Predicate function must have one parameter!");
         }
         PredicateFunction node = new PredicateFunction(operation, elements.get(1));
@@ -144,13 +139,11 @@ public class PredefinedFunction {
             LogicalOperatorFunction node = new LogicalOperatorFunction(operation, elements.get(1), elements.get(2));
             return node.evaluate();
         }
-        // todo throw a custom exception
         throw new RuntimeException("Logical Operator must have one or two parameters!");
     }
 
     private ElementInterface performEvaluationAction() {
         if (elements.size() != 2) {
-            // todo throw a custom exception
             throw new RuntimeException("Eval must have one parameter!");
         }
         EvaluatorFunction node = new EvaluatorFunction(elements.get(1));

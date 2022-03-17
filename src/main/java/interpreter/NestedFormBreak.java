@@ -15,7 +15,7 @@ public class NestedFormBreak {
         return INSTANCE;
     }
 
-    public void resetNestedForm(){
+    public void resetNestedForm() {
         INSTANCE = new NestedFormBreak();
     }
 
@@ -27,7 +27,7 @@ public class NestedFormBreak {
         this.nestedScope--;
     }
 
-    public int scopeValue(){
+    public int scopeValue() {
         return nestedScope;
     }
 }

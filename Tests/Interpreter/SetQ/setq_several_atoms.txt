@@ -1,2 +1,5 @@
 (setq x 5)
 (setq y 6)
+(x y)
+x
+y

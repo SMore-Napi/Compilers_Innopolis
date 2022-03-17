@@ -10,16 +10,10 @@ import java.util.Map;
 
 public class AtomsTable {
     private static AtomsTable INSTANCE;
-    //private final HashMap<String, ElementInterface> atoms;
     private final List<HashMap<String, ElementInterface>> localContext;
 
     private AtomsTable() {
         this.localContext = new ArrayList<>();
-//        HashMap<String, ElementInterface> predefinedAtoms = new HashMap<>();
-//        for (String predefinedFunctionName : PredefinedFunction.predefinedFunctionNames) {
-//            predefinedAtoms.put(predefinedFunctionName, null);
-//        }
-//        this.localContext.add(predefinedAtoms);
         this.localContext.add(new HashMap<>());
     }
 

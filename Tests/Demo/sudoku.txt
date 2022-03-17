@@ -162,16 +162,6 @@
     )
 )
 
-(func
-    print2 (arr2)
-    (cond (not (isnull arr2))
-        (
-            (println (head arr2))
-            (print2 (tail arr2))
-            (return "")
-        )
-    )
-)
 
 (setq fHard (
   (1 0 5 9 0 0 7 6 0)
@@ -199,7 +189,4 @@
 )
 )
 
-(println "Initial:")
-(print2 fHard)
-(println "Solved:")
-(print2 (solve fHard 0))
+(solve fHard 0)

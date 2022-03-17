@@ -1103,6 +1103,7 @@ public class Parser {
     private void yyreportSyntaxError(Context yyctx) {
         yyerror("syntax error");
     }
+
     public enum SymbolKind {
         S_YYEOF(0),                    /* "end of file"  */
         S_YYerror(1),                  /* error  */
@@ -1285,6 +1286,7 @@ public class Parser {
         }
 
     }
+
     /**
      * Communication interface between the scanner and the Bison-generated
      * parser <tt>Parser</tt>.

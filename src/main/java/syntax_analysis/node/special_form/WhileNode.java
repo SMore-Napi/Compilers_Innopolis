@@ -22,11 +22,11 @@ public class WhileNode implements ElementInterface {
                 if (((LiteralNode) conditionEvaluation).booleanValue) {
                     ElementInterface evaluateResult = this.action.evaluate();
                     if (evaluateResult instanceof BreakNode) {
-                        return new LiteralNode();
+                        return null;
                     }
                 } else {
                     NestedFormBreak.getInstance().leaveLocalScope();
-                    return new LiteralNode();
+                    return null;
                 }
             } else {
                 throw new RuntimeException("The condition argument should be boolean, but given " + condition);

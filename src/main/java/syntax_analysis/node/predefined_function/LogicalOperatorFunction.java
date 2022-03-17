@@ -30,7 +30,7 @@ public class LogicalOperatorFunction implements ElementInterface {
             case AND:
             case OR:
             case XOR:
-                if (secondElement == null){
+                if (secondElement == null) {
                     throw new RuntimeException("Logical binary operator must accept two boolean arguments");
                 }
                 this.checkType(secondElement);
@@ -38,7 +38,7 @@ public class LogicalOperatorFunction implements ElementInterface {
                 result = this.performBinaryOperation(fElValue, sElValue);
                 break;
             case NOT:
-                if (secondElement != null){
+                if (secondElement != null) {
                     throw new RuntimeException("Logical unary operator must accept single boolean argument");
                 }
                 result = this.performUnaryOperation(fElValue);

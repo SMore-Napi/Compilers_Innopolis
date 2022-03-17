@@ -29,4 +29,11 @@ public class TestDemo {
         runCompilerEquals(programName, expected);
     }
 
+    @Test
+    void testSudoku() throws IOException {
+        String programName = programsDirectory  + "sudoku.txt";
+        String expected = "";
+        runCompilerEquals(programName, expected);
+    }
+
 }

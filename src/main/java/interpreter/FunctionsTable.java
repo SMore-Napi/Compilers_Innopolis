@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-//todo Add localContext similar to AtomsTable
 public class FunctionsTable {
     private static FunctionsTable INSTANCE;
     //private final HashMap<String, FunctionAtom> functions;
