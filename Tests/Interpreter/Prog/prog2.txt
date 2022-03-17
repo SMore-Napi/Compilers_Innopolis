@@ -1,0 +1,8 @@
+(setq x 55)
+(setq y 55)
+(prog (x y) (
+(setq x 5)
+(setq y 6)
+(x y)
+))
+(x y)

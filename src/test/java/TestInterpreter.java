@@ -10,7 +10,10 @@ public class TestInterpreter {
     private final String setQDirectory = "SetQ/";
     private final String funcDirectory = "Func/";
     private final String lambdaDirectory = "Lambda/";
-
+    private final String progDirectory = "Prog/";
+    private final String condDirectory = "Cond/";
+    private final String whileDirectory = "While/";
+    private final String breakReturnDirectory = "BreakReturn/";
     private final String arithmeticFunctionsDirectory = "ArithmeticFunctions/";
     private final String operationsOnListDirectory = "OperationsOnList/";
     private final String comparisonsDirectory = "Comparisons/";
@@ -143,7 +146,8 @@ public class TestInterpreter {
     @Test
     void testFunc1() throws IOException {
         String programName = programsDirectory + funcDirectory + "func1.txt";
-        String expected = "";
+        String expected = "AtomNode{name='Cube', value={syntax_analysis.node.FunctionAtom@4e41089d}}\n" +
+                "int=8\n";
         runCompilerEquals(programName, expected);
     }
 
@@ -266,7 +270,152 @@ public class TestInterpreter {
         runCompilerEquals(programName, expected);
     }
 
+    @Test
+    void testLambda6() throws IOException {
+        String programName = programsDirectory + lambdaDirectory + "lambda6.txt";
+        String expected = "AtomNode{name='myFunc', value={syntax_analysis.node.FunctionAtom@3d8314f0}}\n" +
+                "int=3\n";
+        runCompilerEquals(programName, expected);
+    }
 
+    @Test
+    void testLambda7() throws IOException {
+        String programName = programsDirectory + lambdaDirectory + "lambda7.txt";
+        String expected = "AtomNode{name='res', value={List[syntax_analysis.node.FunctionAtom@1e4a7dd4, int=1, int=1, int=2]}}\n" +
+                "int=-1\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testLambda8() throws IOException {
+        String programName = programsDirectory + lambdaDirectory + "lambda8.txt";
+        String expected = "AtomNode{name='myFunc', value={syntax_analysis.node.FunctionAtom@530612ba}}\n" +
+                "int=3\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testLambda9() throws IOException {
+        String programName = programsDirectory + lambdaDirectory + "lambda9.txt";
+        String expected = "int=-1\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testProg1() throws IOException {
+        String programName = programsDirectory + progDirectory + "prog1.txt";
+        String expected = "null";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testProg2() throws IOException {
+        String programName = programsDirectory + progDirectory + "prog2.txt";
+        String expected = "AtomNode{name='x', value={int=55}}\n" +
+                "AtomNode{name='y', value={int=55}}\n" +
+                "null\n" +
+                "List[int=55, int=55]\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testProg3() throws IOException {
+        String programName = programsDirectory + progDirectory + "prog3.txt";
+        String expected = "AtomNode{name='res', value={List[int=5, int=6]}}\n" +
+                "List[int=5, int=6]\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testCond1() throws IOException {
+        String programName = programsDirectory + condDirectory + "cond1.txt";
+        String expected = "AtomNode{name='addtwo', value={syntax_analysis.node.FunctionAtom@4387b79e}}\n" +
+                "AtomNode{name='timesthree', value={syntax_analysis.node.FunctionAtom@6e75aa0d}}\n" +
+                "AtomNode{name='x', value={int=2}}\n" +
+                "null\n" +
+                "int=24\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testCond2() throws IOException {
+        String programName = programsDirectory + condDirectory + "cond2.txt";
+        String expected = "AtomNode{name='x', value={int=5}}\n" +
+                "int=5\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testCond3() throws IOException {
+        String programName = programsDirectory + condDirectory + "cond3.txt";
+        String expected = "AtomNode{name='x', value={int=8}}\n" +
+                "int=8\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testCond4() throws IOException {
+        String programName = programsDirectory + condDirectory + "cond4.txt";
+        String expected = "AtomNode{name='x', value={int=5}}\n" +
+                "int=5\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testCond5() throws IOException {
+        String programName = programsDirectory + condDirectory + "cond5.txt";
+        String expected = "AtomNode{name='x', value={null}}\n" +
+                "null\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testWhile1() throws IOException {
+        String programName = programsDirectory + whileDirectory + "while1.txt";
+        String expected = "AtomNode{name='i', value={int=1}}\n" +
+                "AtomNode{name='res', value={int=1}}\n" +
+                "null\n" +
+                "int=512\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testWhile2() throws IOException {
+        String programName = programsDirectory + whileDirectory + "while2.txt";
+        String expected = "AtomNode{name='i', value={int=0}}\n" +
+                "AtomNode{name='res', value={List[]}}\n" +
+                "null\n" +
+                "List[List[int=0, int=1], List[int=0, int=0]]\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testBreak1() throws IOException {
+        String programName = programsDirectory + breakReturnDirectory + "break1.txt";
+        String expected = "AtomNode{name='addtwo', value={syntax_analysis.node.FunctionAtom@11e21d0e}}\n" +
+                "AtomNode{name='x', value={int=2}}\n" +
+                "null\n" +
+                "int=8\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testBreak2() throws IOException {
+        String programName = programsDirectory + breakReturnDirectory + "break2.txt";
+        String expected = "AtomNode{name='x', value={int=1}}\n" +
+                "int=1\n" +
+                "BreakNode\n";
+        runCompilerEquals(programName, expected);
+    }
+
+    @Test
+    void testReturn1() throws IOException {
+        String programName = programsDirectory + breakReturnDirectory + "return1.txt";
+        String expected = "AtomNode{name='x', value={int=1}}\n" +
+                "int=1\n" +
+                "int=8\n";
+        runCompilerEquals(programName, expected);
+    }
 
     @Test
     void testPlusIntegers() throws IOException {
@@ -362,7 +511,11 @@ public class TestInterpreter {
     @Test
     void testHeadAtoms() throws IOException {
         String programName = programsDirectory + operationsOnListDirectory + "head_atoms.txt";
-        String expected = "AtomNode{name='a', value={int=55}}\nint=55\n";
+        String expected = "AtomNode{name='a', value={int=55}}\n" +
+                "AtomNode{name='b', value={int=1}}\n" +
+                "AtomNode{name='c', value={int=1}}\n" +
+                "AtomNode{name='de', value={int=1}}\n" +
+                "int=55\n";
         runCompilerEquals(programName, expected);
     }
 
@@ -385,9 +538,15 @@ public class TestInterpreter {
         String programName = programsDirectory + operationsOnListDirectory + "tail_atoms.txt";
         String expected = "AtomNode{name='b', value={int=55}}\n" +
                 "AtomNode{name='de', value={int=66}}\n" +
-                "List[int=55, null, int=66]\n" +
-                "AtomNode{name='test1', value={List[null, null, null, null]}}\n" +
-                "List[null, null, null]\n";
+                "AtomNode{name='a', value={int=1}}\n" +
+                "AtomNode{name='c', value={int=1}}\n" +
+                "List[int=55, int=1, int=66]\n" +
+                "AtomNode{name='aa', value={int=1}}\n" +
+                "AtomNode{name='bb', value={int=1}}\n" +
+                "AtomNode{name='cc', value={int=1}}\n" +
+                "AtomNode{name='dd', value={int=1}}\n" +
+                "AtomNode{name='test1', value={List[int=1, int=1, int=1, int=1]}}\n" +
+                "List[int=1, int=1, int=1]\n";
         runCompilerEquals(programName, expected);
     }
 
@@ -467,7 +626,12 @@ public class TestInterpreter {
     @Test
     void testOperationsOnList() throws IOException {
         String programName = programsDirectory + operationsOnListDirectory + "operations_on_list.txt";
-        String expected = "List[int=2, int=1, int=5]\nList[int=2]\nList[null, null, null]\n";
+        String expected = "AtomNode{name='a', value={int=22}}\n" +
+                "AtomNode{name='b', value={int=33}}\n" +
+                "AtomNode{name='c', value={int=44}}\n" +
+                "List[int=2, int=1, int=5]\n" +
+                "List[int=2]\n" +
+                "List[int=22, int=33, int=44]\n";
         runCompilerEquals(programName, expected);
     }
 
@@ -530,7 +694,8 @@ public class TestInterpreter {
     @Test
     void testIsInt7() throws IOException {
         String programName = programsDirectory + predicatesDirectory + "isint7.txt";
-        String expected = "bool=true\n";
+        String expected = "AtomNode{name='a', value={int=22}}\n" +
+                "bool=true\n";
         runCompilerEquals(programName, expected);
     }
 
@@ -754,14 +919,6 @@ public class TestInterpreter {
     }
 
     @Test
-    void testIsNull8() throws IOException {
-        String programName = programsDirectory + predicatesDirectory + "isnull8.txt";
-        String expected = "List[null, null, null]\n" +
-                "bool=true\n";
-        runCompilerEquals(programName, expected);
-    }
-
-    @Test
     void testIsNullException() throws IOException {
         String programName = programsDirectory + predicatesDirectory + "isnull_exception.txt";
         String expectedMessage = "Predicate function must have one parameter!";
@@ -771,7 +928,8 @@ public class TestInterpreter {
     @Test
     void testIsAtom1() throws IOException {
         String programName = programsDirectory + predicatesDirectory + "isatom1.txt";
-        String expected = "bool=true\n";
+        String expected = "AtomNode{name='a', value={int=22}}\n" +
+                "bool=true\n";
         runCompilerEquals(programName, expected);
     }
 
@@ -786,7 +944,10 @@ public class TestInterpreter {
     @Test
     void testIsAtom3() throws IOException {
         String programName = programsDirectory + predicatesDirectory + "isatom3.txt";
-        String expected = "List[null, null, null]\n" +
+        String expected = "AtomNode{name='a', value={int=22}}\n" +
+                "AtomNode{name='b', value={int=22}}\n" +
+                "AtomNode{name='c', value={int=22}}\n" +
+                "List[int=22, int=22, int=22]\n" +
                 "bool=true\n";
         runCompilerEquals(programName, expected);
     }
@@ -829,7 +990,8 @@ public class TestInterpreter {
     @Test
     void testIsAtom9() throws IOException {
         String programName = programsDirectory + predicatesDirectory + "isatom9.txt";
-        String expected = "bool=false\n";
+        String expected = "AtomNode{name='a', value={int=22}}\n" +
+                "bool=false\n";
         runCompilerEquals(programName, expected);
     }
 
@@ -882,7 +1044,10 @@ public class TestInterpreter {
     @Test
     void testIsList4() throws IOException {
         String programName = programsDirectory + predicatesDirectory + "islist4.txt";
-        String expected = "AtomNode{name='a', value={List[null, null, null]}}\n" +
+        String expected = "AtomNode{name='b', value={int=1}}\n" +
+                "AtomNode{name='c', value={int=2}}\n" +
+                "AtomNode{name='d', value={int=3}}\n" +
+                "AtomNode{name='a', value={List[int=1, int=2, int=3]}}\n" +
                 "bool=true\n";
         runCompilerEquals(programName, expected);
     }
@@ -939,14 +1104,20 @@ public class TestInterpreter {
     @Test
     void testIsList12() throws IOException {
         String programName = programsDirectory + predicatesDirectory + "islist12.txt";
-        String expected = "bool=true\n";
+        String expected = "AtomNode{name='a', value={int=1}}\n" +
+                "AtomNode{name='b', value={int=2}}\n" +
+                "AtomNode{name='c', value={int=3}}\n" +
+                "bool=true\n";
         runCompilerEquals(programName, expected);
     }
 
     @Test
     void testIsList13() throws IOException {
         String programName = programsDirectory + predicatesDirectory + "islist13.txt";
-        String expected = "bool=false\n";
+        String expected = "AtomNode{name='a', value={int=1}}\n" +
+                "AtomNode{name='b', value={int=2}}\n" +
+                "AtomNode{name='c', value={int=3}}\n" +
+                "bool=false\n";
         runCompilerEquals(programName, expected);
     }
 

@@ -1,0 +1,2 @@
+(setq myFunc (lambda (p) (cond (less p 0) plus minus)))
+(eval ((myFunc -1) 1 2))

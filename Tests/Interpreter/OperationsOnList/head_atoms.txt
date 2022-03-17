@@ -1,2 +1,5 @@
 (setq a 55)
+(setq b 1)
+(setq c 1)
+(setq de 1)
 (head (a b c de))

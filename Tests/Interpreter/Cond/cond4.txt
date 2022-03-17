@@ -1,0 +1,2 @@
+(setq x (cond (isnull null) 5 8))
+x

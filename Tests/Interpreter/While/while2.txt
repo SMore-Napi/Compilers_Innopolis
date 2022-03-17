@@ -1,0 +1,10 @@
+(setq i 0)
+(setq res ())
+(while (less i 1) (
+(setq j 0)
+(while (less j 2)
+((setq res (cons (i j) res)) (setq j (plus j 1)))
+)
+(setq i (plus i 1))
+))
+res

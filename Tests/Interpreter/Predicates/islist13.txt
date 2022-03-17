@@ -1,1 +1,4 @@
+(setq a 1)
+(setq b 2)
+(setq c 3)
 (islist (head (a b c)))

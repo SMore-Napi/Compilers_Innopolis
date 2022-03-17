@@ -1,0 +1,2 @@
+(setq x (cond true 5 8))
+x

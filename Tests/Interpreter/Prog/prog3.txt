@@ -1,0 +1,7 @@
+(setq res 
+(prog (x y) (
+(setq x 5)
+(setq y 6)
+(return (x y))
+)))
+res

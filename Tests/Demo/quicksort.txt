@@ -1,0 +1,48 @@
+(setq
+    arr1 (1 4 5 2 -1 3 7 3 8 0 2.3)
+)
+
+arr1
+
+(func concat2 (a1 a2)
+    (cond (isnull a1)
+        a2
+        (cons (head a1) (concat2 (tail a1) a2))
+    )
+)
+
+(func concat3 (a1 a2 a3)
+    (concat2 (concat2 a1 a2) a3)
+)
+
+(func filterCompHelper (arr comp x acc)
+    (cond (isnull arr)
+        acc
+        (filterCompHelper
+            (tail arr)
+            comp
+            x
+            (cond (comp (head arr) x)
+                (cons (head arr) acc)
+                acc
+            )
+        )
+    )
+)
+
+(func filterComp (arr comp x)
+    (filterCompHelper arr comp x ())
+)
+
+(func quicksort (arr)
+    (cond (isnull arr)
+        ()
+        (concat3
+            (quicksort (filterComp arr less (head arr)))
+            (filterComp arr equal (head arr))
+            (quicksort (filterComp arr greater (head arr)))
+        )
+    )
+)
+
+(quicksort arr1)

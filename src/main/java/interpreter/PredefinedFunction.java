@@ -20,6 +20,9 @@ public class PredefinedFunction {
     }
 
     public boolean isPredefinedFunction() {
+        if (elements.isEmpty()) {
+            return false;
+        }
         return isPredefinedFunction(elements.get(0));
     }
 

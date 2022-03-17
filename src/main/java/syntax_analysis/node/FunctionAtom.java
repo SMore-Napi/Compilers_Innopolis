@@ -25,7 +25,6 @@ public class FunctionAtom implements ElementInterface {
         System.out.println("Function body: " + body);
         AtomsTable.getInstance().introduceLocalContext();
         for (int i = 0; i < parameters.size(); i++) {
-            //todo evaluate parameter?
             AtomsTable.getInstance().addAtom(new AtomNode(arguments.get(i).name, parameters.get(i).evaluate()));
         }
         System.out.println("New local context");
@@ -37,14 +36,20 @@ public class FunctionAtom implements ElementInterface {
         return result;
     }
 
+    public int getArgumentsNumber(){
+        return arguments.size();
+    }
+
+
     public void setParameters(List<ElementInterface> parameters) {
-        //todo is it allowed to have a partially defined function?
+        //todo is it allowed to have currying?
         /*
         if (parameters.size() > this.arguments.size()){
             throw new RuntimeException("Too much");
         }
          */
-        if (parameters.size() != this.arguments.size()) {
+
+        if (parameters.size() < this.arguments.size()) {
             throw new RuntimeException("Expected number of arguments doesn't match the given number.\n"
                     + "Expected: " + this.arguments.size() + ". Actual: " + parameters.size());
         }

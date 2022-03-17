@@ -19,6 +19,9 @@ public class DefinedFunction {
     }
 
     public boolean isDefinedFunction() {
+        if (parameters.isEmpty()) {
+            return false;
+        }
         return isDefinedFunction(parameters.get(0));
     }
 

@@ -1,0 +1,7 @@
+(setq i 1)
+(setq res 1)
+(while (less i 10) (
+(setq res (times res 2))
+(setq i (plus i 1))
+))
+res

@@ -23,19 +23,18 @@ class CondNode implements ElementInterface {
 
     @Override
     public ElementInterface evaluate() {
-        LiteralNode literalNode = (LiteralNode) condition.evaluate();
-        if (!literalNode.booleanValue && this.falseAction == null) {
-            return new LiteralNode();
-        }
-        try {
-            if (literalNode.booleanValue) {
-                return trueAction.evaluate();
-            } else {
-                return falseAction.evaluate();
+        ElementInterface conditionEvaluation = condition.evaluate();
+        if ((conditionEvaluation instanceof LiteralNode) && ((LiteralNode) conditionEvaluation).booleanValue != null) {
+            boolean conditionValue = ((LiteralNode) conditionEvaluation).booleanValue;
+            if (conditionValue) {
+                return this.trueAction.evaluate();
             }
-        } catch (NullPointerException nullPointerException) {
-            throw new RuntimeException("First element in 'cond' should be boolean, but given " + literalNode);
+            if (this.falseAction == null) {
+                return new LiteralNode();
+            }
+            return this.falseAction.evaluate();
         }
+        throw new RuntimeException("First element in 'cond' should be boolean, but given " + condition);
     }
 
     @Override

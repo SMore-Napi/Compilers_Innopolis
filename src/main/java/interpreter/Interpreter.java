@@ -18,6 +18,7 @@ public class Interpreter {
     public String interpret() {
         AtomsTable.getInstance().resetContext();
         FunctionsTable.getInstance().resetTable();
+        NestedFormBreak.getInstance().resetNestedForm();
         return ast.evaluate();
     }
 }

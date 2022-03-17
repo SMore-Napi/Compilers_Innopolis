@@ -1,5 +1,6 @@
 package syntax_analysis.node.special_form;
 
+import interpreter.NestedFormBreak;
 import syntax_analysis.node.ElementInterface;
 import syntax_analysis.node.LiteralNode;
 
@@ -14,13 +15,25 @@ public class WhileNode implements ElementInterface {
 
     @Override
     public ElementInterface evaluate() {
-        LiteralNode literalNode = (LiteralNode) condition.evaluate();
-        while (literalNode.booleanValue){
-            action.evaluate();
-            literalNode = (LiteralNode) condition.evaluate();
+        NestedFormBreak.getInstance().introduceLocalScope();
+        while (true) {
+            ElementInterface conditionEvaluation = condition.evaluate();
+            if ((conditionEvaluation instanceof LiteralNode) && ((LiteralNode) conditionEvaluation).booleanValue != null) {
+                if (((LiteralNode) conditionEvaluation).booleanValue) {
+                    ElementInterface evaluateResult = this.action.evaluate();
+                    if (evaluateResult instanceof BreakNode) {
+                        return new LiteralNode();
+                    }
+                } else {
+                    NestedFormBreak.getInstance().leaveLocalScope();
+                    return new LiteralNode();
+                }
+            } else {
+                throw new RuntimeException("The condition argument should be boolean, but given " + condition);
+            }
         }
-        return null;
     }
+
     @Override
     public String toString() {
         return "WhileNode{" +

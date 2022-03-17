@@ -1,0 +1,2 @@
+(setq myFunc (lambda (p) (head (tail (8 plus)))))
+(eval ((myFunc -1) 1 2))

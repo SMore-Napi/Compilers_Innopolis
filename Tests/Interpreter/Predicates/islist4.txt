@@ -1,2 +1,5 @@
+(setq b 1)
+(setq c 2)
+(setq d 3)
 (setq a (b c d))
 (islist a)

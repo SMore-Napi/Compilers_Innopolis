@@ -1,0 +1,4 @@
+(func addtwo (x) (plus x 2))
+(setq x 2)
+(while (less x 10) (cond (greatereq x 7) (break) (setq x (addtwo x))))
+x

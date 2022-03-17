@@ -1,0 +1,2 @@
+(setq res ((lambda (p) (head (tail (8 minus)))) 1 1 2))
+(eval (eval res))

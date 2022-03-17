@@ -1,2 +1,5 @@
+(setq a 22)
+(setq b 22)
+(setq c 22)
 (a b c)
 (isatom b)

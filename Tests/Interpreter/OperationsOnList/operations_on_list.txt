@@ -1,3 +1,6 @@
+(setq a 22)
+(setq b 33)
+(setq c 44)
 (cons 2 (tail (cons (head (2 3 4)) (tail (2 1 5)))))
 (cons 2 ())
 (tail (cons 2 (a b c)))

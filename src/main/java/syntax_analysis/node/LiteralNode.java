@@ -14,7 +14,8 @@ public class LiteralNode implements ElementInterface {
         integerValue = value;
     }
 
-    public LiteralNode() {}
+    public LiteralNode() {
+    }
 
     public LiteralNode(double value) {
         realValue = value;
@@ -51,13 +52,13 @@ public class LiteralNode implements ElementInterface {
     @Override
     public String toString() {
         if (integerValue != null) {
-            return "int=" + integerValue;
+            return integerValue.toString();
         }
         if (realValue != null) {
-            return "real=" + realValue;
+            return realValue.toString();
         }
         if (booleanValue != null) {
-            return "bool=" + booleanValue;
+            return booleanValue.toString();
         }
         return "null";
     }
