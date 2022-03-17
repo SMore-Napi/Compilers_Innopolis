@@ -22,18 +22,18 @@ public class TestDemo {
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
-    @Test
-    void testQuickSort() throws IOException {
-        String programName = programsDirectory  + "quicksort.txt";
-        String expected = "";
-        runCompilerEquals(programName, expected);
-    }
-
-    @Test
-    void testSudoku() throws IOException {
-        String programName = programsDirectory  + "sudoku.txt";
-        String expected = "";
-        runCompilerEquals(programName, expected);
-    }
+//    @Test
+//    void testQuickSort() throws IOException {
+//        String programName = programsDirectory  + "quicksort.txt";
+//        String expected = "";
+//        runCompilerEquals(programName, expected);
+//    }
+//
+//    @Test
+//    void testSudoku() throws IOException {
+//        String programName = programsDirectory  + "sudoku.txt";
+//        String expected = "";
+//        runCompilerEquals(programName, expected);
+//    }
 
 }

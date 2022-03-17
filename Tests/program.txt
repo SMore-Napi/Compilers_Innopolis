@@ -1,5 +1,8 @@
-(setq x 1)
-x
-(break)
-(setq x 2)
-x
+(isempty '(1 2 3))
+(isempty '())
+
+(length '(1 2 3))
+(length '())
+(length '(1))
+; fsd
+;

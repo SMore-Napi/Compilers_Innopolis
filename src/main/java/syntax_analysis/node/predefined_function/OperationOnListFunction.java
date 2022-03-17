@@ -2,6 +2,7 @@ package syntax_analysis.node.predefined_function;
 
 import syntax_analysis.node.ElementInterface;
 import syntax_analysis.node.ListNode;
+import syntax_analysis.node.LiteralNode;
 
 public class OperationOnListFunction implements ElementInterface {
 
@@ -51,6 +52,23 @@ public class OperationOnListFunction implements ElementInterface {
                 } catch (ClassCastException classCastException) {
                     throw new RuntimeException("The second evaluated argument should be a list");
                 }
+            case ISEMPTY:
+                try {
+                    ListNode listNode = (ListNode) list.evaluate();
+                    if (listNode.elements.isEmpty()) {
+                        return new LiteralNode(true);
+                    }
+                    return new LiteralNode(false);
+                } catch (ClassCastException classCastException) {
+                    throw new RuntimeException("The evaluated argument should be a list");
+                }
+            case LENGTH:
+                try {
+                    ListNode listNode = (ListNode) list.evaluate();
+                    return new LiteralNode(listNode.elements.size());
+                } catch (ClassCastException classCastException) {
+                    throw new RuntimeException("The evaluated argument should be a list");
+                }
             default:
                 throw new RuntimeException("Unknown list operation: " + operation);
         }
@@ -72,6 +90,6 @@ public class OperationOnListFunction implements ElementInterface {
     }
 
     public enum Operation {
-        HEAD, TAIL, CONS
+        HEAD, TAIL, CONS, ISEMPTY, LENGTH
     }
 }

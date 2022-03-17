@@ -11,7 +11,7 @@ public class PredefinedFunction {
 
     static final List<String> predefinedFunctionNames = Arrays.asList("plus", "minus", "times", "divide", "head", "tail",
             "cons", "equal", "nonequal", "less", "lesseq", "greater", "greatereq", "isint", "isreal", "isbool",
-            "isnull", "isatom", "islist", "and", "or", "xor", "not", "eval");
+            "isnull", "isatom", "islist", "and", "or", "xor", "not", "eval", "isempty", "length");
     List<ElementInterface> elements;
 
     public PredefinedFunction(List<ElementInterface> elements) {
@@ -55,6 +55,10 @@ public class PredefinedFunction {
                 return performOperationOnList(OperationOnListFunction.Operation.TAIL);
             case "cons":
                 return performOperationOnList(OperationOnListFunction.Operation.CONS);
+            case "isempty":
+                return performOperationOnList(OperationOnListFunction.Operation.ISEMPTY);
+            case "length":
+                return performOperationOnList(OperationOnListFunction.Operation.LENGTH);
             case "equal":
                 return performComparison(ComparisonFunction.Operation.EQUAL);
             case "nonequal":
